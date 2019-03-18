@@ -98,18 +98,21 @@ public class LinkedList {
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
-        Node current = find(_nodeAfter.value);
+        List<Node> findLastNode = new ArrayList<>();
+        findLastNode = findAll(_nodeAfter.value);
+        Node current = findLastNode.get(findLastNode.size() - 1);
+
         if (current == null) {
             current = current.next;
         }
 
         Node newNode = new Node(_nodeToInsert.value);
         if (current.next == null) {
-            tail = newNode;
+            addInTail(newNode);
+        } else {
+            newNode.next = current.next;
+            current.next = newNode;
         }
-        newNode.next = current.next;
-        current.next = newNode;
-
     }
 }
 
@@ -122,5 +125,3 @@ class Node {
         next = null;
     }
 }
-
-
