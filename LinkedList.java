@@ -104,8 +104,12 @@ public class LinkedList {
         }
 
         Node newNode = new Node(_nodeToInsert.value);
+        if (current.next == null) {
+            tail = newNode;
+        }
         newNode.next = current.next;
         current.next = newNode;
+
     }
 }
 
@@ -118,3 +122,5 @@ class Node {
         next = null;
     }
 }
+
+
