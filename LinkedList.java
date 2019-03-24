@@ -1,6 +1,4 @@
-package search;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class LinkedList {
     public Node head;
@@ -120,14 +118,14 @@ public class LinkedList {
             }
         }
     }
+}
 
-    class Node {
-        public int value;
-        public Node next;
+class Node {
+    public int value;
+    public Node next;
 
-        public Node(int _value) {
-            value = _value;
-            next = null;
-        }
+    public Node(int _value) {
+        value = _value;
+        next = null;
     }
 }
