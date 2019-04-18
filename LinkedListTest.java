@@ -1,0 +1,52 @@
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+public class LinkedListTest {
+
+    LinkedList<Integer> list = new LinkedList<Integer>();
+    list.LinkedList myList = new list.LinkedList();
+    Node n1 = new Node(1);
+    Node n2 = new Node(2);
+    Node n3 = new Node(3);
+    Node n4 = new Node(4);
+    Node n5 = new Node(5);
+
+    @Test
+    public void whenListIsEmptyAddInTail() {
+        list.add(1);
+        myList.addInTail(n1);
+        assertThat(list.getFirst(), is(myList.head.value));
+        assertThat(list.getLast(), is(myList.tail.value));
+    }
+
+    @Test
+    public void whenListHasOneElementAddInTail() {
+        list.add(1);
+        list.add(2);
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        assertThat(list.getFirst(), is(myList.head.value));
+        assertThat(list.getLast(), is(myList.tail.value));
+    }
+
+    @Test
+    public void whenListHasSomeElementAddInTail() {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.addInTail(n4);
+        assertThat(list.getFirst(), is(myList.head.value));
+        assertThat(list.get(1), is(myList.head.next.value));
+        assertThat(list.get(2), is(myList.head.next.next.value));
+        assertThat(list.getLast(), is(myList.tail.value));
+    }
+}
