@@ -25,7 +25,7 @@ public class LinkedList {
         }
     }
 
-    public Node find(int value) {
+     public Node find(int value) {
         Node tmp = this.head;
         while (tmp != null) {
             if (tmp.value == value) {

@@ -18,7 +18,7 @@ public class LinkedListTest {
 
     @Test
     public void whenListIsEmptyAddInTail() {
-        list.add(1);
+        list.addLast(1);
         myList.addInTail(n1);
         assertThat(list.getFirst(), is(myList.head.value));
         assertThat(list.getLast(), is(myList.tail.value));
@@ -26,8 +26,8 @@ public class LinkedListTest {
 
     @Test
     public void whenListHasOneElementAddInTail() {
-        list.add(1);
-        list.add(2);
+        list.addLast(1);
+        list.addLast(2);
         myList.addInTail(n1);
         myList.addInTail(n2);
         assertThat(list.getFirst(), is(myList.head.value));
@@ -36,10 +36,10 @@ public class LinkedListTest {
 
     @Test
     public void whenListHasSomeElementAddInTail() {
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.addLast(4);
         myList.addInTail(n1);
         myList.addInTail(n2);
         myList.addInTail(n3);
@@ -48,5 +48,35 @@ public class LinkedListTest {
         assertThat(list.get(1), is(myList.head.next.value));
         assertThat(list.get(2), is(myList.head.next.next.value));
         assertThat(list.getLast(), is(myList.tail.value));
+    }
+
+    @Test
+    public void whenListIsEmptyFind() {
+        Node resultMyList = myList.find(1);
+        Node nodeNull = null;
+        assertThat(resultMyList, is(nodeNull));
+    }
+
+    @Test
+    public void whenListHasOneElementFind() {
+        list.addLast(1);
+        myList.addInTail(n1);
+        assertThat(list.get(0), is(myList.find(1).value));
+    }
+
+    @Test
+    public void whenListHasSomeElementFind() {
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.addLast(4);
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.addInTail(n4);
+        assertThat(list.get(0), is(myList.find(1).value));
+        assertThat(list.get(1), is(myList.find(2).value));
+        assertThat(list.get(2), is(myList.find(3).value));
+        assertThat(list.get(3), is(myList.find(4).value));
     }
 }
