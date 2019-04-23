@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -14,7 +15,8 @@ public class LinkedListTest {
     Node n2 = new Node(2);
     Node n3 = new Node(3);
     Node n4 = new Node(4);
-    Node n5 = new Node(5);
+    Node n5 = new Node(2);
+    Node n6 = new Node(2);
 
     @Test
     public void whenListIsEmptyAddInTail() {
@@ -78,5 +80,72 @@ public class LinkedListTest {
         assertThat(list.get(1), is(myList.find(2).value));
         assertThat(list.get(2), is(myList.find(3).value));
         assertThat(list.get(3), is(myList.find(4).value));
+    }
+
+    @Test
+    public void whenListIsEmptyFindAll() {
+        ArrayList<Node> resultMyList = new ArrayList<>();
+        ArrayList<Node> emptyArray = new ArrayList<>();
+        resultMyList = myList.findAll(1);
+        assertThat(resultMyList, is(emptyArray));
+    }
+
+    @Test
+    public void whenListHasOneElementFindAll() {
+        ArrayList<Node> resultMyList = new ArrayList<>();
+        ArrayList<Node> testArray = new ArrayList<>();
+        myList.addInTail(n1);
+        testArray.add(n1);
+        resultMyList = myList.findAll(1);
+        assertThat(testArray, is(resultMyList));
+    }
+
+    @Test
+    public void whenListHasSomeElementFindAll() {
+        ArrayList<Node> resultMyList = new ArrayList<>();
+        ArrayList<Node> testArray = new ArrayList<>();
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.addInTail(n4);
+        myList.addInTail(n5);
+        myList.addInTail(n6);
+        testArray.add(n2);
+        testArray.add(n5);
+        testArray.add(n6);
+        resultMyList = myList.findAll(2);
+        assertThat(testArray, is(resultMyList));
+    }
+
+    @Test
+    public void whenListIsEmptyRemove() {
+        boolean result;
+        result = myList.remove(2);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void whenListHasOneElement() {
+        boolean result;
+        myList.addInTail(n1);
+        myList.remove(1);
+        list.addLast(1);
+        list.remove(0);
+        assertThat(myList.findAll(1), is(list));
+    }
+
+    @Test
+    public void whenListHasSomeElement() {
+        boolean result;
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        myList.remove(2);
+        list.remove(1);
+        assertThat(myList.head.value, is(list.getFirst()));
+        assertThat(myList.tail.value, is(list.getLast()));
     }
 }

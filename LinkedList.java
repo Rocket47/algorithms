@@ -13,19 +13,13 @@ public class LinkedList {
         item.next = null;
         if (this.head == null) {
             this.head = item;
-            this.tail = item;
         } else {
-            Node tempHead = this.head;
             this.tail.next = item;
-            this.tail = this.tail.next;
-            while (tempHead.next != null) {
-                tempHead = tempHead.next;
-            }
-
         }
+        this.tail = item;
     }
 
-     public Node find(int value) {
+    public Node find(int value) {
         Node tmp = this.head;
         while (tmp != null) {
             if (tmp.value == value) {
@@ -37,11 +31,11 @@ public class LinkedList {
         return null;
     }
 
-    public ArrayList<Node> findAll(int _value) {
+    public ArrayList<Node> findAll(int value) {
         ArrayList<Node> nodes = new ArrayList<>();
         Node node = this.head;
         while (node != null) {
-            if (node.value == _value) {
+            if (node.value == value) {
                 nodes.add(node);
             }
             node = node.next;
