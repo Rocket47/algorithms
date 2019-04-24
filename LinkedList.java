@@ -1,3 +1,5 @@
+package list;
+
 import java.util.*;
 
 public class LinkedList {
@@ -85,12 +87,8 @@ public class LinkedList {
     }
 
     public void clear() {
-        Node backup = null;
-        while (head != null) {
-            backup = head.next;
-            head = null;
-            head = backup;
-        }
+        head = null;
+        tail = null;
     }
 
     public int count() {

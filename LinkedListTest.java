@@ -17,6 +17,7 @@ public class LinkedListTest {
     Node n4 = new Node(4);
     Node n5 = new Node(2);
     Node n6 = new Node(2);
+    Node n7 = null;
 
     @Test
     public void whenListIsEmptyAddInTail() {
@@ -126,7 +127,6 @@ public class LinkedListTest {
 
     @Test
     public void whenListHasOneElement() {
-        boolean result;
         myList.addInTail(n1);
         myList.remove(1);
         list.addLast(1);
@@ -148,4 +148,100 @@ public class LinkedListTest {
         assertThat(myList.head.value, is(list.getFirst()));
         assertThat(myList.tail.value, is(list.getLast()));
     }
+
+    @Test
+    public void whenListIsEmptyRemoveAll() {
+        boolean result;
+        result = myList.remove(2);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void whenListHasOneElementRemoveAll() {
+        myList.addInTail(n1);
+        myList.removeAll(1);
+        list.addLast(1);
+        list.remove(0);
+        assertThat(myList.findAll(1), is(list));
+    }
+
+    @Test
+    public void whenListHasSomeElementRemoveAll() {
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.addInTail(n5);
+        myList.addInTail(n6);
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.addLast(2);
+        list.addLast(2);
+        myList.removeAll(2);
+        LinkedList<Integer> al = new LinkedList<>();
+        al.add(2);
+        list.removeAll(al);
+        assertThat(myList.head.value, is(list.get(0)));
+        assertThat(myList.head.next.value, is(list.get(1)));
+    }
+
+    @Test
+    public void whenListIsEmptyClear() {
+        myList.clear();
+        assertThat(myList.head, is(n7));
+        assertThat(myList.tail, is(n7));
+        myList.addInTail(n1);
+        assertThat(myList.head.value, is(1));
+        assertThat(myList.tail.value, is(1));
+        assertThat(myList.head.next, is(n7));
+        assertThat(myList.tail.next, is(n7));
+    }
+
+    @Test
+    public void whenListHasOneElementClear() {
+        myList.addInTail(n1);
+        myList.clear();
+        assertThat(myList.head, is(n7));
+        assertThat(myList.tail, is(n7));
+        myList.addInTail(n1);
+        assertThat(myList.head.value, is(1));
+        assertThat(myList.tail.value, is(1));
+    }
+
+    @Test
+    public void whenListHasSomeElementClear() {
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.clear();
+        assertThat(myList.head, is(n7));
+        assertThat(myList.tail, is(n7));
+        myList.addInTail(n1);
+        assertThat(myList.head.value, is(1));
+        assertThat(myList.tail.value, is(1));
+    }
+
+    @Test
+    public void whenListIsEmptyCount() {
+        int count = myList.count();
+        assertThat(count, is(0));
+    }
+
+    @Test
+    public void whenListHasOneElementCount() {
+        myList.addInTail(n1);
+        int count = myList.count();
+        assertThat(count, is(1));
+    }
+
+    @Test
+    public void whenListHasSomeElementCount() {
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        int count = myList.count();
+        assertThat(count, is(3));
+    }
+
+
 }
