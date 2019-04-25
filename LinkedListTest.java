@@ -243,5 +243,33 @@ public class LinkedListTest {
         assertThat(count, is(3));
     }
 
+    @Test
+    public void whenListIsEmptyInsertAfter() {
+        myList.insertAfter(n7, n2);
+        assertThat(myList.head, is(n2));
+        assertThat(myList.tail, is(n2));
+    }
+
+    @Test
+    public void whenListHasOneElementInsertAfter() {
+        myList.addInTail(n1);
+        myList.insertAfter(n1, n2);
+        assertThat(myList.head.value, is(n1.value));
+        assertThat(myList.head.next.value, is(n2.value));
+        assertThat(myList.tail.value, is(n2.value));
+    }
+
+    @Test
+    public void whenListHasSomeElementInsertAfter() {
+        myList.addInTail(n1);
+        myList.addInTail(n2);
+        myList.addInTail(n3);
+        myList.insertAfter(n3, n4);
+        assertThat(myList.head.value, is(n1.value));
+        assertThat(myList.head.next.value, is(n2.value));
+        assertThat(myList.head.next.next.value, is(n3.value));
+        assertThat(myList.tail.value, is(n4.value));
+    }
+
 
 }

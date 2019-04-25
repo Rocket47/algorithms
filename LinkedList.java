@@ -1,5 +1,3 @@
-package list;
-
 import java.util.*;
 
 public class LinkedList {
@@ -102,19 +100,25 @@ public class LinkedList {
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
+        Node node = this.head;
         Node newNode = new Node(_nodeToInsert.value);
-        Node curr = head;
-        while (curr != null) {
-            if (curr.equals(_nodeAfter)) {
-                newNode.next = curr.next;
-                curr.next = newNode;
+        if (_nodeAfter == null && node == null) {
+            this.head = _nodeToInsert;
+            this.tail = _nodeToInsert;
+        }
+        while (node != null) {
+            if (node.equals(_nodeAfter)) {
+                newNode.next = node.next;
+                node.next = newNode;
+                this.tail = newNode;
                 break;
             } else {
-                curr = curr.next;
+                node = node.next;
             }
         }
     }
 }
+
 
 class Node {
     public int value;
@@ -125,5 +129,3 @@ class Node {
         next = null;
     }
 }
-
-
