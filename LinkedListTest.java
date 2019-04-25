@@ -195,6 +195,7 @@ public class LinkedListTest {
         assertThat(myList.tail.value, is(1));
         assertThat(myList.head.next, is(n7));
         assertThat(myList.tail.next, is(n7));
+		assertThat(myList.count(), is(1));
     }
 
     @Test
