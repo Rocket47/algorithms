@@ -126,7 +126,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void whenListHasOneElement() {
+    public void whenListHasOneElementRemove() {
         myList.addInTail(n1);
         myList.remove(1);
         list.addLast(1);
@@ -135,7 +135,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void whenListHasSomeElement() {
+    public void whenListHasSomeElementRemove() {
         boolean result;
         myList.addInTail(n1);
         myList.addInTail(n2);
@@ -270,6 +270,4 @@ public class LinkedListTest {
         assertThat(myList.head.next.next.value, is(n3.value));
         assertThat(myList.tail.value, is(n4.value));
     }
-
-
 }
