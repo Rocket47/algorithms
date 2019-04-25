@@ -92,8 +92,8 @@ public class LinkedList {
     }
 
     public void clear() {
-        head = null;
-        tail = null;
+        this.head = null;
+        this.tail = null;
     }
 
     public int count() {
