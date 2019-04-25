@@ -10,15 +10,13 @@ public class LinkedList {
     }
 
     public void addInTail(Node item) {
+        item.next = null;
         if (this.head == null) {
             this.head = item;
         } else {
-            Node temp = this.head;
-            while (temp.next != null) {
-                temp = temp.next;
-            }
-            temp.next = new Node(item.value);
+            this.tail.next = item;
         }
+        this.tail = item;
     }
 
     public Node find(int value) {
@@ -33,11 +31,11 @@ public class LinkedList {
         return null;
     }
 
-    public ArrayList<Node> findAll(int _value) {
+    public ArrayList<Node> findAll(int value) {
         ArrayList<Node> nodes = new ArrayList<>();
         Node node = this.head;
         while (node != null) {
-            if (node.value == _value) {
+            if (node.value == value) {
                 nodes.add(node);
             }
             node = node.next;
@@ -46,24 +44,30 @@ public class LinkedList {
     }
 
     public boolean remove(int _value) {
-        Node tmpNode = head;
+        Node tmpNode = this.head;
         Node prevNode = null;
         boolean deletedResult = false;
         while (tmpNode != null) {
-            if (tmpNode.value == _value) {
-                if (tmpNode == this.head) {
-                    this.head = this.head.next;
-                } else {
+            if (tmpNode.value != _value) {
+                prevNode = tmpNode;
+            } else if (tmpNode.value == _value && prevNode != null) {
+                if (tmpNode.next != null) {
                     prevNode.next = tmpNode.next;
+                } else {
+                    prevNode.next = null;
+                    this.tail = prevNode;
+                    this.tail.next = null;
                 }
                 deletedResult = true;
                 break;
-            } else {
-                prevNode = tmpNode;
+            } else if (tmpNode.value == _value && prevNode == null) {
+                this.head = null;
+                deletedResult = true;
+                break;
             }
             tmpNode = tmpNode.next;
         }
-        return deletedResult;
+       return deletedResult;
     }
 
     public boolean removeAll(int _value) {
@@ -76,6 +80,7 @@ public class LinkedList {
                     this.head = this.head.next;
                 } else {
                     prevNode.next = tmpNode.next;
+                    this.tail = this.head.next;
                 }
                 deletedResult = true;
             } else {
@@ -87,12 +92,8 @@ public class LinkedList {
     }
 
     public void clear() {
-        Node backup = null;
-        while (head != null) {
-            backup = head.next;
-            head = null;
-            head = backup;
-        }
+        head = null;
+        tail = null;
     }
 
     public int count() {
@@ -106,15 +107,20 @@ public class LinkedList {
     }
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
+        Node node = this.head;
         Node newNode = new Node(_nodeToInsert.value);
-        Node curr = head;
-        while (curr != null) {
-            if (curr.equals(_nodeAfter)) {
-                newNode.next = curr.next;
-                curr.next = newNode;
+        if (_nodeAfter == null && node == null) {
+            this.head = _nodeToInsert;
+            this.tail = _nodeToInsert;
+        }
+        while (node != null) {
+            if (node.equals(_nodeAfter)) {
+                newNode.next = node.next;
+                node.next = newNode;
+                this.tail = newNode;
                 break;
             } else {
-                curr = curr.next;
+                node = node.next;
             }
         }
     }
@@ -129,3 +135,5 @@ class Node {
         next = null;
     }
 }
+
+
