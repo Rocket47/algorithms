@@ -67,7 +67,7 @@ public class LinkedList {
             }
             tmpNode = tmpNode.next;
         }
-       return deletedResult;
+        return deletedResult;
     }
 
     public boolean removeAll(int _value) {
@@ -78,15 +78,16 @@ public class LinkedList {
             if (tmpNode.value == _value) {
                 if (tmpNode == this.head) {
                     this.head = this.head.next;
+                    this.tail = this.head;
                 } else {
-                    prevNode.next = tmpNode.next;
-                    this.tail = this.head.next;
+                    prevNode.next = tmpNode.next;                 
                 }
                 deletedResult = true;
             } else {
-                prevNode = tmpNode;
+                prevNode = tmpNode;               
             }
             tmpNode = tmpNode.next;
+            this.tail = prevNode;
         }
         return deletedResult;
     }
@@ -135,5 +136,3 @@ class Node {
         next = null;
     }
 }
-
-
