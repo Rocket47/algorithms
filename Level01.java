@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Level1
+public class Leve01
 {
     public static int squirrel(int N)
     {
