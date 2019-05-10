@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Leve02 {
+public class Level1 {
     public static int odometer(int[] oksana) {
         int countLast = 0;
         int countMemb = 0;
