@@ -9,13 +9,13 @@ public class Level1 {
         for (int i = 0; i < oksana.length; i++) {
             if (i % 2 != 0) {
                 countLast = oksana[i];
-                if (countLast != 0) {
+                if (countLast != 0 && countLast > countMemb) {
                     countLast = countLast - countMemb;
-                    countMemb = countLast;
+                    countMemb = oksana[i];
+                    saveSum = sum;
+                    sum = oksana[i - 1] * countLast;
+                    sum = saveSum + sum;
                 }
-                saveSum = sum;
-                sum = oksana[i-1] * countLast;
-                sum = saveSum + sum;
             }
         }
         return sum;
