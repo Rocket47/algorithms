@@ -6,74 +6,110 @@ using System.Threading.Tasks;
 
 namespace Level1Space
 {
-    class Level1
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(getDay(4, 3, 2, new int[] { 4, 3, 1, 1 }));
+            Console.WriteLine(getDay(3, 4, 2, new int[] { 2, 2, 1, 3 }));
+            Console.ReadKey();
         }
 
         public static int getDay(int N, int M, int L, int[] battalion)
         {
-            bool flag = false;
+            bool flag = true;
             int count = 0;
+            int n = 0;
+            int m = 0;
             int[,] array = new int[N, M];
 
-            for (int i = 0; i < battalion.Length;)
+            //Заполнение 1 высадившихся десантников
+            //**************************************
+            for (int i = 0; i < battalion.Length; i++)
             {
-                i = i + 2;
-                array[battalion[i], battalion[i + 1]] = 1;
-            }
-            while (!flag)
-            {
-                for (int j = 0; j < array.Length; j++)
+                if (i % 2 == 0)
                 {
-                    for (int k = 0; k < array.Length; k++)
-                    {
-                        if ((array[j, k]) != 0)
-                        {
-                            array[j, k]++;
-                        }
-                    }
+                    n = battalion[i];
+                    continue;
                 }
-
-                for (int m = 0; m < array.Length; m++)
+                if (i % 2 != 0)
                 {
-                    for (int n = 0; n < array.Length; n++)
-                    {
-                        if (array[m, n] == 0 && array[m, n - 1] >= 2)
-                        {
-                            array[m, n]++;
-                        }
-                        if (array[m, n] == 0 && array[m, n + 1] >= 2)
-                        {
-                            array[m, n]++;
-                        }
-                        if (array[m, n] == 0 && array[m - 1, n] >= 2)
-                        {
-                            array[m, n]++;
-                        }
-                        if (array[m, n] == 0 && array[m + 1, n] >= 2)
-                        {
-                            array[m, n]++;
-                        }
-                    }
+                    m = battalion[i];
                 }
-
-                for (int s = 0; s < array.Length; s++)
-                {
-                    for (int d = 0; d < array.Length; d++)
-                    {
-                        if (array[s, d] == 0)
-                        {
-                            flag = false;
-                            count++;
-                            break;
-                        }
-                    }
-                }               
+                array[n, m] = 1;
             }
+            //**************************************
+            //while (flag)
+            //{
+            //    count++;
+            //    //Заполнение массива +1 к высадившимся
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        for (int k = 0; k < M; k++)
+            //        {
+            //            if ((array[j, k]) != 0)
+            //            {
+            //                array[j, k]++;
+            //            }
+            //        }
+            //    }
+            //    //*************************************************
+
+            //    //Заполнение соседних клеток
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        for (int k = 0; k < M; k++)
+            //        {
+            //            int sosedN1 = j - 1;
+            //            int sosedN2 = j + 1;
+            //            int sosedM1 = k - 1;
+            //            int sosedM2 = k + 1;
+            //            if ((array[j, k]) >= 2 && sosedN1 >= 0)
+            //            {
+            //                array[sosedN1, k]++;
+            //            }
+            //            if ((array[j, k]) >= 2 && sosedN2 < N)
+            //            {
+            //                array[sosedN2, k]++;
+            //            }
+            //            if ((array[j, k]) >= 2 && sosedM1 >= 0)
+            //            {
+            //                array[j, sosedM1]++;
+            //            }
+            //            if ((array[j, k]) >= 2 && sosedM2 < M)
+            //            {
+            //                array[j, sosedM2]++;
+            //            }
+            //        }
+            //    }
+
+            //    //Вывод массива
+            //    //*********************************
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        for (int p = 0; p < M; p++)
+            //        {
+            //            Console.Write(array[j, p]);
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //    //**********************************  
+            //    flag = false;
+
+            //    for (int j = 0; j < N; j++)
+            //    {
+            //        for (int p = 0; p < M; p++)
+            //        {
+            //            if (array[j, p] == 0)
+            //            {
+            //                flag = true;
+                            
+            //            }
+            //        }
+            //    }
+            //    Console.WriteLine();                
+            //}
             return count;
         }
     }
 }
+    
