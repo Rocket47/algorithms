@@ -5,7 +5,7 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int getDay(int N, int M, int L, int[] battalion)
+        public static int  ConquestCampaign(int N, int M, int L, int[] battalion)
         {
             bool flag = true;
             int count = 1;
