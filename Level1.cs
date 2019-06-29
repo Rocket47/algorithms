@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {           
+    {
         public static int getDay(int N, int M, int L, int[] battalion)
         {
             bool flag = true;
             int count = 1;
             int n = 0;
             int m = 0;
-            int[,] array = new int[N, M];                   
+            int[,] array = new int[N, M];
             for (int i = 0; i < battalion.Length; i++)
             {
                 if (i % 2 == 0)
@@ -24,10 +24,10 @@ namespace Level1Space
                     m = battalion[i] - 1;
                 }
                 array[n, m] = 1;
-            }                 
+            }
             while (flag)
             {
-                count++;                
+                count++;
                 for (int j = 0; j < N; j++)
                 {
                     for (int k = 0; k < M; k++)
@@ -37,7 +37,7 @@ namespace Level1Space
                             array[j, k]++;
                         }
                     }
-                }                               
+                }
                 for (int j = 0; j < N; j++)
                 {
                     for (int k = 0; k < M; k++)
@@ -74,11 +74,10 @@ namespace Level1Space
                             flag = true;
                         }
                     }
-                }              
-                Console.WriteLine();
+                }             
             }
             return count;
-        }                        
+        }
     }
 }
-    
+
