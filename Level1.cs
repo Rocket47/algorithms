@@ -4,11 +4,12 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-        public static int  ConquestCampaign(int N, int M, int L, int[] battalion)
+    {       
+        public static int ConquestCampaign(int N, int M, int L, int[] battalion)
         {
             bool flag = true;
             int count = 1;
+            int countFull = 0;
             int n = 0;
             int m = 0;
             int[,] array = new int[N, M];
@@ -72,12 +73,19 @@ namespace Level1Space
                         if (array[j, p] == 0)
                         {
                             flag = true;
-                        }
+                            countFull++;
+                        } 
                     }
-                }             
-            }
+                }
+                if (countFull == 0)
+                {
+                    count = 1;
+                }               
+            }            
             return count;
-        }
-    }
+        }     
+    }  
 }
+
+
 
