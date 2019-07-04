@@ -20,8 +20,7 @@ namespace Level1Space
                 pairs.Add(additionalArr[m], salary[m]);
             }
             for (int n = 0; n < N; n++)
-            {
-                
+            {                
                 salary[n] = pairs[ids[n]];
             }
             return salary;
