@@ -10,21 +10,28 @@ namespace Level1Space
             double counter = 0.0;
             double hypotenuse = 1.41421;
             Dictionary<int, double> sequenceDictionary = createScheme();
-            for (int i = 0; i < N - 1; i++)
+            if (N > 1)
             {
-                if ((Math.Abs((sequenceDictionary[hits[i]] - sequenceDictionary[hits[i + 1]])) > 1.00001))
+                for (int i = 0; i < N - 1; i++)
                 {
-                    counter = counter + hypotenuse;
+                    double moduleResult = Math.Abs(sequenceDictionary[hits[i]] - sequenceDictionary[hits[i + 1]]);
+                    if ((moduleResult > 1.00001) && (moduleResult < 2))
+                    {
+                        counter = counter + hypotenuse;
+                    }
+                    else
+                    {
+                        counter++;
+                    }
                 }
-                else
-                {
-                    counter++;
-                }
+            }
+            else
+            {
+                counter++;
             }
             counter = counter * 100000;
             return counter.ToString().Replace("0", "");
         }
-
         public static Dictionary<int, double> createScheme()
         {
             Dictionary<int, double> coordinates = new Dictionary<int, double>();
