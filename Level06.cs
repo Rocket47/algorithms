@@ -22,31 +22,36 @@ namespace Level06
 
         public static void showArr()
         {
-            string s = "1) строка разбивается на набор строк через выравнивание по заданной ширине.";
+            string s = "1) строка разбиваетсяИТестируется на набор строк через выравнивание по заданной ширине.";
             string[] arr = s.Split(' ');
             int lengthStringCounter = 0;
             string resultString = "";
-            for (int i = 0; i < arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                
+
                 char[] charArr = arr[i].ToCharArray();
                 for (int j = 0; j < charArr.Length; j++)
                 {
-                        resultString = resultString + charArr[j].ToString();
+                    resultString = resultString + charArr[j].ToString();
+                    lengthStringCounter++;
+                    if (lengthStringCounter >= 12)
+                    {
+                        resultString = resultString + Environment.NewLine;
+                        lengthStringCounter = 0;
+                    }
+                }
+              
+                    if ((i < arr.Length - 1) && ((12 - lengthStringCounter) < arr[(i + 1)].Length))
+                    {
+                        resultString = resultString + Environment.NewLine;
+                        lengthStringCounter = 0;
+                    }
+                    else
+                    {
+                        resultString = resultString + " ";
                         lengthStringCounter++;
-                        if (lengthStringCounter > 12)
-                        {
-                            resultString = resultString + Environment.NewLine;
-                        }                       
-                }
-                if ((12 - lengthStringCounter) < arr[(i+1)].Length)
-                {
-                    resultString = resultString + Environment.NewLine;
-                    lengthStringCounter = 0;
-                } else
-                {
-                    resultString = resultString + " ";
-                }
+                    }
+                
             }
             Console.WriteLine(resultString);
         }
