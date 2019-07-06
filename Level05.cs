@@ -15,7 +15,8 @@ namespace Level1Space
                 for (int i = 0; i < N - 1; i++)
                 {
                     double moduleResult = Math.Abs(sequenceDictionary[hits[i]] - sequenceDictionary[hits[i + 1]]);
-                    if ((moduleResult > 1.00001) && (moduleResult < 2))
+
+                    if ((moduleResult > 1.00001) || (moduleResult > 0.89) && (moduleResult < 0.91) || (moduleResult > 1.09) && (moduleResult < 1.2))
                     {
                         counter = counter + hypotenuse;
                     }
