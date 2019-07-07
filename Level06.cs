@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Level06
         static void Main(string[] args)
         {
             string s = "1) строка разбиваетсяИТестируется на набор строк через выравнивание по заданной ширине.";
-            int[] testOutPutArray =  WordSearch(12, s, "через");
+            int[] testOutPutArray =  WordSearch(12, s, "строка");
             Console.WriteLine("[{0}]", string.Join(", ", testOutPutArray));
             Console.ReadKey();
         }
@@ -47,12 +47,13 @@ namespace Level06
                 }
             }
 
-            resultArray = new[] { resultString };
-            foreach(string n in resultArray)
+           
+            string[] lines = resultString.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach(string n in lines)
             {
                 Console.WriteLine(n);
             }
-            return checkWord(resultArray, subs);
+            return checkWord(lines, subs);
         }
 
         public static int[] checkWord(string[] arrWithWords, string word)
@@ -61,13 +62,21 @@ namespace Level06
             int[] resultArray = new int[arrWithWords.Length]; 
             foreach (string searchWord in arrWithWords)
             {
-                if (searchWord.Equals(word))
+                string[] separateWord = searchWord.Split(' ');
+                foreach (string sepWord in separateWord)
                 {
-                    resultArray[counter] = 1;
-                }
-                else
-                {
-                    resultArray[counter] = 0;
+                    if (sepWord.Equals(word))
+                    {
+                        resultArray[counter] = 1;
+                    }
+                    else 
+                    {
+                        resultArray[counter] = 0;
+                    }
+                    if (counter < arrWithWords.Length - 1)
+                    {
+                        counter++;
+                    }
                 }
             }
             return resultArray;
