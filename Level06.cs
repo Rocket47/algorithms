@@ -11,11 +11,7 @@ namespace Level1Space
             string[] splitArr = s.Split(' ');
             string[] arrayFromString;
             arrayFromString = createStringWithRange(splitArr, len).Split(new char[] { '\r', '\n' });
-            arrayFromString = arrayFromString.Where(x => !string.IsNullOrEmpty(x.Trim())).ToArray();
-            foreach (string n in arrayFromString)
-            {
-                Console.WriteLine(n);
-            }
+            arrayFromString = arrayFromString.Where(x => !string.IsNullOrEmpty(x.Trim())).ToArray();           
             return checkWordInLine(arrayFromString, subs);
         }
 
