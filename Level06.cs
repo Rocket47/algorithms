@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Level06
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -17,7 +17,18 @@ namespace Level06
         }
         public static int[] WordSearch(int len, string s, string subs)
         {
-            string[] splitArr = s.Split(' ');          
+            string[] splitArr = s.Split(' ');
+            string[] arrayFromString;
+            arrayFromString = createStringWithRange(splitArr, len).Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string n in arrayFromString)
+            {
+                Console.WriteLine(n);
+            }
+            return checkWord(arrayFromString, subs);
+        }
+
+        public static string createStringWithRange(string[] splitArr, int len)
+        {
             int lengthStringCounter = 0;
             string resultString = "";
             for (int i = 0; i < splitArr.Length; i++)
@@ -33,7 +44,6 @@ namespace Level06
                         lengthStringCounter = 0;
                     }
                 }
-
                 if ((i < splitArr.Length - 1) && ((len - lengthStringCounter) < splitArr[(i + 1)].Length))
                 {
                     resultString = resultString + Environment.NewLine;
@@ -45,17 +55,9 @@ namespace Level06
                     lengthStringCounter++;
                 }
             }
-
-
-            string[] lines = resultString.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string n in lines)
-            {
-                Console.WriteLine(n);
-            }
-            return checkWord(lines, subs);
+            return resultString;
         }
-
-        public static int[] checkWord(string[] arrWithWords, string word)
+        public static int[] checkWord(string[] arrWithWords, string wordToBeChecked)
         {
             int counter = 0;
             int[] resultArray = new int[arrWithWords.Length];
@@ -64,7 +66,7 @@ namespace Level06
                 string[] separateWord = searchWord.Split(' ');
                 foreach (string sepWord in separateWord)
                 {
-                    if (sepWord.Equals(word))
+                    if (sepWord.Equals(wordToBeChecked))
                     {
                         resultArray[counter] = 1;
                     }
