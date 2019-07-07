@@ -1,30 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Level06
+namespace Level1Space
 {
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            string s = "1) строка разбиваетсяИТестируется на набор строк через строка выравнивание по заданной ширине. строка";
-            int[] testOutPutArray = WordSearch(12, s, "строка");
-            Console.WriteLine("[{0}]", string.Join(", ", testOutPutArray));
-            Console.ReadKey();
-        }
+    public static class Level1
+    {       
         public static int[] WordSearch(int len, string s, string subs)
         {
             string[] splitArr = s.Split(' ');
             string[] arrayFromString;
-            arrayFromString = createStringWithRange(splitArr, len).Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            arrayFromString = createStringWithRange(splitArr, len).Split(new char[] { '\r', '\n' });
+            arrayFromString = arrayFromString.Where(x => !string.IsNullOrEmpty(x.Trim())).ToArray();
             foreach (string n in arrayFromString)
             {
                 Console.WriteLine(n);
             }
-            return checkWord(arrayFromString, subs);
+            return checkWordInLine(arrayFromString, subs);
         }
 
         public static string createStringWithRange(string[] splitArr, int len)
@@ -57,7 +49,7 @@ namespace Level06
             }
             return resultString;
         }
-        public static int[] checkWord(string[] arrWithWords, string wordToBeChecked)
+        public static int[] checkWordInLine(string[] arrWithWords, string wordToBeChecked)
         {
             int counter = 0;
             int[] resultArray = new int[arrWithWords.Length];
