@@ -10,15 +10,14 @@ namespace Level06
     {
         static void Main(string[] args)
         {
-            string s = "1) строка разбиваетсяИТестируется на набор строк через выравнивание по заданной ширине.";
-            int[] testOutPutArray =  WordSearch(12, s, "строка");
+            string s = "1) строка разбиваетсяИТестируется на набор строк через строка выравнивание по заданной ширине. строка";
+            int[] testOutPutArray = WordSearch(12, s, "строка");
             Console.WriteLine("[{0}]", string.Join(", ", testOutPutArray));
             Console.ReadKey();
         }
         public static int[] WordSearch(int len, string s, string subs)
         {
-            string[] splitArr = s.Split(' ');
-            string[] resultArray;
+            string[] splitArr = s.Split(' ');          
             int lengthStringCounter = 0;
             string resultString = "";
             for (int i = 0; i < splitArr.Length; i++)
@@ -47,9 +46,9 @@ namespace Level06
                 }
             }
 
-           
+
             string[] lines = resultString.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach(string n in lines)
+            foreach (string n in lines)
             {
                 Console.WriteLine(n);
             }
@@ -59,7 +58,7 @@ namespace Level06
         public static int[] checkWord(string[] arrWithWords, string word)
         {
             int counter = 0;
-            int[] resultArray = new int[arrWithWords.Length]; 
+            int[] resultArray = new int[arrWithWords.Length];
             foreach (string searchWord in arrWithWords)
             {
                 string[] separateWord = searchWord.Split(' ');
@@ -69,14 +68,10 @@ namespace Level06
                     {
                         resultArray[counter] = 1;
                     }
-                    else 
-                    {
-                        resultArray[counter] = 0;
-                    }
-                    if (counter < arrWithWords.Length - 1)
-                    {
-                        counter++;
-                    }
+                }
+                if (counter < arrWithWords.Length - 1)
+                {
+                    counter++;
                 }
             }
             return resultArray;
