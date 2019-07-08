@@ -1,18 +1,30 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {
         public static int[] WordSearch(int len, string s, string subs)
         {
             string[] splitArr = s.Split(' ');
             string[] arrayFromString;
             arrayFromString = createStringWithRange(splitArr, len).Split(new char[] { '\r', '\n' });
-            arrayFromString = arrayFromString.Where(x => !string.IsNullOrEmpty(x.Trim())).ToArray();           
+            arrayFromString = removeZeroFromArray(arrayFromString).ToArray();
             return checkWordInLine(arrayFromString, subs);
+        }
+
+        public static List<string> removeZeroFromArray(string[] arrToBeConverted)
+        {
+            var temp = new List<string>();
+            foreach (var k in arrToBeConverted)
+            {
+                if (!string.IsNullOrEmpty(k) && (!k.Equals(" ")))
+                {
+                    temp.Add(k);
+                }
+            }
+            return temp;
         }
 
         public static string createStringWithRange(string[] splitArr, int len)
@@ -45,6 +57,7 @@ namespace Level1Space
             }
             return resultString;
         }
+
         public static int[] checkWordInLine(string[] arrWithWords, string wordToBeChecked)
         {
             int counter = 0;
