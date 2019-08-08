@@ -23,13 +23,13 @@ namespace Level1Space
             foreach (string i in afterSplitting)
             {
                 lengthString += i.Length;
-            }            
+            }
             squareRoot = Math.Round(Math.Sqrt(lengthString), 2);
             Console.WriteLine("Length of this line: " + lengthString);
             Console.WriteLine("после вычисления квадратного корня: " + squareRoot);
 
             int afterPoint = (int)(((squareRoot - (int)squareRoot) * multiplier) / 10);
-            Console.WriteLine("Number after point. Count of lines: " +  afterPoint);
+            Console.WriteLine("Number after point. Count of lines: " + afterPoint);
             int beforePoint = (int)squareRoot;
             Console.WriteLine("NUmber before point. Count of Columne: " + beforePoint);
 
@@ -42,11 +42,13 @@ namespace Level1Space
 
             s = s.Replace(" ", String.Empty);
             char[] charArr = s.ToCharArray();
+            int a = 0;
             for (int i = 0; i < afterPoint; i++)
             {
-                for (int j = 0; j < beforePoint; j++)
+                for (int j = 0; j < beforePoint && a < lengthString; j++)
                 {
-                    matrixArr[i, j] = charArr[j]; 
+                    matrixArr[i, j] = charArr[a];
+                    a++;
                 }
             }
 
@@ -63,8 +65,22 @@ namespace Level1Space
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
+            //---------------------------------//
 
-            return null;
+            // create a finally string
+            string result = null;
+            for (int j = 0; j < afterPoint; j++)
+            {
+                for (int i = 0; i < beforePoint; i++)
+                {
+                    result = result + matrixArr[i, j];
+                }
+                result = result + " ";
+            }
+            Console.WriteLine(result);
+
+
+            return result;
         }
     }
 }
