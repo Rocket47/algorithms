@@ -33,6 +33,37 @@ namespace Level1Space
             int beforePoint = (int)squareRoot;
             Console.WriteLine("NUmber before point. Count of Columne: " + beforePoint);
 
+            while (afterPoint * beforePoint < lengthString)
+            {
+                beforePoint++;
+            }
+
+            char[,] matrixArr = new char[beforePoint, afterPoint];
+
+            s = s.Replace(" ", String.Empty);
+            char[] charArr = s.ToCharArray();
+            for (int i = 0; i < afterPoint; i++)
+            {
+                for (int j = 0; j < beforePoint; j++)
+                {
+                    matrixArr[i, j] = charArr[j]; 
+                }
+            }
+
+            //output 2d array
+
+            int rowLength = matrixArr.GetLength(0);
+            int colLength = matrixArr.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < colLength; j++)
+                {
+                    Console.Write(string.Format("{0} ", matrixArr[i, j]));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }
+
             return null;
         }
     }
