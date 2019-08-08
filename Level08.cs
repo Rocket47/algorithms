@@ -9,7 +9,7 @@ namespace Level1Space
         static void Main(string[] args)
         {
             TheRabbitsFoot("отдай мою кроличью лапку", true);
-            Decrypt("омоюу толл дюиа акчп йрьк");
+            TheRabbitsFoot("омоюу толл дюиа акчп йрьк", false);
             Console.ReadKey();
         }
 
@@ -22,7 +22,7 @@ namespace Level1Space
             }
             else
             {
-
+                result = Decrypt(s);
             }
             return result;
         }
@@ -133,7 +133,7 @@ namespace Level1Space
                 }
                 counter++;
             //-------------matrix was created-----------
-            }            
+            }           
 
             //output 2d array
             int rowLength = matrixArr.GetLength(0);
@@ -151,7 +151,16 @@ namespace Level1Space
             //---------------------------------//
 
 
-            return null;
+            //Create final string
+
+            string result = null;
+            foreach (char parse in matrixArr)
+            {
+                result = result + parse.ToString();
+            }
+            Console.WriteLine("Result of decryption: " + result);
+
+            return result;
         }
     }
 }
