@@ -5,43 +5,35 @@ namespace Level1Space
 {
     public static class Level1
     {
-       
+
         static void Main(string[] args)
         {
-            HowManyTimes("123", "1102353");
+            TheRabbitsFoot("отдай мою кроличью лапку", true);
             Console.ReadKey();
         }
 
-        public static int HowManyTimes(string s, string s_generic)
-        {            
-            char[] inputStringToChar = s.ToCharArray();
-            char[] genericStringToChar = s_generic.ToCharArray();
-            int counter = 0;
-            Dictionary<int, List<int>> list = new Dictionary<int, List<int>>();            
-            foreach (char i in inputStringToChar)
+        public static string TheRabbitsFoot(string s, bool encode)
+        {
+            int lengthString = 0;
+            double squareRoot = 0;
+            int countStringMatrix = 0;
+            int countNumbersLine = 0;
+            int multiplier = 100;
+            string[] afterSplitting = s.Split(' ');
+            foreach (string i in afterSplitting)
             {
-                List<int> test = new List<int>();
-                for (int j = 0; j < genericStringToChar.Length; j++)
-                {                    
-                    if (i.Equals(genericStringToChar[j]))
-                    {
-                        test.Add(j);
-                    }
-                }
-                list.Add(counter, test);
-                counter++;
-            }
+                lengthString += i.Length;
+            }            
+            squareRoot = Math.Round(Math.Sqrt(lengthString), 2);
+            Console.WriteLine("Length of this line: " + lengthString);
+            Console.WriteLine("после вычисления квадратного корня: " + squareRoot);
 
-            foreach (KeyValuePair<int, List<int>> kvp in list)
-            {
-                //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, String.Join(", ", kvp.Value));
-            }
+            int afterPoint = (int)(((squareRoot - (int)squareRoot) * multiplier) / 10);
+            Console.WriteLine("Number after point. Count of lines: " +  afterPoint);
+            int beforePoint = (int)squareRoot;
+            Console.WriteLine("NUmber before point. Count of Columne: " + beforePoint);
 
-
-		Console.Writeline("Test case");
-            return 0;
-           
+            return null;
         }
     }
 }
