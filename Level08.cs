@@ -14,17 +14,29 @@ namespace Level1Space
 
         public static string TheRabbitsFoot(string s, bool encode)
         {
+            string result = null;
+            if (encode)
+            {
+                result = Encrypt(s);
+            } else
+            {
+
+            }
+            return result;
+        }
+
+        public static string Encrypt(string str)
+        {
             int lengthString = 0;
             double squareRoot = 0;
-            int countStringMatrix = 0;
-            int countNumbersLine = 0;
             int multiplier = 100;
-            string[] afterSplitting = s.Split(' ');
+            string[] afterSplitting = str.Split(' ');
             foreach (string i in afterSplitting)
             {
                 lengthString += i.Length;
             }
             squareRoot = Math.Round(Math.Sqrt(lengthString), 2);
+            Console.WriteLine("____________Process of ecryption was started___________");
             Console.WriteLine("Length of this line: " + lengthString);
             Console.WriteLine("после вычисления квадратного корня: " + squareRoot);
 
@@ -40,8 +52,8 @@ namespace Level1Space
 
             char[,] matrixArr = new char[beforePoint, afterPoint];
 
-            s = s.Replace(" ", String.Empty);
-            char[] charArr = s.ToCharArray();
+            str = str.Replace(" ", String.Empty);
+            char[] charArr = str.ToCharArray();
             int a = 0;
             for (int i = 0; i < afterPoint; i++)
             {
@@ -63,7 +75,8 @@ namespace Level1Space
                 {
                     Console.Write(string.Format("{0} ", matrixArr[i, j]));
                 }
-                Console.Write(Environment.NewLine + Environment.NewLine);
+
+                Console.WriteLine();
             }
             //---------------------------------//
 
@@ -77,10 +90,15 @@ namespace Level1Space
                 }
                 result = result + " ";
             }
-            Console.WriteLine(result);
-
-
+            result = result.Replace("\0", "");
+            Console.WriteLine("Result of encryption: " + result);
+            Console.WriteLine("____________Process of encryption was finished____________");
             return result;
+        }
+
+        public static string Decrypt(string str)
+        {
+            return null;
         }
     }
 }
