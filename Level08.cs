@@ -4,18 +4,18 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {      
+    {       
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string result = null;
             if (encode)
             {
-                result = Encrypt(s);
+                result = Encrypt(s).Replace(" ", "");
             }
             else
             {
-                result = Decrypt(s);
-            }
+                result = Decrypt(s).Replace("\0", string.Empty);
+            }            
             return result;
         }
 
@@ -143,8 +143,8 @@ namespace Level1Space
                     }
                 }
                 counter++;
-            //-------------matrix was created-----------
-            }           
+                //-------------matrix was created-----------
+            }
 
             //output 2d array
             int rowLength = matrixArr.GetLength(0);
