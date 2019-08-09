@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
+    {      
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string result = null;
@@ -47,8 +47,8 @@ namespace Level1Space
                 {
                     afterPoint++;
                 }
-               
-            }          
+
+            }
             char[,] matrixArr = new char[beforePoint, afterPoint];
             str = str.Replace(" ", String.Empty);
             char[] charArr = str.ToCharArray();
@@ -86,7 +86,10 @@ namespace Level1Space
                 }
                 result = result + " ";
             }
-            result = result.Replace("\0", "");
+            if (result != null)
+            {
+                result = result.Replace("\0", "");
+            }
             Console.WriteLine("Result of encryption: " + result);
             Console.WriteLine("____________Process of encryption was finished____________");
             Console.WriteLine("************Next operation************");
