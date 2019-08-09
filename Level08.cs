@@ -5,14 +5,6 @@ namespace Level1Space
 {
     public static class Level1
     {
-
-        static void Main(string[] args)
-        {
-            TheRabbitsFoot("отдай мою кроличью лапку", true);
-            TheRabbitsFoot("омоюу толл дюиа акчп йрьк", false);
-            Console.ReadKey();
-        }
-
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string result = null;
@@ -121,7 +113,15 @@ namespace Level1Space
             Console.WriteLine("NUmber before point. Count of Columne: " + beforePoint);
             while (afterPoint * beforePoint < lengthString)
             {
-                beforePoint++;
+                if (beforePoint < afterPoint || beforePoint == afterPoint)
+                {
+                    beforePoint++;
+                }
+                else
+                {
+                    afterPoint++;
+                }
+
             }
             char[,] matrixArr = new char[beforePoint, afterPoint];
             //--------------create matrix------------
