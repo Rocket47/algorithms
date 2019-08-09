@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {      
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string result = null;
@@ -129,7 +129,7 @@ namespace Level1Space
             char[,] matrixArr = new char[beforePoint, afterPoint];
             //--------------create matrix------------
             int counter = 0;
-            for (int k = 0; k < afterPoint; k++)
+            for (int k = 0; k < afterSplitting.Length; k++)
             {
                 char[] createArr = afterSplitting[counter].ToCharArray();
                 int index = 0;
@@ -137,8 +137,7 @@ namespace Level1Space
                 {
                     if (index < createArr.Length)
                     {
-                        matrixArr[m, k] = createArr[index];
-                        char test = createArr[index];
+                        matrixArr[m, k] = createArr[index];                       
                         index++;
                     }
                 }
