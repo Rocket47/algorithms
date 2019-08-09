@@ -47,15 +47,23 @@ namespace Level1Space
             Console.WriteLine("NUmber before point. Count of Columne: " + beforePoint);
             while (afterPoint * beforePoint < lengthString)
             {
-                beforePoint++;
-            }
+                if (beforePoint < afterPoint || beforePoint == afterPoint)
+                {
+                    beforePoint++;
+                }
+                else
+                {
+                    afterPoint++;
+                }
+               
+            }          
             char[,] matrixArr = new char[beforePoint, afterPoint];
             str = str.Replace(" ", String.Empty);
             char[] charArr = str.ToCharArray();
             int a = 0;
-            for (int i = 0; i < afterPoint; i++)
+            for (int i = 0; i < beforePoint; i++)
             {
-                for (int j = 0; j < beforePoint && a < lengthString; j++)
+                for (int j = 0; j < afterPoint && a < lengthString; j++)
                 {
                     matrixArr[i, j] = charArr[a];
                     a++;
