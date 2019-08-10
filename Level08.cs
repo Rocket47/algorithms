@@ -4,18 +4,18 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {      
+    {        
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string result = null;
             if (encode)
             {
-                result = Encrypt(s).Replace(" ", "");
+                result = Encrypt(s);
             }
             else
             {
-                result = Decrypt(s).Replace("\0", string.Empty);
-            }            
+                result = Decrypt(s);
+            }
             return result;
         }
 
@@ -85,11 +85,8 @@ namespace Level1Space
                     result = result + matrixArr[i, j];
                 }
                 result = result + " ";
-            }
-            if (result != null)
-            {
-                result = result.Replace("\0", "");
-            }
+            }           
+                result = result.Replace("\0", "");            
             Console.WriteLine("Result of encryption: " + result);
             Console.WriteLine("____________Process of encryption was finished____________");
             Console.WriteLine("************Next operation************");
@@ -129,7 +126,7 @@ namespace Level1Space
             char[,] matrixArr = new char[beforePoint, afterPoint];
             //--------------create matrix------------
             int counter = 0;
-            for (int k = 0; k < afterSplitting.Length; k++)
+            for (int k = 0; k < afterPoint; k++)
             {
                 char[] createArr = afterSplitting[counter].ToCharArray();
                 int index = 0;
@@ -137,7 +134,8 @@ namespace Level1Space
                 {
                     if (index < createArr.Length)
                     {
-                        matrixArr[m, k] = createArr[index];                       
+                        matrixArr[m, k] = createArr[index];
+                        char test = createArr[index];
                         index++;
                     }
                 }
@@ -160,7 +158,6 @@ namespace Level1Space
             }
             //---------------------------------//
 
-
             //Create final string
 
             string result = null;
@@ -169,8 +166,12 @@ namespace Level1Space
                 result = result + parse.ToString();
             }
             Console.WriteLine("Result of decryption: " + result);
-
+            if (!result.Equals(null))
+            {
+                result = result.Replace("\0", "");
+            }
             return result;
         }
     }
 }
+
