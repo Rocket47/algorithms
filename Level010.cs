@@ -4,88 +4,80 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-        public static string BigMinus(string s1, string s2)
-        {
-            string result = null;
-            List<int> number1 = new BigInteger().bigInteger(s1);
-            List<int> number2 = new BigInteger().bigInteger(s2);
-            BigInteger res = new BigInteger(number1).Substract(new BigInteger(number2));
-            List<int> resultList = res.arr;
-            for (int i = resultList.Count - 1; i >= 0; i--)
+    {        
+             
+      public static string BigMinus(string str1, string str2)
+        {           
+            if (isSmaller(str1, str2))
             {
-                result = result + resultList[i];
+                string t = str1;
+                str1 = str2;
+                str2 = t;
             }
-            return result;
-        }
-    }
 
-    public class BigInteger
-    {
-        public List<int> arr { get; set; } = new List<int>();
-        int order = 8;
+            string str = "";
 
-        public BigInteger()
-        {
+            int n1 = str1.Length;
+            int n2 = str2.Length;
 
-        }
-
-        public BigInteger(List<int> arr)
-        {
-            this.arr = arr;
-        }
-
-        public List<int> bigInteger(string s)
-        {
-            int tempValue = 0;
-            int tempOrder = 0;
-            for (int i = s.Length - 1; i >= 0; i--)
-            {
-                if (tempOrder == order)
+            // Reverse both of strings 
+            char[] ch1 = str1.ToCharArray();
+            Array.Reverse(ch1);
+            str1 = new string(ch1);
+            char[] ch2 = str2.ToCharArray();
+            Array.Reverse(ch2);
+            str2 = new string(ch2);
+            int carry = 0;          
+            for (int i = 0; i < n2; i++)
+            {                
+                int sub = ((int)(str1[i] - '0') -
+                        (int)(str2[i] - '0') - carry);              
+                if (sub < 0)
                 {
-                    arr.Add(tempValue);
-                    tempValue = int.Parse(s[i].ToString());
-                    tempOrder = 1;
+                    sub = sub + 10;
+                    carry = 1;
                 }
                 else
-                {
-                    tempValue = tempValue + (int)Math.Pow(10, tempOrder) * int.Parse(s[i].ToString());
-                    tempOrder++;
-                }
+                    carry = 0;
+                str += (char)(sub + '0');
             }
-            if (tempOrder != 0)
+           
+            for (int i = n2; i < n1; i++)
             {
-                arr.Add(tempValue);
-            }
-            return arr;
-        }
-
-        public BigInteger Substract(BigInteger value)
-        {
-            int myBase = 8;
-            int k = 0;
-            int n = Math.Max(arr.Count, value.arr.Count);
-            List<int> resultList = new List<int>();
-            for (int i = 0; i < n; i++)
-            {
-                int tempA = (arr.Count > i) ? arr[i] : 0;
-                int tempB = (value.arr.Count > i) ? value.arr[i] : 0;
-                resultList.Add(Math.Abs(tempA - tempB - k));
-                if (resultList[i] < 0)
+                int sub = ((int)(str1[i] - '0') - carry);                 
+                if (sub < 0)
                 {
-                    resultList[i] += myBase;
-                    k = 1;
+                    sub = sub + 10;
+                    carry = 1;
                 }
                 else
-                {
-                    k = 0;
-                }
+                    carry = 0;
+
+                str += (char)(sub + '0');
             }
-            while (resultList.Count > 0 && resultList[resultList.Count - 1] == 0)
-            {
-                resultList.RemoveAt(resultList.Count - 1);
-            }
-            return new BigInteger(resultList);
+            char[] ch3 = str.ToCharArray();
+            Array.Reverse(ch3);
+            return new string(ch3);
+        }
+
+        public static bool isSmaller(string str1, string str2)
+        {
+            int lengthStr1 = str1.Length;
+            int lengthStr2 = str2.Length;
+            if (lengthStr1 < lengthStr2)
+                return true;
+            if (lengthStr2 < lengthStr1)
+                return false;
+
+            for (int i = 0; i < lengthStr1; i++)
+                if (str1[i] < str2[i])
+                    return true;
+                else if (str1[i] > str2[i])
+                    return false;
+
+            return false;
         }
     }
 }
+
+
