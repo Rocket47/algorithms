@@ -5,7 +5,7 @@ namespace Level1Space
 {
     public static class Level1
     {        
-        
+           
       public static string BigMinus(string str1, string str2)
         {           
             if (isSmaller(str1, str2))
@@ -61,7 +61,13 @@ namespace Level1Space
             }
             char[] ch3 = str.ToCharArray();
             Array.Reverse(ch3);
-            return new string(ch3);
+            string result = new string(ch3);
+            result = result.TrimStart(new char[] { '0' });            
+            if (result.Equals(""))
+            {
+                result = "0";
+            }
+            return result;
         }
 
         public static bool isSmaller(string str1, string str2)
