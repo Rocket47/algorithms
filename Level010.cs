@@ -5,7 +5,7 @@ namespace Level1Space
 {
     public static class Level1
     {        
-             
+        
       public static string BigMinus(string str1, string str2)
         {           
             if (isSmaller(str1, str2))
@@ -19,8 +19,7 @@ namespace Level1Space
 
             int n1 = str1.Length;
             int n2 = str2.Length;
-
-            // Reverse both of strings 
+         
             char[] ch1 = str1.ToCharArray();
             Array.Reverse(ch1);
             str1 = new string(ch1);
@@ -44,16 +43,21 @@ namespace Level1Space
            
             for (int i = n2; i < n1; i++)
             {
-                int sub = ((int)(str1[i] - '0') - carry);                 
+                int sub = ((int)(str1[i] - '0') - carry);
                 if (sub < 0)
                 {
                     sub = sub + 10;
                     carry = 1;
                 }
                 else
+                {
                     carry = 0;
-
-                str += (char)(sub + '0');
+                }
+                if (!(i == (n1 - 1) && sub == 0))
+                {
+                   str += (char)(sub + '0');                                  
+                }
+              
             }
             char[] ch3 = str.ToCharArray();
             Array.Reverse(ch3);
