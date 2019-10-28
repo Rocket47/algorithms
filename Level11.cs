@@ -23,8 +23,7 @@ namespace Level1Space
                     result = "no winner";
                     flag = false;
                     break;
-                }
-                i++;
+                }                
             }
             if (flag)
             {
