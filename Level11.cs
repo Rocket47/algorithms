@@ -5,25 +5,32 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string MassVote(int N, int [] Votes)
+        public static string MassVote(int N, int[] Votes)
         {
             int saveMuxNumber = 0;
             string result = null;
             double percent = 0.0;
             int sumCounter = 0;
+            int position = 0;
             bool flag = true;
             for (int i = 0; i < Votes.Length; i++)
             {
                 if (Votes[i] > saveMuxNumber)
                 {
                     saveMuxNumber = Votes[i];
+                    position = i+1;
+                    flag = true;               
+                    for (int k = i+1; k < Votes.Length; k++)
+                    {
+                        if ((k) < Votes.Length && Votes[k] == saveMuxNumber)
+                        {
+                            result = "no winner";
+                            flag = false;
+                        }
+                    }
+                   
                 }
-                if ((i+1) < Votes.Length && Votes[i + 1] == saveMuxNumber )
-                {
-                    result = "no winner";
-                    flag = false;
-                    break;
-                }                
+                
             }
             if (flag)
             {
@@ -37,15 +44,16 @@ namespace Level1Space
                 }
                 if (percent > 50.0)
                 {
-                    result = "majority winner 1";
+                    result = $"majority winner {position}" ;
                 }
                 else
                 {
-                    result = "minority winner 2";
+                    result = $"minority winner {position}";
                 }
             }
             return result;
         }
     }
 }
+
 
