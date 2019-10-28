@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Level1Space
+namespace Task11
 {
     public static class Level1
     {
@@ -18,9 +18,9 @@ namespace Level1Space
                 if (Votes[i] > saveMuxNumber)
                 {
                     saveMuxNumber = Votes[i];
-                    position = i+1;
-                    flag = true;               
-                    for (int k = i+1; k < Votes.Length; k++)
+                    position = i + 1;
+                    flag = true;
+                    for (int k = i + 1; k < Votes.Length; k++)
                     {
                         if ((k) < Votes.Length && Votes[k] == saveMuxNumber)
                         {
@@ -28,9 +28,9 @@ namespace Level1Space
                             flag = false;
                         }
                     }
-                   
+
                 }
-                
+
             }
             if (flag)
             {
@@ -44,16 +44,15 @@ namespace Level1Space
                 }
                 if (percent > 50.0)
                 {
-                    result = $"majority winner {position}" ;
+                    result = "majority winner " + position;
                 }
                 else
                 {
-                    result = $"minority winner {position}";
+                    result = "minority winner " + position;
                 }
             }
             return result;
         }
     }
 }
-
 
