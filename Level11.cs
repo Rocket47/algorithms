@@ -39,7 +39,7 @@ namespace Level1Space
                     sumCounter = sumCounter + Votes[j];
                     if (j == (Votes.Length - 1))
                     {
-                        percent = 100 / sumCounter * saveMuxNumber;
+                        percent = 100.00 / sumCounter * saveMuxNumber;
                     }
                 }
                 if (percent > 50.0)
