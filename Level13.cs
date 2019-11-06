@@ -26,6 +26,7 @@ namespace Level1Space
                 }
 
             }
+            resultTime = Math.Round(resultTime);
             return (int)resultTime;
         }
     }
