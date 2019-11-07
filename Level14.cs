@@ -17,9 +17,7 @@ namespace Level1Space
         {
             int maximumDiscountThreeGood = 0;
             int maximumDiscountAfterDivision = 0;
-            int finalDiscount = 0;
-
-            // Вычислим сумму скидки, если куплено только 3 товара
+            int finalDiscount = 0;            
             if (price.Length == 3)
             {
                 int min = price[0];
@@ -31,13 +29,13 @@ namespace Level1Space
                     }
                 }
                 finalDiscount = min;
-            }
-            //*****************************************************
+            }          
 
             if (price.Length > 3)
             {
                 int j = 0;
-                // первый путь покупаем по 3 товара
+                int minValue = price[0];
+                int counter = 0;               
                 int counterGoods = price.Length / 3;
                 for (int i = 0; i < counterGoods; i++)
                 {
@@ -53,10 +51,40 @@ namespace Level1Space
                     maximumDiscountThreeGood += min;
                     j = i + 3;
                 }
-            }
-            
+                                       
+                for (int m = 0; m < price.Length - 1; m++)
+                {
+                    for (int l = m + 1; l < price.Length - 1; l++)
+                    {
+                        if (price[m] > price[l + 1])
+                        {
+                            int saveValue = price[m];
+                            price[m] = price[l + 1];
+                            price[l + 1] = saveValue;
+                        }
+                    }
+                }
+                
+                foreach (int test in price)
+                {
+                    Console.Write(test + " ");
+                }
+               while (counter < counterGoods)
+                {
+                    maximumDiscountAfterDivision += price[counter];
+                    counter++;
+                }
 
-            return maximumDiscountThreeGood;
+                if (maximumDiscountAfterDivision > maximumDiscountThreeGood)
+                {
+                    finalDiscount = maximumDiscountAfterDivision;
+                }
+                else
+                {
+                    finalDiscount = maximumDiscountThreeGood;
+                }
+            }
+            return finalDiscount;
         }
     }
 }
