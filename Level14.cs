@@ -17,32 +17,46 @@ namespace Level1Space
         {
             int maximumDiscountThreeGood = 0;
             int maximumDiscountAfterDivision = 0;
+            int finalDiscount = 0;
 
-            // вычислим сумму скидки, если покупать по 3 товара
-            if (price.Length > 2)
+            // Вычислим сумму скидки, если куплено только 3 товара
+            if (price.Length == 3)
             {
-                int counterGoods = price.Length / 3;
-                for (int i = 2; i < price.Length; i += 3)
+                int min = price[0];
+                for (int i = 1; i < price.Length; i++)
                 {
-                    maximumDiscountThreeGood += price[i];
-                }
-                int min = price[0];                
-                for (int j = 0; j < counterGoods; j++)
-                {
-                    for (int k = 0; k < price.Length; k++)
+                    if (min > price[i])
                     {
-                        if (min > price[k])
-                        {
-                            min = price[k];
-                        }
+                        min = price[i];
                     }
-                    maximumDiscountAfterDivision += min;
-                } 
-                
+                }
+                finalDiscount = min;
             }
-            //**********************           
+            //*****************************************************
+
+            if (price.Length > 3)
+            {
+                int j = 0;
+                // первый путь покупаем по 3 товара
+                int counterGoods = price.Length / 3;
+                for (int i = 0; i < counterGoods; i++)
+                {
+                    int min = price[j];                                        
+                    for (int k = 0; k < 3; k++)
+                    {
+                        int tmp = k;
+                        if (min > price[tmp + j])
+                        {
+                            min = price[tmp + j];
+                        }                        
+                    }
+                    maximumDiscountThreeGood += min;
+                    j = i + 3;
+                }
+            }
             
-            return maximumDiscountAfterDivision;
+
+            return maximumDiscountThreeGood;
         }
     }
 }
