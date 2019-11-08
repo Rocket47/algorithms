@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {      
+    {       
         public static int MaximumDiscount(int N, int[] price)
         {
             int maximumDiscountThreeGood = 0;
             int maximumDiscountAfterDivision = 0;
-            int finalDiscount = 0;            
+            int finalDiscount = 0;
             if (price.Length == 3)
             {
                 int min = price[0];
@@ -21,14 +21,15 @@ namespace Level1Space
                     }
                 }
                 finalDiscount = min;
-            }          
+            }
 
             if (price.Length > 3)
-            {                                                          
-                int counterGoods = price.Length / 3;
+            {
+                sortArray(price);
+                int counterGoods = price.Length / 3;                
                 maximumDiscountThreeGood = getDiscountThreeGood(counterGoods, price);
                 maximumDiscountAfterDivision = getDiscountAfterDivision(counterGoods, price);
-                finalDiscount = maximumDiscountAfterDivision >= maximumDiscountThreeGood ?  maximumDiscountAfterDivision : maximumDiscountThreeGood;                
+                finalDiscount = maximumDiscountAfterDivision >= maximumDiscountThreeGood ? maximumDiscountAfterDivision : maximumDiscountThreeGood;
             }
             return finalDiscount;
         }
@@ -57,27 +58,29 @@ namespace Level1Space
         public static int getDiscountAfterDivision(int counterGoods, int[] price)
         {
             int counter = 0;
-            int discountAfterDivision = 0;
-            for (int m = 0; m < price.Length - 1; m++)
-            {
-                for (int l = m + 1; l < price.Length - 1; l++)
-                {
-                    if (price[m] > price[l + 1])
-                    {
-                        int saveValue = price[m];
-                        price[m] = price[l + 1];
-                        price[l + 1] = saveValue;
-                    }
-                }
-            }
-
+            int discountAfterDivision = 0;            
             while (counter < counterGoods)
             {
-                discountAfterDivision += price[counter];
+                discountAfterDivision += price[price.Length - 1 - counter];
                 counter++;
             }
             return discountAfterDivision;
         }
+
+        public static void sortArray(int[] price)
+        {
+            for (int m = 0; m < price.Length; m++)
+            {
+                for (int l = m + 1; l < price.Length; l++)
+                {
+                    if (price[m] < price[l])
+                    {
+                        int saveValue = price[m];
+                        price[m] = price[l];
+                        price[l] = saveValue;
+                    }
+                }
+            }
+        }
     }
 }
-
