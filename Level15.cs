@@ -5,18 +5,10 @@ namespace Level1Space
 {
     public static class Level1
     {
-
-        public static void Main(string[] args)
-        {
-            bool result = LineAnalysis("*..*...*..*..*..*..*");
-            Console.WriteLine("\n" + result);
-            Console.ReadKey();
-        }
-
         public static bool LineAnalysis(string line)
         {
             int savePosition = 0;
-            bool result = true;            
+            bool result = true;
             List<char> arrCombination = new List<char>();
             char[] convertedStringToCharArr = line.ToCharArray();
             if (convertedStringToCharArr[0] == '*')
@@ -25,7 +17,6 @@ namespace Level1Space
             }
             for (int i = 1; i < convertedStringToCharArr.Length; i++)
             {
-
                 if (convertedStringToCharArr[i] != '*')
                 {
                     arrCombination.Add(convertedStringToCharArr[i]);
@@ -36,7 +27,6 @@ namespace Level1Space
                     break;
                 }
             }
-
             Console.WriteLine("Единый шаблон для анализа получен: ");
             foreach (char test in arrCombination)
             {
@@ -49,31 +39,46 @@ namespace Level1Space
             {
                 result = false;
             }
-            Console.WriteLine("\n" + "Получаем следующий шаблон для сравнения:");
             List<char> arrCombinationNext = new List<char>();
             arrCombinationNext.Add('*');
-            for (int j = savePosition + 1; j < convertedStringToCharArr.Length; j ++)
-            {                                
-                arrCombinationNext.Add('*');
+            for (int j = savePosition + 1; j < convertedStringToCharArr.Length; j++)
+            {
                 if (convertedStringToCharArr[j] != '*')
                 {
                     arrCombinationNext.Add(convertedStringToCharArr[j]);
                 }
                 else
                 {
-                    break;
-                    arrCombination = new List<char>();
-                    arrCombination.Add('*');                    
-                }
-                foreach(char test2 in arrCombinationNext)
-                {
-                    Console.Write(test2 + "");
+                    savePosition = j;
+                    Console.WriteLine("\n" + "Cледующий шаблон для сравнения:");
+                    foreach (char test2 in arrCombinationNext)
+                    {
+                        Console.Write(test2 + "");
+                    }
+
+                    if (arrCombination.Count != arrCombinationNext.Count)
+                    {
+                        result = false;
+                        break;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < arrCombination.Count; i++)
+                        {
+                            if (arrCombination[i] != arrCombinationNext[i])
+                            {
+                                result = false;
+                                break;
+                            }
+                        }
+                    }
+                    arrCombinationNext.Clear();
+                    arrCombinationNext.Add('*');
+                    continue;
                 }
             }
-
-            return true;
+            return result;
         }
-
     }
 }
 
