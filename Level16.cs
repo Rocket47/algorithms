@@ -4,50 +4,86 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-
-        public static void Main(string[] args)
-        {
-            ShopOLAP(2, new string[] { "платье1 5", "сумка32 2", "платье1 1" });
-            Console.ReadKey();
-        }
+    {       
         public static string[] ShopOLAP(int N, string[] items)
         {
-            string[] resultArr = new string[] { };
+            string[] resultArr = new string[N];
+            resultArr = СonvertDictionaryToArray(parseStringGetNumber(items));
             return resultArr;
-        }
+        }       
 
-        public static string[] sortingArrByCount(string[] array)
+        public static SortedDictionary<string, int> parseStringGetNumber(string[] stringArrForParsing)
         {
-            return new string[] { };
-        }
-
-        public static int parseStringGetNumber(string stringForParsing)
-        {
-            char[] analyzeArr = new char[] { };
-            string stringBeforeSpace = "";
-            int сountGood = 0;
-            bool activeSaveKey = false;
-            analyzeArr = stringForParsing.ToCharArray();
-            stringBeforeSpace = "";
-            string createString = "";
-            for (int j = 0; j < analyzeArr.Length; j++)
+            int savePreviousKey = 0;
+            SortedDictionary<string, int> sortDictionary = new SortedDictionary<string, int>();
+            for (int i = 0; i < stringArrForParsing.Length; i++)
             {
-                if (analyzeArr[j] == ' ')
+                char[] analyzeArr = new char[] { };
+                string stringBeforeSpace = "";
+                int сountGood = 0;
+                bool activeSaveKey = false;
+                analyzeArr = stringArrForParsing[i].ToCharArray();
+                stringBeforeSpace = "";
+                string createString = "";
+                for (int j = 0; j < analyzeArr.Length; j++)
                 {
-                    activeSaveKey = true;
+                    if (analyzeArr[j] == ' ')
+                    {
+                        activeSaveKey = true;
+                    }
+                    if (activeSaveKey)
+                    {
+                        createString += Char.ToString(analyzeArr[j]);
+                    }
+                    else
+                    {
+                        stringBeforeSpace += analyzeArr[j];
+                    }
                 }
-                if (activeSaveKey)
+                сountGood = Convert.ToInt32(createString);
+                if (sortDictionary.ContainsKey(stringBeforeSpace))
                 {
-                    createString += Char.ToString(analyzeArr[j]);
+                    sortDictionary[stringBeforeSpace] += сountGood;
+                    continue;
                 }
                 else
                 {
-                    stringBeforeSpace += analyzeArr[j];
+                    sortDictionary.Add(stringBeforeSpace, сountGood);
                 }
-            }            
-            сountGood = Convert.ToInt32(createString);                       
-            return сountGood;
+
+            }
+
+            return sortDictionary;
+        }
+
+        public static string[] СonvertDictionaryToArray(SortedDictionary<string, int> dictionary)
+        {
+            string[] resultArr = new string[dictionary.Count];
+            int count = 0;
+            foreach (KeyValuePair<string, int> kvp in dictionary)
+            {
+                string addToArray = kvp.Key + " " + kvp.Value;
+                resultArr[count] = addToArray;
+                count++;
+            }
+            return resultArr;
+        }
+
+        static void printDictionary(SortedDictionary<string, int> sortDictionary)
+        {
+            foreach (KeyValuePair<string, int> kvp in sortDictionary)
+            {
+
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            }
+        }
+
+        static void printArr(string[] arr)
+        {
+            foreach (string i in arr)
+            {
+                Console.WriteLine(i);
+            }
         }
     }
 }
