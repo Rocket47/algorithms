@@ -4,13 +4,17 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {        
         public static string[] ShopOLAP(int N, string[] items)
         {
             string[] resultArr = new string[N];
             resultArr = СonvertDictionaryToArray(parseStringGetNumber(items));
             return resultArr;
-        }       
+        }
+        public static string[] sortingArrByCount(string[] array)
+        {
+            return new string[] { };
+        }
 
         public static SortedDictionary<string, int> parseStringGetNumber(string[] stringArrForParsing)
         {
@@ -50,7 +54,7 @@ namespace Level1Space
                 {
                     sortDictionary.Add(stringBeforeSpace, сountGood);
                 }
-
+    
             }
 
             return sortDictionary;
@@ -60,12 +64,27 @@ namespace Level1Space
         {
             string[] resultArr = new string[dictionary.Count];
             int count = 0;
+            int saveValue = 0;
+            string saveString = "";
             foreach (KeyValuePair<string, int> kvp in dictionary)
-            {
+            {                
                 string addToArray = kvp.Key + " " + kvp.Value;
-                resultArr[count] = addToArray;
+                resultArr[count] = addToArray;               
+                if (kvp.Value > saveValue && saveValue != 0)
+                {
+                    count--;
+                    resultArr[count] = addToArray;                   
+                    count++;
+                    resultArr[count] = saveString;
+                }
+                else
+                {
+                    saveString = kvp.Key + " " + kvp.Value;
+                }
                 count++;
+                saveValue = kvp.Value;
             }
+            
             return resultArr;
         }
 
@@ -80,9 +99,9 @@ namespace Level1Space
 
         static void printArr(string[] arr)
         {
-            foreach (string i in arr)
+            foreach (string test in arr)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(test);
             }
         }
     }
