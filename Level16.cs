@@ -4,15 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-
-        public static void Main(string[] args)
-        {
-
-
-            printArr(ShopOLAP(5, new string[] { "dress1 5", "handbug32 3", "dress2 1", "handbug23 2", "handbug128 4" }));
-            Console.ReadKey();
-        }
+    {       
         public static string[] ShopOLAP(int N, string[] items)
         {
             string[] resultArr = new string[N];
@@ -21,8 +13,7 @@ namespace Level1Space
         }
 
         public static SortedDictionary<string, int> parseStringGetNumber(string[] stringArrForParsing)
-        {
-            int savePreviousKey = 0;
+        {            
             SortedDictionary<string, int> sortDictionary = new SortedDictionary<string, int>();
             for (int i = 0; i < stringArrForParsing.Length; i++)
             {
@@ -70,6 +61,7 @@ namespace Level1Space
             int count = 0;
             int number1;
             int number2;
+            int numberFowSwap;
             foreach (KeyValuePair<string, int> kvp in dictionary)
             {
                 string addToArray = kvp.Key + " " + kvp.Value;
@@ -77,27 +69,37 @@ namespace Level1Space
                 count++;
             }
             string tmp;
-            for (int i = 0; i < resultArr.Length - 1; i++)
+            if (resultArr.Length > 2)
             {
-                
-                number1 = Convert.ToInt32(resultArr[i].Substring(resultArr[i].IndexOf(" ") + 1));
-                for (int j = i + 1; j < resultArr.Length; j++)
+                for (int i = 1; i < resultArr.Length; i++)
                 {
-                    
-                    number2 = Convert.ToInt32(resultArr[j].Substring(resultArr[j].IndexOf(" ") + 1));
-                    if (number1 < number2)
+
+                    number1 = Convert.ToInt32(resultArr[i].Substring(resultArr[i].IndexOf(" ") + 1));
+                    for (int j = 01; j < resultArr.Length - 1; j++)
                     {
-                        tmp = resultArr[i];
-                        resultArr[i] = resultArr[j];                        
-                        resultArr[j] = tmp;
-                        Console.WriteLine("**************************");                       
+
+                        number2 = Convert.ToInt32(resultArr[j].Substring(resultArr[j].IndexOf(" ") + 1));
+                        numberFowSwap = Convert.ToInt32(resultArr[j + 1].Substring(resultArr[j + 1].IndexOf(" ") + 1));
+
+                        if (number2 < numberFowSwap)
+                        {
+                            tmp = resultArr[j];
+                            resultArr[j] = resultArr[j + 1];
+                            resultArr[j + 1] = tmp;
+                        }
                     }
-                    Console.WriteLine(resultArr[0]);
-                    Console.WriteLine(resultArr[1]);
-                    Console.WriteLine(resultArr[2]);
-                    Console.WriteLine(resultArr[3]);
-                    Console.WriteLine(resultArr[4]);
-                    Console.WriteLine("**************************");
+                }
+            }
+            else if (resultArr.Length == 2)
+            {
+                number1 = Convert.ToInt32(resultArr[0].Substring(resultArr[0].IndexOf(" ") + 1));
+                number2 = Convert.ToInt32(resultArr[1].Substring(resultArr[1].IndexOf(" ") + 1));
+
+                if (number1 < number2)
+                {
+                    string save = resultArr[0];
+                    resultArr[0] = resultArr[1];
+                    resultArr[1] = save;
                 }
             }
 
