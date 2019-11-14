@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {              
         public static string[] ShopOLAP(int N, string[] items)
         {
             string[] resultArr = new string[N];
@@ -75,7 +75,7 @@ namespace Level1Space
                 {
 
                     number1 = Convert.ToInt32(resultArr[i].Substring(resultArr[i].IndexOf(" ") + 1));
-                    for (int j = 01; j < resultArr.Length - 1; j++)
+                    for (int j = 0; j < resultArr.Length - 1; j++)
                     {
 
                         number2 = Convert.ToInt32(resultArr[j].Substring(resultArr[j].IndexOf(" ") + 1));
