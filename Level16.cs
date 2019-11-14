@@ -4,16 +4,20 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {        
+    {
+
+        public static void Main(string[] args)
+        {
+
+
+            printArr(ShopOLAP(5, new string[] { "dress1 5", "handbug32 3", "dress2 1", "handbug23 2", "handbug128 4" }));
+            Console.ReadKey();
+        }
         public static string[] ShopOLAP(int N, string[] items)
         {
             string[] resultArr = new string[N];
             resultArr = СonvertDictionaryToArray(parseStringGetNumber(items));
             return resultArr;
-        }
-        public static string[] sortingArrByCount(string[] array)
-        {
-            return new string[] { };
         }
 
         public static SortedDictionary<string, int> parseStringGetNumber(string[] stringArrForParsing)
@@ -54,7 +58,7 @@ namespace Level1Space
                 {
                     sortDictionary.Add(stringBeforeSpace, сountGood);
                 }
-    
+
             }
 
             return sortDictionary;
@@ -64,27 +68,39 @@ namespace Level1Space
         {
             string[] resultArr = new string[dictionary.Count];
             int count = 0;
-            int saveValue = 0;
-            string saveString = "";
+            int number1;
+            int number2;
             foreach (KeyValuePair<string, int> kvp in dictionary)
-            {                
+            {
                 string addToArray = kvp.Key + " " + kvp.Value;
-                resultArr[count] = addToArray;               
-                if (kvp.Value > saveValue && saveValue != 0)
-                {
-                    count--;
-                    resultArr[count] = addToArray;                   
-                    count++;
-                    resultArr[count] = saveString;
-                }
-                else
-                {
-                    saveString = kvp.Key + " " + kvp.Value;
-                }
+                resultArr[count] = addToArray;
                 count++;
-                saveValue = kvp.Value;
             }
-            
+            string tmp;
+            for (int i = 0; i < resultArr.Length - 1; i++)
+            {
+                
+                number1 = Convert.ToInt32(resultArr[i].Substring(resultArr[i].IndexOf(" ") + 1));
+                for (int j = i + 1; j < resultArr.Length; j++)
+                {
+                    
+                    number2 = Convert.ToInt32(resultArr[j].Substring(resultArr[j].IndexOf(" ") + 1));
+                    if (number1 < number2)
+                    {
+                        tmp = resultArr[i];
+                        resultArr[i] = resultArr[j];                        
+                        resultArr[j] = tmp;
+                        Console.WriteLine("**************************");                       
+                    }
+                    Console.WriteLine(resultArr[0]);
+                    Console.WriteLine(resultArr[1]);
+                    Console.WriteLine(resultArr[2]);
+                    Console.WriteLine(resultArr[3]);
+                    Console.WriteLine(resultArr[4]);
+                    Console.WriteLine("**************************");
+                }
+            }
+
             return resultArr;
         }
 
@@ -99,9 +115,9 @@ namespace Level1Space
 
         static void printArr(string[] arr)
         {
-            foreach (string test in arr)
+            foreach (string i in arr)
             {
-                Console.WriteLine(test);
+                Console.WriteLine(i);
             }
         }
     }
