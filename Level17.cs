@@ -7,22 +7,24 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            BastShoe("3 hello");
+            Console.WriteLine(BastShoe("2 2"));
+            Console.ReadKey();
         }
 
         public static string BastShoe(string command)
         {
             int key = 0;
+            string stringAfterKey;
             string result = "";
             key = Convert.ToInt32(command.Substring(0, command.IndexOf(" ")));
-
+            stringAfterKey = command.Substring(command.IndexOf(" ")).TrimStart(' ');
             switch (key)
             {
                 case 1:
-                   result = Add();
+                   result += Add(stringAfterKey);
                    break;
                 case 2:
-                    result = Delete();
+                    result = Delete(stringAfterKey);
                     break;
                 case 3:
                     result = GiveOut();
@@ -37,14 +39,19 @@ namespace Level1Space
             return result;
         }
 
-        public static string Add()
+        public static string Add(string mStringAfterKey)
         {
-            return null;
+            string result = "";
+            result += mStringAfterKey;
+            return result;
         }
 
-        public static string Delete()
+        public static string Delete(string mStringAfterKey)
         {
-            return null;
+            string result = "hello";
+            int countElementsForDeleting = Convert.ToInt32(mStringAfterKey);
+            result = result.Remove(result.Length - 2, countElementsForDeleting);
+            return result;
         }
 
         public static string GiveOut()
