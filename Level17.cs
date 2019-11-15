@@ -5,14 +5,25 @@ namespace Level1Space
     public static class Level1
     {
         public static string currentString;
+        public static int countCurrentPosition = 2;
+        public static int saveLastKeyValue = 0;
         public static List<string> saveStrings = new  List<string>();
 
         public static void Main(string[] args)
-        {
-            BastShoe("1 Привет");
-            BastShoe("1 , Мир!");
-            Console.WriteLine(BastShoe("4"));
-            Console.WriteLine(BastShoe("4"));
+        {           
+            Console.WriteLine(BastShoe("1 Привет"));
+            Console.WriteLine(BastShoe("1 , Мир!"));
+            Console.WriteLine(BastShoe("1 ++"));           
+            Console.WriteLine(BastShoe("2 2"));           
+            Console.WriteLine(BastShoe("4"));           
+            Console.WriteLine(BastShoe("4"));           
+            Console.WriteLine(BastShoe("1 *"));           
+            Console.WriteLine(BastShoe("4"));           
+            Console.WriteLine(BastShoe("4"));           
+            Console.WriteLine(BastShoe("4"));           
+            Console.WriteLine(BastShoe("3 6"));           
+            Console.WriteLine(BastShoe("2 100"));           
+            
             Console.ReadKey();
         }
 
@@ -20,6 +31,7 @@ namespace Level1Space
         {
             int key = 0;
             string stringAfterKey = "";
+            string result = "";
             if (command.Length > 1)
             {
                 key = Convert.ToInt32(command.Substring(0, command.IndexOf(" ")));
@@ -34,22 +46,35 @@ namespace Level1Space
                 case 1:
                     currentString += Add(stringAfterKey);
                     saveStrings.Add(currentString);
+                    saveLastKeyValue = 1;
+                    result = currentString;
                     break;
                 case 2:
                     currentString = Delete(stringAfterKey);
                     saveStrings.Add(currentString);
+                    saveLastKeyValue = 2;
+                    result = currentString;
                     break;
-                case 3:
-                    currentString = GiveOut(stringAfterKey);
+                case 3:                     
+                    result = GiveOut(stringAfterKey);
                     break;
                 case 4:
+                    if (saveLastKeyValue == 1 || saveLastKeyValue == 2)
+                    {
+                        for (int i = 0; i < saveStrings.Count - 1; i++)
+                        {
+                            saveStrings.Remove(saveStrings[i]);
+                        }
+                    }
                     currentString = Undo();
+                    result = currentString;
                     break;
                 case 5:
                     currentString = Redo();
+                    result = currentString;
                     break;
             }
-            return currentString;
+            return result;
         }
 
         public static string Add(string mStringAfterKey)
@@ -62,7 +87,10 @@ namespace Level1Space
         public static string Delete(string mStringAfterKey)
         {
             int countElementsForDeleting = Convert.ToInt32(mStringAfterKey);
-            currentString = currentString.Remove(currentString.Length - 2, countElementsForDeleting);
+            if (countElementsForDeleting < currentString.Length - 1)
+            {
+                currentString = currentString.Remove(currentString.Length - 2, countElementsForDeleting);
+            }           
             return currentString;
         }    
 
@@ -80,10 +108,11 @@ namespace Level1Space
         public static string Undo()
         {
             string result = "";
-            int position = saveStrings.Count - 2;
-            if (position >= 0)
+            int position = saveStrings.Count - countCurrentPosition;
+            if (position > 1)
             {
-                result = saveStrings[saveStrings.Count - 2];
+                result = saveStrings[position];
+                countCurrentPosition--;
             } 
             else
             {
@@ -93,7 +122,10 @@ namespace Level1Space
         }
         public static string Redo()
         {
-            return null;
+            string result = "";
+            result = saveStrings[countCurrentPosition++];
+            
+            return result;
         }
     }
 }
