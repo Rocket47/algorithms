@@ -11,25 +11,12 @@ namespace Level1Space
 
         public static void Main(string[] args)
         {
-            BastShoe("1 Привет");
-            BastShoe("1 , Мир!");
-            BastShoe("1 ++");
-            BastShoe("2 2");
-            BastShoe("4");
-            BastShoe("4");
-            BastShoe("1 *");
-            BastShoe("4");
-            BastShoe("4");
-            BastShoe("4");
-            BastShoe("3 6");
-            BastShoe("2 100");
-
-            Console.ReadKey();
+          
         }
 
         public static string BastShoe(string command)
         {
-            int key = 0;
+            int key;
             string stringAfterKey = "";
             string result = "";
             if (command.Length > 1)
@@ -42,27 +29,19 @@ namespace Level1Space
                 key = Convert.ToInt32(command);
             }
             switch (key)
-            {               
-                case 1:
-                    if (undoWas)
-                    {
-                        for (int i = 0; i < saveStrings.Count - 1; i++)
-                        {
-                            saveStrings.Remove(saveStrings[i]);
-                        }
-                        countCurrentPosition = 1;
-                    }
+            {
+                case 1:                    
                     currentString += Add(stringAfterKey);
-                    saveStrings.Add(currentString);                    
-                    result = currentString;                        
+                    saveStrings.Add(currentString);
+                    result = currentString;
                     Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда Add c ключом " + stringAfterKey);                    
+                    Console.WriteLine("Выбрана команда Add c ключом " + stringAfterKey);
                     Console.WriteLine("Результат работы команды: " + result);
                     Console.WriteLine("///////////////////////////////////////////////");
                     Console.WriteLine("Вывожу текущий лист ожидания...");
                     int counter = 0;
                     foreach (string i in saveStrings)
-                    {                        
+                    {
                         Console.WriteLine(counter + "." + " " + i);
                         counter++;
                     }
@@ -77,8 +56,8 @@ namespace Level1Space
                         }
                     }
                     currentString = Delete(stringAfterKey);
-                    saveStrings.Add(currentString);                    
-                    result = currentString;                    
+                    saveStrings.Add(currentString);
+                    result = currentString;
                     Console.WriteLine("***********************************************");
                     Console.WriteLine("Выбрана команда Delete с ключом" + stringAfterKey);
                     Console.WriteLine("Результат работы команды: " + result);
@@ -108,7 +87,7 @@ namespace Level1Space
                     Console.WriteLine("///////////////////////////////////////////////");
                     break;
                 case 4:
-                    undoWas = true;                    
+                    undoWas = true;
                     currentString = Undo();
                     result = currentString;
                     Console.WriteLine("***********************************************");
@@ -146,6 +125,14 @@ namespace Level1Space
 
         public static string Add(string mStringAfterKey)
         {
+            if (undoWas)
+            {
+                for (int i = 0; i <= saveStrings.Count + 2; i++)
+                {
+                    saveStrings.Remove(saveStrings[0]);
+                }
+                countCurrentPosition = 1;
+            }
             string result = "";
             result += mStringAfterKey;
             return result;
@@ -157,7 +144,7 @@ namespace Level1Space
             if (countElementsForDeleting < currentString.Length - 1)
             {
                 currentString = currentString.Remove(currentString.Length - 2, countElementsForDeleting);
-            } 
+            }
             else if (countElementsForDeleting >= currentString.Length)
             {
                 currentString = "";
