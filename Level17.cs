@@ -11,7 +11,18 @@ namespace Level1Space
 
         public static void Main(string[] args)
         {
-          
+            string input = "";
+            while (!input.Equals("Exit"))
+            {
+                input = Console.ReadLine();
+                Console.WriteLine(BastShoe(input));
+
+                Console.WriteLine("*****************************");
+                foreach(string i in saveStrings)
+                {
+                    Console.WriteLine(i);
+                }
+            }
         }
 
         public static string BastShoe(string command)
@@ -33,19 +44,7 @@ namespace Level1Space
                 case 1:                    
                     currentString += Add(stringAfterKey);
                     saveStrings.Add(currentString);
-                    result = currentString;
-                    Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда Add c ключом " + stringAfterKey);
-                    Console.WriteLine("Результат работы команды: " + result);
-                    Console.WriteLine("///////////////////////////////////////////////");
-                    Console.WriteLine("Вывожу текущий лист ожидания...");
-                    int counter = 0;
-                    foreach (string i in saveStrings)
-                    {
-                        Console.WriteLine(counter + "." + " " + i);
-                        counter++;
-                    }
-                    Console.WriteLine("///////////////////////////////////////////////");
+                    result = currentString;                   
                     break;
                 case 2:
                     if (undoWas)
@@ -57,67 +56,19 @@ namespace Level1Space
                     }
                     currentString = Delete(stringAfterKey);
                     saveStrings.Add(currentString);
-                    result = currentString;
-                    Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда Delete с ключом" + stringAfterKey);
-                    Console.WriteLine("Результат работы команды: " + result);
-                    Console.WriteLine("///////////////////////////////////////////////");
-                    Console.WriteLine("Вывожу текущий лист ожидания...");
-                    int counter1 = 0;
-                    foreach (string i in saveStrings)
-                    {
-                        Console.WriteLine(counter1 + "." + " " + i);
-                        counter1++;
-                    }
-                    Console.WriteLine("///////////////////////////////////////////////");
+                    result = currentString;                   
                     break;
                 case 3:
-                    result = GiveOut(stringAfterKey);
-                    Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда GetOut с ключом" + stringAfterKey);
-                    Console.WriteLine("Результат работы команды: " + result);
-                    Console.WriteLine("///////////////////////////////////////////////");
-                    Console.WriteLine("Вывожу текущий лист ожидания...");
-                    int counter2 = 0;
-                    foreach (string i in saveStrings)
-                    {
-                        Console.WriteLine(counter2 + "." + " " + i);
-                        counter2++;
-                    }
-                    Console.WriteLine("///////////////////////////////////////////////");
+                    result = GiveOut(stringAfterKey);                   
                     break;
                 case 4:
                     undoWas = true;
                     currentString = Undo();
-                    result = currentString;
-                    Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда Undo");
-                    Console.WriteLine("Результат работы команды: " + result);
-                    Console.WriteLine("///////////////////////////////////////////////");
-                    Console.WriteLine("Вывожу текущий лист ожидания...");
-                    int counter3 = 0;
-                    foreach (string i in saveStrings)
-                    {
-                        Console.WriteLine(counter3 + "." + " " + i);
-                        counter3++;
-                    }
-                    Console.WriteLine("///////////////////////////////////////////////");
+                    result = currentString;                    
                     break;
                 case 5:
                     currentString = Redo();
-                    result = currentString;
-                    Console.WriteLine("***********************************************");
-                    Console.WriteLine("Выбрана команда Redo");
-                    Console.WriteLine("Результат работы команды: " + result);
-                    Console.WriteLine("///////////////////////////////////////////////");
-                    Console.WriteLine("Вывожу текущий лист ожидания...");
-                    int counter4 = 0;
-                    foreach (string i in saveStrings)
-                    {
-                        Console.WriteLine(counter4 + "." + " " + i);
-                        counter4++;
-                    }
-                    Console.WriteLine("///////////////////////////////////////////////");
+                    result = currentString;                   
                     break;
             }
             return result;
@@ -165,7 +116,7 @@ namespace Level1Space
 
         public static string Undo()
         {
-            string result = "";
+            string result;
             int position = saveStrings.Count - countCurrentPosition;
             if (countCurrentPosition >= 1)
             {
@@ -180,7 +131,11 @@ namespace Level1Space
         }
         public static string Redo()
         {
-            string result = "";
+            string result;
+            if (countCurrentPosition < saveStrings.Count)
+            {
+                countCurrentPosition++;
+            }
             result = saveStrings[countCurrentPosition++];
 
             return result;
