@@ -18,7 +18,7 @@ namespace Level1Space
                 Console.WriteLine(BastShoe(input));
 
                 Console.WriteLine("*****************************");
-                foreach(string i in saveStrings)
+                foreach (string i in saveStrings)
                 {
                     Console.WriteLine(i);
                 }
@@ -41,34 +41,33 @@ namespace Level1Space
             }
             switch (key)
             {
-                case 1:                    
+                case 1:                  
                     currentString += Add(stringAfterKey);
                     saveStrings.Add(currentString);
-                    result = currentString;                   
+                    result = currentString;
                     break;
                 case 2:
                     if (undoWas)
                     {
-                        for (int i = 0; i < saveStrings.Count - 1; i++)
-                        {
-                            saveStrings.Remove(saveStrings[i]);
-                        }
+                        string saveCurrentLink = saveStrings[countCurrentPosition];
+                        saveStrings.Clear();
+                        saveStrings.Add(saveCurrentLink);                        
                     }
                     currentString = Delete(stringAfterKey);
                     saveStrings.Add(currentString);
-                    result = currentString;                   
+                    result = currentString;
                     break;
                 case 3:
-                    result = GiveOut(stringAfterKey);                   
+                    result = GiveOut(stringAfterKey);
                     break;
                 case 4:
                     undoWas = true;
                     currentString = Undo();
-                    result = currentString;                    
+                    result = currentString;
                     break;
                 case 5:
                     currentString = Redo();
-                    result = currentString;                   
+                    result = currentString;
                     break;
             }
             return result;
@@ -119,6 +118,7 @@ namespace Level1Space
         {
             string result = "";
             countCurrentPosition--;
+            undoWas = true;
             if (countCurrentPosition == saveStrings.Count - 1)
             {
                 countCurrentPosition--;
@@ -126,7 +126,7 @@ namespace Level1Space
             if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
             {
                 result = saveStrings[countCurrentPosition];
-            }             
+            }
             else if (countCurrentPosition <= 0)
             {
                 result = saveStrings[0];
@@ -138,16 +138,19 @@ namespace Level1Space
         {
             string result = "";
             countCurrentPosition++;
-            if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
-            {
-                result = saveStrings[countCurrentPosition];
-            }
-            else if (countCurrentPosition >= saveStrings.Count - 1)
-            {
-                result = saveStrings[saveStrings.Count - 1];
-                countCurrentPosition = saveStrings.Count - 1;
-            }
 
+            if (!undoWas)
+            {
+                if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
+                {
+                    result = saveStrings[countCurrentPosition];
+                }
+                else if (countCurrentPosition >= saveStrings.Count - 1)
+                {
+                    result = saveStrings[saveStrings.Count - 1];
+                    countCurrentPosition = saveStrings.Count - 1;
+                }
+            }
             return result;
         }
     }
