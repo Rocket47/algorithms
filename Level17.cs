@@ -5,7 +5,7 @@ namespace Level1Space
     public static class Level1
     {
         public static string currentString;
-        public static int countCurrentPosition = 2;
+        public static int countCurrentPosition = 0;
         public static bool undoWas = false;
         public static List<string> saveStrings = new List<string>();
 
@@ -76,6 +76,7 @@ namespace Level1Space
 
         public static string Add(string mStringAfterKey)
         {
+            countCurrentPosition++;
             if (undoWas)
             {
                 for (int i = 0; i <= saveStrings.Count + 2; i++)
@@ -116,27 +117,36 @@ namespace Level1Space
 
         public static string Undo()
         {
-            string result;
-            int position = saveStrings.Count - countCurrentPosition;
-            if (countCurrentPosition >= 1)
+            string result = "";
+            countCurrentPosition--;
+            if (countCurrentPosition == saveStrings.Count - 1)
             {
-                result = saveStrings[position];
                 countCurrentPosition--;
             }
-            else
+            if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
+            {
+                result = saveStrings[countCurrentPosition];
+            }             
+            else if (countCurrentPosition <= 0)
             {
                 result = saveStrings[0];
+                countCurrentPosition = 0;
             }
             return result;
         }
         public static string Redo()
         {
-            string result;
-            if (countCurrentPosition < saveStrings.Count)
+            string result = "";
+            countCurrentPosition++;
+            if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
             {
-                countCurrentPosition++;
+                result = saveStrings[countCurrentPosition];
             }
-            result = saveStrings[countCurrentPosition++];
+            else if (countCurrentPosition >= saveStrings.Count - 1)
+            {
+                result = saveStrings[saveStrings.Count - 1];
+                countCurrentPosition = saveStrings.Count - 1;
+            }
 
             return result;
         }
