@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 namespace Level1Space
 {
     public static class Level1
@@ -7,23 +8,7 @@ namespace Level1Space
         public static string currentString;
         public static int countCurrentPosition = 0;
         public static bool undoWas = false;
-        public static List<string> saveStrings = new List<string>();
-
-        public static void Main(string[] args)
-        {
-            string input = "";
-            while (!input.Equals("Exit"))
-            {
-                input = Console.ReadLine();
-                Console.WriteLine(BastShoe(input));
-
-                Console.WriteLine("*****************************");
-                foreach (string i in saveStrings)
-                {
-                    Console.WriteLine(i);
-                }
-            }
-        }
+        public static List<string> saveStrings = new List<string>();       
 
         public static string BastShoe(string command)
         {
@@ -41,7 +26,14 @@ namespace Level1Space
             }
             switch (key)
             {
-                case 1:                  
+                case 1:
+                    if (undoWas)
+                    {
+                        string saveCurrentLink = saveStrings[countCurrentPosition];
+                        saveStrings.Clear();
+                        saveStrings.Add(saveCurrentLink);
+                        undoWas = false;
+                    }
                     currentString += Add(stringAfterKey);
                     saveStrings.Add(currentString);
                     result = currentString;
@@ -51,7 +43,8 @@ namespace Level1Space
                     {
                         string saveCurrentLink = saveStrings[countCurrentPosition];
                         saveStrings.Clear();
-                        saveStrings.Add(saveCurrentLink);                        
+                        saveStrings.Add(saveCurrentLink);
+                        undoWas = false;
                     }
                     currentString = Delete(stringAfterKey);
                     saveStrings.Add(currentString);
@@ -75,15 +68,7 @@ namespace Level1Space
 
         public static string Add(string mStringAfterKey)
         {
-            countCurrentPosition++;
-            if (undoWas)
-            {
-                for (int i = 0; i <= saveStrings.Count + 2; i++)
-                {
-                    saveStrings.Remove(saveStrings[0]);
-                }
-                countCurrentPosition = 1;
-            }
+            countCurrentPosition++;      
             string result = "";
             result += mStringAfterKey;
             return result;
@@ -138,9 +123,7 @@ namespace Level1Space
         {
             string result = "";
             countCurrentPosition++;
-
-            if (!undoWas)
-            {
+            
                 if (countCurrentPosition < saveStrings.Count && countCurrentPosition > 0)
                 {
                     result = saveStrings[countCurrentPosition];
@@ -149,8 +132,7 @@ namespace Level1Space
                 {
                     result = saveStrings[saveStrings.Count - 1];
                     countCurrentPosition = saveStrings.Count - 1;
-                }
-            }
+                }            
             return result;
         }
     }
