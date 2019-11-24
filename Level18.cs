@@ -8,42 +8,52 @@ namespace Level1Space
 
         public static void Main(string[] args)
         {
-            BiggerGreater("roman");
+            BiggerGreater("вибк");
             Console.ReadKey();
         }
 
         public static string BiggerGreater(string input)
         {
             string result = "";
-            int lengthArr = factorial_Recursion(input.Length) / (factorial_Recursion(input.Length - 2));   
+            int counter = 0;
+            int lengthArr = factorial_Recursion(input.Length) / (factorial_Recursion(input.Length - 2));
             string[] magicWords = new string[lengthArr];
             char[] arrPerSymbols = input.ToCharArray();
-            for (int i = 0; i < arrPerSymbols.Length - 1; i++)
+            for (int i = 0; i < arrPerSymbols.Length; i++)
             {
-                for (int j = 1; j < arrPerSymbols.Length; j++)
-                if (arrPerSymbols[i] != arrPerSymbols[j])
+                for (int j = i + 1; j < arrPerSymbols.Length; j++)
                 {
-                    char tmp = arrPerSymbols[i];
-                    arrPerSymbols[i] = arrPerSymbols[j];
-                    arrPerSymbols[i] = tmp;
-                    string word = new string(arrPerSymbols);
-                    magicWords[i] = word;
-                }
+                    if (arrPerSymbols[i] != arrPerSymbols[j])
+                    {
+                        char tmp = arrPerSymbols[i];
+                        arrPerSymbols[i] = arrPerSymbols[j];
+                        arrPerSymbols[j] = tmp;
+                        string word = new string(arrPerSymbols);
+                        magicWords[counter] = word;
+                        Array.Clear(arrPerSymbols, 0, arrPerSymbols.Length);
+                        arrPerSymbols = input.ToCharArray();
+                        counter++;
+                    }
+                }                
             }
             foreach (string test in magicWords)
             {
                 Console.WriteLine(test);
-            }            
+            }
             return result;
         }
 
         public static int factorial_Recursion(int number)
         {
+            if (number == 0)
+            {
+                return 1;
+            }
+
             if (number == 1)
                 return 1;
-            else
+            else 
                 return number * factorial_Recursion(number - 1);
         }
     }
 }
-
