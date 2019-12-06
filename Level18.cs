@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
+    {       
         static List<string> resultList = new List<string>();
         public static string BiggerGreater(string input)
         {
@@ -16,7 +16,7 @@ namespace Level1Space
                 Console.WriteLine(test);
             }
 
-            Console.WriteLine("You ask: " + searchMinimalWord(resultList, input));
+            result = searchMinimalWord(resultList, input);           
             return result;
         }
 
@@ -24,7 +24,8 @@ namespace Level1Space
         {
             if (startIndex == endIndex)
             {
-                resultList.Add(str);                              
+                resultList.Add(str);
+                // Console.WriteLine(str);                
             }
             else
             {
@@ -95,15 +96,15 @@ namespace Level1Space
         public static string searchMinimalWord(List<string> arrForSearching, string srcWord)
         {
             string finalWord = "";
-            List<string> listWithMoreThenSrcWord = new List<string>();
-            for (int i = 0; i < arrForSearching.Count; i++)
-            {
-                string test = arrForSearching[i];
-                if ((string.Compare(srcWord, arrForSearching[i]) < 0))
+            List<string> listWithMoreThenSrcWord = new List<string>();               
+                for (int i = 0; i < arrForSearching.Count; i++)
                 {
-                    listWithMoreThenSrcWord.Add(arrForSearching[i]);
+                    string test = arrForSearching[i];
+                    if ((string.Compare(srcWord, arrForSearching[i]) < 0))
+                    {
+                        listWithMoreThenSrcWord.Add(arrForSearching[i]);
+                    }                                      
                 }
-            }
             if (listWithMoreThenSrcWord.Count != 0)
             {
                 finalWord = listWithMoreThenSrcWord[0];
@@ -114,8 +115,8 @@ namespace Level1Space
                         finalWord = listWithMoreThenSrcWord[j];
                     }
                 }
-            }
-
+            }          
+          
             return finalWord;
         }
     }
