@@ -5,44 +5,48 @@ namespace Level1Space
 {
     public static class Level1
     {
-
-        public static void Main(string[] args)
-        {
-            BiggerGreater("вкиб");
-            Console.ReadKey();
-        }
-
+        static List<string> resultList = new List<string>();
         public static string BiggerGreater(string input)
         {
             string result = "";
-            int counter = 0;
-            int lengthArr = factorial_Recursion(input.Length) / (factorial_Recursion(input.Length - 2));
-            string[] magicWords = new string[lengthArr];
-            char[] arrPerSymbols = input.ToCharArray();
-            for (int i = 0; i < arrPerSymbols.Length; i++)
-            {
-                for (int j = i + 1; j < arrPerSymbols.Length; j++)
-                {
-                    if (arrPerSymbols[i] != arrPerSymbols[j])
-                    {
-                        char tmp = arrPerSymbols[i];
-                        arrPerSymbols[i] = arrPerSymbols[j];
-                        arrPerSymbols[j] = tmp;
-                        string word = new string(arrPerSymbols);
-                        magicWords[counter] = word;
-                        Array.Clear(arrPerSymbols, 0, arrPerSymbols.Length);
-                        arrPerSymbols = input.ToCharArray();
-                        counter++;
-                    }
-                }
-            }
-            foreach (string test in magicWords)
+            permute(input, 0, input.Length - 1);
+            resultList.RemoveAt(0);
+            foreach (string test in resultList)
             {
                 Console.WriteLine(test);
             }
 
-            Console.WriteLine("You ask: " + searchMinimalWord(magicWords, input));
+            Console.WriteLine("You ask: " + searchMinimalWord(resultList, input));
             return result;
+        }
+
+        public static void permute(string str, int startIndex, int endIndex)
+        {
+            if (startIndex == endIndex)
+            {
+                resultList.Add(str);                              
+            }
+            else
+            {
+                for (int i = startIndex; i <= endIndex; i++)
+                {
+                    str = swap(str, startIndex, i);
+                    permute(str, startIndex + 1, endIndex);
+                    str = swap(str, startIndex, i);
+                }
+            }
+        }
+
+
+        public static string swap(string inputString, int i, int j)
+        {
+            char temp;
+            char[] charArray = inputString.ToCharArray();
+            temp = charArray[i];
+            charArray[i] = charArray[j];
+            charArray[j] = temp;
+            string str = new string(charArray);
+            return str;
         }
 
         public static int factorial_Recursion(int number)
@@ -67,6 +71,8 @@ namespace Level1Space
                 char[] s2 = string2.ToCharArray();
                 for (int i = 0; i < string1.Length; i++)
                 {
+                    char test1 = s1[i];
+                    char test2 = s2[i];
                     if (s1[i].CompareTo(s2[i]) > 0)
                     {
                         result = true;
@@ -86,31 +92,30 @@ namespace Level1Space
             return result;
         }
 
-        public static string searchMinimalWord(string[] arrForSearching, string srcWord)
+        public static string searchMinimalWord(List<string> arrForSearching, string srcWord)
         {
-            string finalWord = arrForSearching[0];
-            try
+            string finalWord = "";
+            List<string> listWithMoreThenSrcWord = new List<string>();
+            for (int i = 0; i < arrForSearching.Count; i++)
             {
-                for (int i = 1; i < arrForSearching.Length; i++)
+                string test = arrForSearching[i];
+                if ((string.Compare(srcWord, arrForSearching[i]) < 0))
                 {
-                    string test = arrForSearching[i];
-                    if (finalWord.CompareTo(srcWord) > 0)
+                    listWithMoreThenSrcWord.Add(arrForSearching[i]);
+                }
+            }
+            if (listWithMoreThenSrcWord.Count != 0)
+            {
+                finalWord = listWithMoreThenSrcWord[0];
+                for (int j = 1; j < listWithMoreThenSrcWord.Count; j++)
+                {
+                    if (compareToWords(finalWord, listWithMoreThenSrcWord[j]) == true)
                     {
-                        if (compareToWords(finalWord, arrForSearching[i]) == true)
-                        {
-                            finalWord = arrForSearching[i];
-                        }
-                    }
-                    else
-                    {
-                        finalWord = arrForSearching[i];
+                        finalWord = listWithMoreThenSrcWord[j];
                     }
                 }
             }
-            catch (NullReferenceException ex)
-            {
 
-            }
             return finalWord;
         }
     }
