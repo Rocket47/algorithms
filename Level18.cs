@@ -4,19 +4,15 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {
         static List<string> resultList = new List<string>();
+        static bool flag = false;      
         public static string BiggerGreater(string input)
         {
-            string result = "";
+            string result = null;
             permute(input, 0, input.Length - 1);
-            resultList.RemoveAt(0);
-            foreach (string test in resultList)
-            {
-                Console.WriteLine(test);
-            }
-
-            result = searchMinimalWord(resultList, input);           
+            resultList.RemoveAt(0);            
+            result = searchMinimalWord(resultList, input);         
             return result;
         }
 
@@ -25,7 +21,7 @@ namespace Level1Space
             if (startIndex == endIndex)
             {
                 resultList.Add(str);
-                // Console.WriteLine(str);                
+                            
             }
             else
             {
@@ -37,7 +33,6 @@ namespace Level1Space
                 }
             }
         }
-
 
         public static string swap(string inputString, int i, int j)
         {
@@ -66,6 +61,7 @@ namespace Level1Space
         public static bool compareToWords(string string1, string string2)
         {
             bool result = false;
+
             try
             {
                 char[] s1 = string1.ToCharArray();
@@ -76,13 +72,20 @@ namespace Level1Space
                     char test2 = s2[i];
                     if (s1[i].CompareTo(s2[i]) > 0)
                     {
+                        flag = false;
                         result = true;
                         break;
                     }
 
                     else if (s1[i].CompareTo(s2[i]) < 0)
                     {
+                        flag = false;
                         break;
+                    }
+                    
+                    else
+                    {
+                        flag = true;
                     }
                 }
             }
@@ -96,15 +99,15 @@ namespace Level1Space
         public static string searchMinimalWord(List<string> arrForSearching, string srcWord)
         {
             string finalWord = "";
-            List<string> listWithMoreThenSrcWord = new List<string>();               
-                for (int i = 0; i < arrForSearching.Count; i++)
+            List<string> listWithMoreThenSrcWord = new List<string>();
+            for (int i = 0; i < arrForSearching.Count; i++)
+            {
+                string test = arrForSearching[i];
+                if ((string.Compare(srcWord, arrForSearching[i]) < 0))
                 {
-                    string test = arrForSearching[i];
-                    if ((string.Compare(srcWord, arrForSearching[i]) < 0))
-                    {
-                        listWithMoreThenSrcWord.Add(arrForSearching[i]);
-                    }                                      
+                    listWithMoreThenSrcWord.Add(arrForSearching[i]);
                 }
+            }
             if (listWithMoreThenSrcWord.Count != 0)
             {
                 finalWord = listWithMoreThenSrcWord[0];
@@ -113,10 +116,13 @@ namespace Level1Space
                     if (compareToWords(finalWord, listWithMoreThenSrcWord[j]) == true)
                     {
                         finalWord = listWithMoreThenSrcWord[j];
-                    }
+                    }                   
                 }
-            }          
-          
+            }
+            if (flag)
+            {
+                finalWord = "";
+            }
             return finalWord;
         }
     }
