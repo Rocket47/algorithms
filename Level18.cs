@@ -6,13 +6,14 @@ namespace Level1Space
     public static class Level1
     {
         static List<string> resultList = new List<string>();
-        static bool flag = false;      
+        static bool flag = false;             
         public static string BiggerGreater(string input)
         {
+            resultList.Clear();
             string result = null;
             permute(input, 0, input.Length - 1);
             resultList.RemoveAt(0);            
-            result = searchMinimalWord(resultList, input);         
+            result = searchMinimalWord(resultList, input);            
             return result;
         }
 
@@ -20,8 +21,7 @@ namespace Level1Space
         {
             if (startIndex == endIndex)
             {
-                resultList.Add(str);
-                            
+                resultList.Add(str);                         
             }
             else
             {
@@ -57,11 +57,9 @@ namespace Level1Space
                 return number * factorial_Recursion(number - 1);
         }
 
-
         public static bool compareToWords(string string1, string string2)
         {
             bool result = false;
-
             try
             {
                 char[] s1 = string1.ToCharArray();
@@ -76,7 +74,6 @@ namespace Level1Space
                         result = true;
                         break;
                     }
-
                     else if (s1[i].CompareTo(s2[i]) < 0)
                     {
                         flag = false;
@@ -121,7 +118,7 @@ namespace Level1Space
             }
             if (flag)
             {
-                finalWord = "";
+                //finalWord = string.Empty;
             }
             return finalWord;
         }
