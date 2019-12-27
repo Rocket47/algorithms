@@ -10,40 +10,46 @@ namespace Level1Space
     {
         static void Main(string[] args)
         {
+            bool result = Level1.SherlockValidString("xxyyz");
+            bool expectedResult = true;
         }
-
+    
         public static bool SherlockValidString(string s)
         {
-            bool isValid = false;
-            Dictionary<int, char> countOfEachSymbolList = createDictionaryCountOfEachSymbols(s);
+            Dictionary<char, int> countOfEachSymbolList = createDictionaryCountOfEachSymbols(s);
+            bool isValid = true;
+            int saveActualCount = -1;
+            int counter = 0;
+            foreach (KeyValuePair<char, int> entry in countOfEachSymbolList)
+            {
+                if (saveActualCount == -1)
+                {
+                    saveActualCount = entry.Value;
+                }
 
+                if (saveActualCount - entry.Value > 1)
+                {
+                    counter++;
+                }
+            }
+            if (counter > 1)
+            {
+                isValid = false;
+            }
             return isValid;
         }
 
-        public static Dictionary<int, char> createDictionaryCountOfEachSymbols(string s)
-        {            
+        public static LinkedList<char> createDictionaryCountOfEachSymbols(string s)
+        {
             char[] arr = s.ToCharArray();
-            Dictionary<int, char> listHasCountOfEachSymbols = new Dictionary<int, char>();
-            for (int i = 0; i < arr.Length - 1; i++)
+            int saveCount = 0;
+            char symbolToCheck;
+            LinkedList<char> symbols = new LinkedList<char>(arr);
+            for (int i = 0; i < symbols.Count; i++)
             {
-                int counter = 0;
-                if (listHasCountOfEachSymbols.ContainsValue(arr[i]))
-                {
-                    continue;
-                }
-                for (int j = 1; j < arr.Length; j++)
-                {
-                    if (arr[i] == arr[j])
-                    {
-                        counter++;
-                    }
-                }
-                if (!listHasCountOfEachSymbols.ContainsValue(arr[i]))
-                {
-                    listHasCountOfEachSymbols.Add(counter, arr[i]);
-                }
+                for (int j = 1; j < symbols)
             }
-            return listHasCountOfEachSymbols;
+            return symbols;
         }
     }
 }
