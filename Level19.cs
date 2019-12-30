@@ -10,46 +10,52 @@ namespace Level1Space
     {
         static void Main(string[] args)
         {
-            bool result = Level1.SherlockValidString("xxyyz");
-            bool expectedResult = true;
+            Level1.SherlockValidString("xyz");
+            Console.ReadKey();
         }
-    
+
         public static bool SherlockValidString(string s)
         {
-            Dictionary<char, int> countOfEachSymbolList = createDictionaryCountOfEachSymbols(s);
-            bool isValid = true;
-            int saveActualCount = -1;
-            int counter = 0;
-            foreach (KeyValuePair<char, int> entry in countOfEachSymbolList)
-            {
-                if (saveActualCount == -1)
-                {
-                    saveActualCount = entry.Value;
-                }
-
-                if (saveActualCount - entry.Value > 1)
-                {
-                    counter++;
-                }
-            }
-            if (counter > 1)
-            {
-                isValid = false;
-            }
-            return isValid;
+            Dictionary<char, string> countEachSymbol = new Dictionary<char, string>();
+            countEachSymbol = crtDictionaryCountOfEachSymbol(s);           
+            return false;
         }
 
-        public static LinkedList<char> createDictionaryCountOfEachSymbols(string s)
+        public static Dictionary<char, string> crtDictionaryCountOfEachSymbol(string s)
         {
-            char[] arr = s.ToCharArray();
-            int saveCount = 0;
-            char symbolToCheck;
-            LinkedList<char> symbols = new LinkedList<char>(arr);
-            for (int i = 0; i < symbols.Count; i++)
+            char[] arrCharSymbolsFromString = s.ToCharArray();
+            Dictionary<char, string> dictionarySaveCountOfElements = new Dictionary<char, string>();
+            int counter = 0;
+            for (int i = 0; i < arrCharSymbolsFromString.Length - 1; i++)
             {
-                for (int j = 1; j < symbols)
+                if (!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[i]))
+                {
+                    for (int j = 0; j < arrCharSymbolsFromString.Length; j++)
+                    {
+                        if (arrCharSymbolsFromString[i] == arrCharSymbolsFromString[j])
+                        {
+                            counter++;
+                        }
+                    }
+                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i], counter.ToString());
+                    if (!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[arrCharSymbolsFromString.Length - 1]))
+                    {
+                        counter = 1;
+                        dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[arrCharSymbolsFromString.Length - 1], counter.ToString());
+                    }
+                    counter = 0;
+                }
+                else
+                {
+                    continue;
+                }
             }
-            return symbols;
+
+            foreach (KeyValuePair<char, string> kvp in dictionarySaveCountOfElements)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            }
+            return dictionarySaveCountOfElements;
         }
     }
 }
