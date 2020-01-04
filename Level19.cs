@@ -10,14 +10,14 @@ namespace Level1Space
     {
         static void Main(string[] args)
         {
-            Level1.SherlockValidString("xyz");
+            Level1.SherlockValidString("xxyyz");
             Console.ReadKey();
         }
 
         public static bool SherlockValidString(string s)
         {
             Dictionary<char, string> countEachSymbol = new Dictionary<char, string>();
-            countEachSymbol = crtDictionaryCountOfEachSymbol(s);           
+            countEachSymbol = crtDictionaryCountOfEachSymbol(s);
             return false;
         }
 
@@ -25,29 +25,29 @@ namespace Level1Space
         {
             char[] arrCharSymbolsFromString = s.ToCharArray();
             Dictionary<char, string> dictionarySaveCountOfElements = new Dictionary<char, string>();
-            int counter = 0;
+            int counter;
             for (int i = 0; i < arrCharSymbolsFromString.Length - 1; i++)
             {
+                counter = 1;
                 if (!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[i]))
                 {
-                    for (int j = 0; j < arrCharSymbolsFromString.Length; j++)
+                    for (int j = i + 1; j < arrCharSymbolsFromString.Length; j++)
                     {
                         if (arrCharSymbolsFromString[i] == arrCharSymbolsFromString[j])
                         {
                             counter++;
                         }
                     }
-                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i], counter.ToString());
-                    if (!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[arrCharSymbolsFromString.Length - 1]))
-                    {
-                        counter = 1;
-                        dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[arrCharSymbolsFromString.Length - 1], counter.ToString());
-                    }
-                    counter = 0;
-                }
+                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i], counter.ToString());                  
+                }               
                 else
                 {
                     continue;
+                }
+                if ((!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[i+1])) && ((i + 1) == arrCharSymbolsFromString.Length - 1))
+                {
+                    counter = 1;
+                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i+1], counter.ToString());
                 }
             }
 
