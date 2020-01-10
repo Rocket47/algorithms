@@ -1,61 +1,55 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Level1Space
 {
     public static class Level1
-    {
-        static void Main(string[] args)
-        {
-            Level1.SherlockValidString("xxyyz");
-            Console.ReadKey();
-        }
-
+    {        
         public static bool SherlockValidString(string s)
         {
-            Dictionary<char, string> countEachSymbol = new Dictionary<char, string>();
-            countEachSymbol = crtDictionaryCountOfEachSymbol(s);
-            return false;
-        }
-
-        public static Dictionary<char, string> crtDictionaryCountOfEachSymbol(string s)
-        {
-            char[] arrCharSymbolsFromString = s.ToCharArray();
-            Dictionary<char, string> dictionarySaveCountOfElements = new Dictionary<char, string>();
-            int counter;
-            for (int i = 0; i < arrCharSymbolsFromString.Length - 1; i++)
+            bool result = true;
+            int savePreviousCount = 0;
+            int countErrorCondition = 0;
+            Dictionary<char, int> infoSymbols = OccurrenceEachSymbol(s);
+            foreach (KeyValuePair<char, int> kvp in infoSymbols)
             {
-                counter = 1;
-                if (!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[i]))
+                if (savePreviousCount == 0)
                 {
-                    for (int j = i + 1; j < arrCharSymbolsFromString.Length; j++)
-                    {
-                        if (arrCharSymbolsFromString[i] == arrCharSymbolsFromString[j])
-                        {
-                            counter++;
-                        }
-                    }
-                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i], counter.ToString());                  
-                }               
+                    savePreviousCount = kvp.Value;                    
+                }
+                else if (kvp.Value == savePreviousCount)
+                {
+                    savePreviousCount = kvp.Value;
+                }
+                else if ((Math.Abs(kvp.Value - savePreviousCount) == 1) && (countErrorCondition == 0))
+                {
+                    countErrorCondition = 1;
+                }
                 else
                 {
-                    continue;
-                }
-                if ((!dictionarySaveCountOfElements.ContainsKey(arrCharSymbolsFromString[i+1])) && ((i + 1) == arrCharSymbolsFromString.Length - 1))
-                {
-                    counter = 1;
-                    dictionarySaveCountOfElements.Add(arrCharSymbolsFromString[i+1], counter.ToString());
+                    result = false;
                 }
             }
+            return result;
+        }
 
-            foreach (KeyValuePair<char, string> kvp in dictionarySaveCountOfElements)
+        public static Dictionary<char, int> OccurrenceEachSymbol(string inputStr)
+        {
+            Dictionary<char, int> listSymbols = new Dictionary<char, int>();
+            while (inputStr.Length > 0)
             {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-            }
-            return dictionarySaveCountOfElements;
+                int count = 0;
+                for (int i = 0; i < inputStr.Length; i++)
+                {
+                    if (inputStr[0] == inputStr[i])
+                    {
+                        count++;
+                    }
+                }
+                listSymbols.Add(inputStr[0], count);
+                inputStr = inputStr.Replace(inputStr[0].ToString(), "");
+            }           
+            return listSymbols;
         }
     }
 }
