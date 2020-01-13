@@ -8,40 +8,25 @@ namespace Level1Space
     {
         static void Main(string[] args)
         {
-            int[,] matrix = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            MatrixTurn(matrix, 4, 6, 3);
+            string[] Matrix = new string[] { "123456", "234567", "345678", "456789" };
+            MatrixTurn(Matrix, 4, 6, 3);
+            Console.WriteLine(Matrix[0]);
             Console.ReadKey();
-
         }
 
-        public static int[,] MatrixTurn(int[,] Matrix, int M, int N, int T)
-        {           
+        public static void MatrixTurn(string[] Matrix, int M, int N, int T)
+        {
+            int countOfSquare = 0;
+            countOfSquare = M < N ? (M / 2) : (N / 2);
+            for (int i = 0; i < Matrix.Length; i++)
             {
-                int[,] newMatrix = new int[Matrix.GetLength(1), Matrix.GetLength(0)];
-                int newColumn, newRow = 0;
-                for (int oldColumn = Matrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
+                char[] arrayOfNumber = Matrix[i].ToCharArray();
+                for (int j = 0; j < countOfSquare; j++) 
                 {
-                    newColumn = 0;
-                    for (int oldRow = 0; oldRow < Matrix.GetLength(0); oldRow++)
-                    {
-                        newMatrix[newRow, newColumn] = Matrix[oldRow, oldColumn];
-                        newColumn++;
-                    }
-                    newRow++;                    
-                }
-                
-                for (int row = 0; row < newMatrix.GetLength(0); row++)
-                {
-                    for (int col = 0; col < newMatrix.GetLength(1); col++)
-                    {
-                        Console.Write(newMatrix[row, col] + " ");
-                    }
 
-                    Console.WriteLine();
                 }
-                return newMatrix;
             }
-        }
+        }       
     }
 }
 
