@@ -14,17 +14,17 @@ namespace Level1Space
         }
 
         public static void MatrixTurn(string[] Matrix, int M, int N, int T)
-        {
-            string oldUpSide = "";
-            string oldDownSide = "";
-            string leftSide = "";
-            string rightSide = "";
-            string strToSort = "";
+        {           
             int countOfSquare = 0;         
             countOfSquare = M < N ? (M / 2) : (N / 2);
-
             for (int i = 0; i < countOfSquare; i++)
             {
+                string oldUpSide = "";
+                string oldDownSide = "";
+                string leftSide = "";
+                string rightSide = "";
+                string strToSort = "";
+
                 for (int m = 0; m < Matrix.Length; m++)
                 {
                     leftSide += Matrix[m][i].ToString();
@@ -58,19 +58,26 @@ namespace Level1Space
                     Array.Reverse(reverseArr);
                     oldDownSide = new string(reverseArr);
                     strToSort = oldUpSide + oldDownSide;
-                }
+                }               
                 Console.WriteLine(oldUpSide);
                 Console.WriteLine(rightSide);
                 Console.WriteLine(oldDownSide);
                 Console.WriteLine(leftSide);
                 Console.WriteLine("Получилась строка: " + strToSort);
-                Console.WriteLine("********new cicle*********");
-                oldDownSide = "";
-                oldUpSide = "";
-                leftSide = "";
-                rightSide = "";
-                strToSort = "";
+                strToSort = reverseString(strToSort);
+                Console.WriteLine("Строка после реверса: " + strToSort);
+                Console.WriteLine("********new cicle*********");              
             }                
+        }
+
+        public static string reverseString(string newString)
+        {
+            string result = newString[newString.Length - 1].ToString();
+            for (int i = 0; i < newString.Length - 1 ; i++)
+            {
+                result += newString[i].ToString();
+            }
+            return result;
         }
     }
 }
