@@ -14,8 +14,8 @@ namespace Level1Space
         }
 
         public static void MatrixTurn(string[] Matrix, int M, int N, int T)
-        {           
-            int countOfSquare = 0;         
+        {
+            int countOfSquare = 0;
             countOfSquare = M < N ? (M / 2) : (N / 2);
             for (int i = 0; i < countOfSquare; i++)
             {
@@ -40,7 +40,7 @@ namespace Level1Space
                 else
                 {
                     oldUpSide = Matrix[i];
-                    oldDownSide = Matrix[(Matrix.Length - 1) - i];                                        
+                    oldDownSide = Matrix[(Matrix.Length - 1) - i];
                 }
                 if (leftSide.Length > 2 && rightSide.Length > 2)
                 {
@@ -53,31 +53,32 @@ namespace Level1Space
                     strToSort = oldUpSide + rightSide.Substring(1, rightSide.Length - 2) + oldDownSide + leftSide.Substring(1, leftSide.Length - 2);
                 }
                 else
-                {                   
+                {
                     char[] reverseArr = oldDownSide.ToCharArray();
                     Array.Reverse(reverseArr);
                     oldDownSide = new string(reverseArr);
                     strToSort = oldUpSide + oldDownSide;
-                }               
+                }
                 Console.WriteLine(oldUpSide);
                 Console.WriteLine(rightSide);
                 Console.WriteLine(oldDownSide);
                 Console.WriteLine(leftSide);
                 Console.WriteLine("Получилась строка: " + strToSort);
+                Console.WriteLine("Делаем реверс стандартным методом " );            
+                Console.WriteLine("Смотрим " + strToSort);
                 strToSort = reverseString(strToSort);
                 Console.WriteLine("Строка после реверса: " + strToSort);
-                Console.WriteLine("********new cicle*********");              
-            }                
+                Console.WriteLine("********new cicle*********");
+            }
         }
 
         public static string reverseString(string newString)
         {
-            string result = newString[newString.Length - 1].ToString();
-            for (int i = 0; i < newString.Length - 1 ; i++)
-            {
-                result += newString[i].ToString();
-            }
-            return result;
+            char[] a = newString.ToCharArray();
+            Array.Reverse(a);
+            newString = new string(a);
+            return newString;
+            
         }
     }
 }
