@@ -65,91 +65,125 @@ namespace Level1Space
                 Console.WriteLine(oldDownSide);
                 Console.WriteLine(leftSide);
                 Console.WriteLine("Получилась строка: " + strToSort);
-                Console.WriteLine("Делаем реверс стандартным методом " );            
-                Console.WriteLine("Смотрим " + strToSort);
+                Console.WriteLine("Делаем реверс стандартным методом " );                        
                 strToSort = reverseString(strToSort);
                 Console.WriteLine("Строка после реверса: " + strToSort);
                 Console.WriteLine("********new cicle*********");
 
+
+                int position = 0;
+                int mainIndex = 0;
+                int rowLength = N;
+                int columnLength = M - ((i + 1) * 2);
+                int index = i + 1;
                 //******here I fill a new matrix**********
-                for (int count = 0; count <= countOfSquare; count++)
-                {
-                    int position = 0;
-                    int rowLength = N - ((i + 1) * 2);
-                    int columnLength = M - ((i + 1) * 2);
+                for (int count = 0; count < strToSort.Length; count++)
+                {                   
+                    string test;                                   
                     if (position == 0)
                     {
-                        if (count != (rowLength - 1))
+                        if (mainIndex != (rowLength))
                         {
-                            newMatrix[i, count] = Matrix[count];
+                            test = strToSort[mainIndex].ToString();
+                            newMatrix[i, mainIndex] = strToSort[mainIndex].ToString();
+                            mainIndex++;
                         }
                         else
                         {
                             position++;
-                            count = 0;
+                            mainIndex = 0;
                         }
                     }
                     if (position == 1)
                     {
-                        if (count != (columnLength - 1))
-                        {
-                            newMatrix[i++, rowLength - i] = Matrix[count];
+                        if (mainIndex != (columnLength ))
+                        {                           
+                            test = strToSort[count].ToString();
+                            newMatrix[index, rowLength - index] = strToSort[count].ToString();
+                            index++;
+                            mainIndex++;
                         }
                         else
                         {
                             position++;
-                            count = 0;
+                            mainIndex = 0;                          
                         }
                     }
                     if (position == 2)
                     {
-                        if (count != (rowLength - 1))
+                        if (mainIndex != (rowLength - 1))
                         {
-                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                            test = strToSort[mainIndex].ToString();
+                            newMatrix[columnLength - 1, rowLength - 1] = strToSort[mainIndex].ToString();
                         }
                         else
                         {
                             position++;
-                            count = 0;
+                            mainIndex = 0;
                         }
                     }
                     if (position == 2)
                     {
-                        if (count != (rowLength - 1))
+                        test = strToSort[mainIndex].ToString();
+                        if (mainIndex != (rowLength - 1))
                         {
-                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                            newMatrix[columnLength - 1, rowLength - 1] = strToSort[mainIndex].ToString();
                         }
                         else
                         {
                             position++;
-                            count = 0;
+                            mainIndex = 0;
                         }
                     }
                     if (position == 3)
                     {
-                        if (count != (rowLength - 1))
+                        if (mainIndex != (rowLength - 1))
                         {
-                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                            test = strToSort[mainIndex].ToString();
+                            newMatrix[columnLength - 1, columnLength - 1] = strToSort[mainIndex].ToString();
                         }
                         else
                         {
                             position++;
-                            count = 0;
+                            mainIndex = 0;
                         }
                     }
                 }
-            }            
+            }
+
+            //***********show new matrix*********//
+            int rowLeng = newMatrix.GetLength(0);
+            int colLeng = newMatrix.GetLength(1);
+
+            for (int r = 0; r < rowLeng; r++)
+            {
+                for (int t = 0; t < colLeng; t++)
+                {
+                    Console.Write(string.Format("{0} ", newMatrix[r, t]));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }
 
         }
+
+        //public static string reverseString(string newString)
+        //{
+        //    char[] a = newString.ToCharArray();
+        //    Array.Reverse(a);
+        //    newString = new string(a);
+        //    return newString;            
+        //}
 
         public static string reverseString(string newString)
         {
-            char[] a = newString.ToCharArray();
-            Array.Reverse(a);
-            newString = new string(a);
-            return newString;            
+            string result = newString[newString.Length - 1].ToString();
+            for (int i = 0; i < newString.Length - 1; i++)
+            {
+                result += newString[i].ToString();
+            }
+            return result;
         }
-     
+
     }
 }
 
