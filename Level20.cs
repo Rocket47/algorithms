@@ -17,6 +17,7 @@ namespace Level1Space
         {
             int countOfSquare = 0;
             countOfSquare = M < N ? (M / 2) : (N / 2);
+            string[,] newMatrix = new string[M, N];
             for (int i = 0; i < countOfSquare; i++)
             {
                 string oldUpSide = "";
@@ -69,7 +70,76 @@ namespace Level1Space
                 strToSort = reverseString(strToSort);
                 Console.WriteLine("Строка после реверса: " + strToSort);
                 Console.WriteLine("********new cicle*********");
-            }
+
+                //******here I fill a new matrix**********
+                for (int count = 0; count <= countOfSquare; count++)
+                {
+                    int position = 0;
+                    int rowLength = N - ((i + 1) * 2);
+                    int columnLength = M - ((i + 1) * 2);
+                    if (position == 0)
+                    {
+                        if (count != (rowLength - 1))
+                        {
+                            newMatrix[i, count] = Matrix[count];
+                        }
+                        else
+                        {
+                            position++;
+                            count = 0;
+                        }
+                    }
+                    if (position == 1)
+                    {
+                        if (count != (columnLength - 1))
+                        {
+                            newMatrix[i++, rowLength - i] = Matrix[count];
+                        }
+                        else
+                        {
+                            position++;
+                            count = 0;
+                        }
+                    }
+                    if (position == 2)
+                    {
+                        if (count != (rowLength - 1))
+                        {
+                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                        }
+                        else
+                        {
+                            position++;
+                            count = 0;
+                        }
+                    }
+                    if (position == 2)
+                    {
+                        if (count != (rowLength - 1))
+                        {
+                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                        }
+                        else
+                        {
+                            position++;
+                            count = 0;
+                        }
+                    }
+                    if (position == 3)
+                    {
+                        if (count != (rowLength - 1))
+                        {
+                            newMatrix[columnLength - 1, rowLength - 1] = Matrix[count];
+                        }
+                        else
+                        {
+                            position++;
+                            count = 0;
+                        }
+                    }
+                }
+            }            
+
         }
 
         public static string reverseString(string newString)
@@ -77,9 +147,9 @@ namespace Level1Space
             char[] a = newString.ToCharArray();
             Array.Reverse(a);
             newString = new string(a);
-            return newString;
-            
+            return newString;            
         }
+     
     }
 }
 
