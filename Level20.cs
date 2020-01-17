@@ -72,26 +72,33 @@ namespace Level1Space
 
 
                 int position = 0;
-                int mainIndex = 0;
+                int mainIndex = i;
                 int rowLength = N;
                 int columnLength = M - ((i + 1) * 2);
                 int index = i + 1;
                 //******here I fill a new matrix**********
+               
+                if (i == 1)
+                {
+                    Console.WriteLine();
+                }
                 for (int count = 0; count < strToSort.Length; count++)
                 {
+                   
                     string test;
                     if (position == 0)
                     {
                         if (mainIndex < rowLength - i)
-                        {
-                            test = strToSort[mainIndex].ToString();
+                        {                            
+                            test = strToSort[count].ToString();
                             newMatrix[i, mainIndex] = strToSort[count].ToString();
                             mainIndex++;
+                            showMatrix(newMatrix);
                         }
                         else
                         {
                             position++;
-                            mainIndex = 0;
+                            mainIndex = i;
                         }
                     }
                     if (position == 1)
@@ -108,7 +115,7 @@ namespace Level1Space
                         {
                             index = i + 1;
                             position++;
-                            mainIndex = 0;
+                            mainIndex = i;
                         }                        
                     }
                     if (position == 2)
@@ -124,21 +131,23 @@ namespace Level1Space
                         else
                         {
                             position++;
-                            mainIndex = 0;
+                            mainIndex = i;
+                            index = i+1;
                         }
                     }                    
                     if (position == 3)
                     {
-                        if (mainIndex < (rowLength - 1))
+                        if (mainIndex < (rowLength - i))
                         {
                             test = strToSort[count].ToString();
-                            newMatrix[columnLength - 1, columnLength - 1] = strToSort[count].ToString();
+                            newMatrix[columnLength - mainIndex, columnLength - 1] = strToSort[count].ToString();
                             showMatrix(newMatrix);
+                            mainIndex++;
                         }
                         else
                         {
                             position++;
-                            mainIndex = 0;
+                            mainIndex = i;
                         }
                     }
                 }
