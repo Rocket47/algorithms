@@ -6,17 +6,17 @@ namespace Level1Space
 {
     public static class Level1
     {
-        // static string[] Matrix = new string[] { "123456", "234567", "345678", "456789" };
+        //static string[] Matrix = new string[] { "123456", "234567", "345678", "456789" };
         //static string[] Matrix = new string[] { "123", "456", "789" };
-        // static string[] Matrix = new string[] { "412", "753", "896", "956" };
-        static string[] Matrix = new string[] { "1234", "5678", "4567", "2343" };
-       // static string[] Matrix = new string[] { "12", "34"};
+        //static string[] Matrix = new string[] { "412", "753", "896", "956" };
+        //static string[] Matrix = new string[] { "1234", "5678", "4567", "2343" };
+        static string[] Matrix = new string[] { "12", "34"};
         static void Main(string[] args)
         {                     
            // MatrixTurn(Matrix, 4, 6, 3);           
-            //MatrixTurn(Matrix, 4, 3, 3);           
-            MatrixTurn(Matrix, 4, 4, 3);           
-            //MatrixTurn(Matrix, 2, 2, 3);           
+           // MatrixTurn(Matrix, 3, 3, 3);           
+           // MatrixTurn(Matrix, 4, 4, 3);           
+            MatrixTurn(Matrix, 2, 2, 3);           
             Console.ReadKey();
         }
 
@@ -83,15 +83,13 @@ namespace Level1Space
                 int rowLength = N;
                 int columnLength = M - ((i + 1) * 2);
                 int index = i + 1;
-                //******here I fill a new matrix**********
-
+                //******here I fill a new matrix**********               
                 if (i == 1)
                 {
                     Console.WriteLine();
                 }
                 for (int count = 0; count < strToSort.Length; count++)
                 {
-
                     string test;
                     if (position == 0)
                     {
@@ -128,9 +126,15 @@ namespace Level1Space
                     }
                     if (position == 2)
                     {
+                        bool check = true;
                         if (mainIndex < (rowLength - i))
-                        {
-                            if (columnLength == 0) { columnLength++; }   
+                        {                           
+                            if (columnLength == 0) { columnLength++; }
+                            if (M == 2 && check)
+                            {
+                                columnLength = 0;
+                                check = false;
+                            }
                             test = strToSort[count].ToString();
                             newMatrix[columnLength + 1, rowLength - index] = strToSort[count].ToString();
                             index++;
@@ -158,10 +162,19 @@ namespace Level1Space
                             position++;
                             mainIndex = i;
                         }
-                    }
+                    }                    
                 }
-                
-            }
+                if (N == 3)
+                {
+                    for (int num = 1; num < M - 1; num++)
+                    {
+                        string test = Matrix[num][1].ToString();
+                        newMatrix[num, 1] = Matrix[num][1].ToString();
+                        showMatrix(newMatrix);
+                    }
+                    }
+
+                }
             changeMainMatrix(ref Matrix, newMatrix, N);
         }
         public static void showMatrix(string[,] newMatrix)
