@@ -6,10 +6,17 @@ namespace Level1Space
 {
     public static class Level1
     {
+        // static string[] Matrix = new string[] { "123456", "234567", "345678", "456789" };
+        //static string[] Matrix = new string[] { "123", "456", "789" };
+        // static string[] Matrix = new string[] { "412", "753", "896", "956" };
+        static string[] Matrix = new string[] { "1234", "5678", "4567", "2343" };
+       // static string[] Matrix = new string[] { "12", "34"};
         static void Main(string[] args)
-        {
-            string[] Matrix = new string[] { "123456", "234567", "345678", "456789" };
-            MatrixTurn(Matrix, 4, 6, 3);
+        {                     
+           // MatrixTurn(Matrix, 4, 6, 3);           
+            //MatrixTurn(Matrix, 4, 3, 3);           
+            MatrixTurn(Matrix, 4, 4, 3);           
+            //MatrixTurn(Matrix, 2, 2, 3);           
             Console.ReadKey();
         }
 
@@ -153,8 +160,9 @@ namespace Level1Space
                         }
                     }
                 }
-
+                
             }
+            changeMainMatrix(ref Matrix, newMatrix, N);
         }
         public static void showMatrix(string[,] newMatrix)
         {
@@ -174,14 +182,7 @@ namespace Level1Space
             Console.WriteLine("*********КОНЕЦ**************");
 
             //************END SHOW NEW MATRIX************
-        }
-        //public static string reverseString(string newString)
-        //{
-        //    char[] a = newString.ToCharArray();
-        //    Array.Reverse(a);
-        //    newString = new string(a);
-        //    return newString;            
-        //}
+        }       
 
         public static string reverseString(string newString)
         {
@@ -193,6 +194,19 @@ namespace Level1Space
             return result;
         }
 
+        public static void changeMainMatrix(ref string[] Matrix, string[,] newMatrix, int lengthRow)
+        {
+            string result = "";
+            for (int i = 0; i < newMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < lengthRow; j++)
+                {
+                    result += newMatrix[i,j];
+                }
+                Matrix[i] = result;
+                result = "";
+            }
+        }
     }
 }
 
