@@ -5,48 +5,49 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {      
-        static void Main(string[] args)
-        {
-            int[] A = new int[] { 2, 3, 4, 2, 1, 3, 4 };
-            TransformTransform(A, 7);
-            Console.ReadKey();
-        }
-
+    {              
         public static bool TransformTransform(int[] A, int N)
         {
-            bool result = false;           
+            bool result = false;
+            List<int> B = new List<int>();
+            B = Converter(Converter(A).ToArray());
+            int sum = SumElementList(B);			
+            if (sum % 2 == 0)
+            {
+                result = true;
+            }                        
+            return result;
+        }
+        public static List<int> Converter(int[] arr)
+        {
             List<int> B = new List<int>();
             int k = 0;
-            for (int i = 0; i < A.Length; i++)
-            {               
-                for (int j = 0; j < A.Length - i - 1; j++)
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length - i - 1; j++)
                 {
                     k = i + j;
                     int max = 0;
                     for (int t = j; t <= k; t++)
                     {
-                        if (A[j] > max)
+                        if (arr[j] > max)
                         {
-                            max = A[j];
+                            max = arr[j];
                         }
                     }
-                    B.Add(max);                      
-                }                       
+                    B.Add(max);
+                }
             }
-            int[] newArray = B.ToArray();
-            WriteToConsole(B);
-            TransformTransform(newArray, newArray.Length);           
-            return result;
-        }
-
-        static public void WriteToConsole(IEnumerable items)
+            return B;
+        }       
+        public static int SumElementList(IEnumerable items)
         {
-            Console.WriteLine("***********new circle************");
+            int result = 0;
             foreach (object o in items)
             {
-                Console.WriteLine(o);
+                result += Convert.ToInt32(o);
             }
+            return result;
         }
     }
 }
