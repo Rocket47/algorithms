@@ -1,21 +1,20 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Level1Space
 {
     public static class Level1
-    {              
+    {       
         public static bool TransformTransform(int[] A, int N)
         {
             bool result = false;
             List<int> B = new List<int>();
             B = Converter(Converter(A).ToArray());
-            int sum = SumElementList(B);			
+            int sum = SumElementList(B.ToArray());
             if (sum % 2 == 0)
             {
                 result = true;
-            }                        
+            }
             return result;
         }
         public static List<int> Converter(int[] arr)
@@ -39,13 +38,13 @@ namespace Level1Space
                 }
             }
             return B;
-        }       
-        public static int SumElementList(IEnumerable items)
+        }      
+        public static int SumElementList(int[] items)
         {
             int result = 0;
-            foreach (object o in items)
+            foreach (int o in items)
             {
-                result += Convert.ToInt32(o);
+                result += o;
             }
             return result;
         }
