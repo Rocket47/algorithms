@@ -23,15 +23,15 @@ namespace Level1Space
             int k = 0;
             for (int i = 0; i < arr.Length; i++)
             {
-                for (int j = 0; j < arr.Length - i - 1; j++)
+                for (int j = 0; j < arr.Length - i; j++)
                 {
                     k = i + j;
                     int max = 0;
                     for (int t = j; t <= k; t++)
                     {
-                        if (arr[j] > max)
+                        if (arr[t] > max)
                         {
-                            max = arr[j];
+                            max = arr[t];
                         }
                     }
                     B.Add(max);
