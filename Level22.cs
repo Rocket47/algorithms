@@ -13,13 +13,22 @@ namespace Level1Space
         }
         public static string BalancedParentheses(int N)
         {
-            string result = "()";            
-            if (N >= 2)
+            string[] arr = new string[N];
+            string openBracket = "(";
+            string closeBracket = ")";
+            string result = "";
+            for (int i = 0; i < N; i++)
             {
-                N = N - 1;               
-                return result += BalancedParentheses(N);
+                if (N % 2 == 0)
+                {
+                    arr[i] = openBracket;
+                }                        
+                else
+                {
+                    arr[i] = closeBracket; 
+                }
             }
             return result;
-        }               
+        }
     }
 }
