@@ -8,25 +8,29 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(BalancedParentheses(2));
+            Console.WriteLine(BalancedParentheses(3));
             Console.ReadKey();
         }
         public static string BalancedParentheses(int N)
         {
-            string[] arr = new string[N];
             string openBracket = "(";
             string closeBracket = ")";
-            string result = "";
+            string result = "";            
+            if (N > 0)
+            {
+                N = N - 1;
+                result =  RepeatString(N);
+                return result;
+            }
+            return result;
+        }
+
+        public static string RepeatString(int N)
+        {
+            string result = "()";
             for (int i = 0; i < N; i++)
             {
-                if (N % 2 == 0)
-                {
-                    arr[i] = openBracket;
-                }                        
-                else
-                {
-                    arr[i] = closeBracket; 
-                }
+                result += "(" +  result + ")";
             }
             return result;
         }
