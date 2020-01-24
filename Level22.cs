@@ -6,6 +6,7 @@ namespace Level1Space
 {
     public static class Level1
     {
+        public static int saveValue = 0;
         public static void Main(string[] args)
         {
             Console.WriteLine(BalancedParentheses(3));
@@ -13,25 +14,29 @@ namespace Level1Space
         }
         public static string BalancedParentheses(int N)
         {
-            string openBracket = "(";
+            string result = "";
+            string bothBracket = "()";           
             string closeBracket = ")";
-            string result = "";            
             if (N > 0)
-            {
+            { 
+                if (N > saveValue)
+                if (N > 1)
+                {
+                    result += "(";
+                }
+                for (int i = 1; i < N; i++)
+                {                  
+                    result +=  bothBracket;
+                }
+                if (N > 1)
+                {
+                   result += closeBracket;
+                }
                 N = N - 1;
-                result =  RepeatString(N);
-                return result;
+                result += BalancedParentheses(N);
+                return result + bothBracket;              
             }
-            return result;
-        }
-
-        public static string RepeatString(int N)
-        {
-            string result = "()";
-            for (int i = 0; i < N; i++)
-            {
-                result += "(" +  result + ")";
-            }
+            
             return result;
         }
     }
