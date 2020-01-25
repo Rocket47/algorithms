@@ -6,37 +6,46 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int saveValue = 0;
         public static void Main(string[] args)
         {
-            Console.WriteLine(BalancedParentheses(3));
+            Console.WriteLine(BalancedParentheses(2));
             Console.ReadKey();
         }
         public static string BalancedParentheses(int N)
         {
+            int SaveValue = N;
+            string result = DoRecursion(N, SaveValue);
+            return result;
+        }
+
+
+        public static string DoRecursion(int N, int SaveValue)
+        {
             string result = "";
-            string bothBracket = "()";           
+            string bothBracket = "()";
             string closeBracket = ")";
             if (N > 0)
-            { 
-                if (N > saveValue)
+            {
                 if (N > 1)
                 {
                     result += "(";
                 }
                 for (int i = 1; i < N; i++)
-                {                  
-                    result +=  bothBracket;
-                }
+                {
+                    result += bothBracket;
+                }                
                 if (N > 1)
                 {
-                   result += closeBracket;
+                    result += closeBracket;
+                    for (int i = 0; i < SaveValue - N; i++)
+                    {
+                        result += bothBracket;
+                    }
                 }
                 N = N - 1;
-                result += BalancedParentheses(N);
-                return result + bothBracket;              
+                result += DoRecursion(N, SaveValue);
+                return result + bothBracket;
             }
-            
             return result;
         }
     }
