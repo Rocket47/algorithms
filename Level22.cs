@@ -8,45 +8,41 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(BalancedParentheses(2));
+            Console.WriteLine(BalancedParentheses(3));
             Console.ReadKey();
         }
         public static string BalancedParentheses(int N)
         {
             int SaveValue = N;
-            string result = DoRecursion(N, SaveValue);
+            
             return result;
         }
 
-
-        public static string DoRecursion(int N, int SaveValue)
+        public static string DoRecursion(int countOpenBracket, int countCloseBracket, int maxCountOpenBracket)
         {
             string result = "";
-            string bothBracket = "()";
-            string closeBracket = ")";
-            if (N > 0)
+            if (countCloseBracket < maxCountOpenBracket)
             {
-                if (N > 1)
+                if (countOpenBracket > countCloseBracket)
+                {
+                    result += ")";
+                    return DoRecursion(countOpenBracket - 1, countCloseBracket, maxCountOpenBracket);
+                }
+                if (countOpenBracket < countCloseBracket)
                 {
                     result += "(";
+                    return DoRecursion(countOpenBracket, countCloseBracket - 1, maxCountOpenBracket);
                 }
-                for (int i = 1; i < N; i++)
+                if (countOpenBracket == countCloseBracket)
                 {
-                    result += bothBracket;
-                }                
-                if (N > 1)
-                {
-                    result += closeBracket;
-                    for (int i = 0; i < SaveValue - N; i++)
-                    {
-                        result += bothBracket;
-                    }
+
                 }
-                N = N - 1;
-                result += DoRecursion(N, SaveValue);
-                return result + bothBracket;
+                return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket);
             }
-            return result;
+           
         }
+
+
+       
     }
 }
