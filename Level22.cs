@@ -9,19 +9,22 @@ namespace Level1Space
         public static List<string> resultList = new List<string>();
         public static void Main(string[] args)
         {
-            Console.WriteLine(BalancedParentheses(3));
+            BalancedParentheses(2);
             Console.ReadKey();
         }
         public static string BalancedParentheses(int N)
         {
-            string result = "";
-            DoRecursion(0, 0, N, result);
+            string result = "";           
+            if (N > 0)
+            {
+                result = DoRecursion(0, 0, N, result);
+                N = N - 1;
+            }
             foreach (string n in resultList)
             {
                 Console.Write(n);
                 Console.Write(" ");
             }
-
             return result;
         }
 
@@ -35,19 +38,16 @@ namespace Level1Space
                     countCloseBracket++;
                     return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket, result);
                 }
-                if (countOpenBracket < countCloseBracket)
+                if (countOpenBracket < maxCountOpenBracket)
                 {
                     result += "(";
                     countOpenBracket++;
-                    return DoRecursion(countOpenBracket++, countCloseBracket++, maxCountOpenBracket, result);
+                    return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket, result);
                 }
-                if (countOpenBracket == countCloseBracket)
-                {
-                    resultList.Add(result);
-                    countOpenBracket++;
-                    countOpenBracket++;
-                }
-                return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket, result);
+            }
+            if (countOpenBracket == countCloseBracket)
+            {
+                resultList.Add(result);
             }
             return result;
         }
