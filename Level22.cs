@@ -7,10 +7,12 @@ namespace Level1Space
     {
         static char[] ResultArr;
         static string result = "";       
+      
         public static string BalancedParentheses(int N)
         {
-            Pattern(N);                        
-            return result;    
+            Pattern(N);
+            result = result.TrimEnd();
+            return result; 
         }
 
         public static void DoRecursion(int countOpenBracket, int countCloseBracket, int maxCountOpenBracket, int pos,  char[] ResultArr)
