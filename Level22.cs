@@ -6,50 +6,49 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static List<string> resultList = new List<string>();
-        public static void Main(string[] args)
-        {
-            BalancedParentheses(2);
-            foreach (string n in resultList)
-            {
-                Console.Write(n);
-                Console.Write(" ");
-            }
-            Console.ReadKey();
-        }
+        static char[] ResultArr;
+        static string result = "";       
         public static string BalancedParentheses(int N)
         {
-            string result = "";
-            if (N > 0)
-            {                
-                N = N - 1;
-                return DoRecursion(0, 0, N, result);              
-            }            
-            return BalancedParentheses(N);
+            Pattern(N);                        
+            return result;    
         }
 
-        public static string DoRecursion(int countOpenBracket, int countCloseBracket, int maxCountOpenBracket, string result)
+        public static void DoRecursion(int countOpenBracket, int countCloseBracket, int maxCountOpenBracket, int pos,  char[] ResultArr)
         {
-            if (countCloseBracket < maxCountOpenBracket)
+            if (countCloseBracket == maxCountOpenBracket)
+            {
+                foreach (char n in ResultArr)
+                {
+                    result += n;
+                }
+                result += " ";
+                return;
+            }
+            else
             {
                 if (countOpenBracket > countCloseBracket)
                 {
-                    result += ")";
-                    countCloseBracket++;
-                    return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket, result);
+                    ResultArr[pos] = ')';
+                    DoRecursion(countOpenBracket, countCloseBracket + 1, maxCountOpenBracket, pos + 1, ResultArr);
                 }
                 if (countOpenBracket < maxCountOpenBracket)
                 {
-                    result += "(";
-                    countOpenBracket++;
-                    return DoRecursion(countOpenBracket, countCloseBracket, maxCountOpenBracket, result);
-                }                
+                    ResultArr[pos] = '(';
+                    DoRecursion(countOpenBracket + 1, countCloseBracket, maxCountOpenBracket, pos + 1, ResultArr);
+                }
             }
-            if (countOpenBracket == countCloseBracket)
+        }
+
+        public static void Pattern(int N)
+        {
+            ResultArr = new char[N * 2];
+            if (N > 0)
             {
-                resultList.Add(result);                                
+                DoRecursion(0, 0, N, 0, ResultArr);
+                return;
             }
-            return result;
         }
     }
 }
+
