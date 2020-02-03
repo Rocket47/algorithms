@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {      
+    {
         public static void Main(string[] args)
         {
-            int[] F = new int[] { 1,3,2 };
+            int[] F = new int[] { 1, 3, 2 };
             Console.WriteLine(Footbal(F, 3));
             Console.ReadKey();
         }
@@ -22,9 +22,6 @@ namespace Level1Space
         {
             bool result = false;
             int previous = 1;
-            int saveErrorIndex = 0;
-            int saveNextAfterSmallerValue = 0;
-            int saveLast = 0;
             int count = 0;
             for (int i = 0; i < F.Length; i++)
             {
@@ -34,20 +31,17 @@ namespace Level1Space
                 }
                 if (F[i] < previous && count < 2)
                 {
-                    count = 1;
-                    saveNextAfterSmallerValue = i + 1;
-                    saveErrorIndex = i;                   
-                }
-                else if (count == 1 && F[i] > previous)
-                {
-                    saveLast = F[i + 1];
-                    if (F[saveErrorIndex] >= saveNextAfterSmallerValue && F[i] <= saveLast)
+                    count++;
+                    for (int j = i; j < F.Length; j++)
                     {
-                        result = true;
+                        if ((F[i] > F[j - 1] && F[i] < F[j + 1]) && (F[j] > F[i - 1] && F[j] < F[i + 1]))
+                        {
+                            result = true;
+                        }
                     }
-                    count = 0;
                 }
-                previous = i;
+                previous = F[i];
+
             }
             return result;
         }
