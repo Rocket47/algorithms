@@ -63,13 +63,24 @@ namespace Level1Space
                     }
                 }
                 previous = i;
-
             }
             return result;
         }
 
         public static bool Check2ndMethod(int[] F)
         {
+            bool chainExist = false;
+            int countChainMaxSide = 0;
+            int countChainMinSide = 0;
+            int previous = 0;
+            for (int i = 0; i < F.Length; i++)
+            {
+                if ()
+                {
+                    countChain
+                    previous = i;
+                }                
+            }
             bool result = false;
             return result;
         }
