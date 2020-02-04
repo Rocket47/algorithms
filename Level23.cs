@@ -7,7 +7,7 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            int[] F = new int[] { 1, 3, 2 };
+            int[] F = new int[] { 9, 5, 3, 7, 1 };
             Console.WriteLine(Footbal(F, 3));
             Console.ReadKey();
         }
@@ -21,7 +21,7 @@ namespace Level1Space
         public static bool Check1stMethod(int[] F)
         {
             bool result = false;
-            int previous = 1;
+            int previous = 0;
             int count = 0;
             for (int i = 0; i < F.Length; i++)
             {
@@ -29,18 +29,40 @@ namespace Level1Space
                 {
                     break;
                 }
-                if (F[i] < previous && count < 2)
+                if (F[i] < F[previous] && count < 2)
                 {
                     count++;
-                    for (int j = i; j < F.Length; j++)
+                    int j = i;
+                    if (i + 1 == F.Length)
                     {
-                        if ((F[i] > F[j - 1] && F[i] < F[j + 1]) && (F[j] > F[i - 1] && F[j] < F[i + 1]))
+                        if (F[i] > F[i - 2])
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
+                    while (j < F.Length)
+                    {
+                        int tmp = F[j];
+                        F[j] = F[previous];
+                        F[previous] = tmp;         
+                        if (previous == 0)
+                        {
+                            previous = 1;
+                        }
+                        if ((F[j] > F[j - 1] && F[j] < F[j + 1]) && ((F[previous] > F[previous - 1]) && (F[previous] < F[previous + 1])))
                         {
                             result = true;
                         }
+                        else
+                        {
+                            F[previous] = F[j];
+                            F[j] = tmp;
+                        }
+                        j++;
                     }
                 }
-                previous = F[i];
+                previous = i;
 
             }
             return result;
