@@ -7,14 +7,23 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            int[] F = new int[] { 1, 4, 3, 2, 5 };
-            Console.WriteLine(Footbal(F, 3));
+            int[] F = new int[] { 3, 2, 1 };
+            Console.WriteLine(Footbal(F, 5));
             Console.ReadKey();
         }
         public static bool Footbal(int[] F, int N)
         {
+            int[] SaveArr = F;
+            bool ResultCheck1stMethod = false;
+            bool Result2ndMethod = false;
             bool result = false;
-            result = Check2ndMethod(F);
+            ResultCheck1stMethod = Check1stMethod(F);
+            F = SaveArr;
+            Result2ndMethod = Check2ndMethod(SaveArr);
+            if (ResultCheck1stMethod == true || Result2ndMethod == true)
+            {
+                result = true;
+            }
             return result;
         }
 
@@ -23,6 +32,7 @@ namespace Level1Space
             bool result = false;
             int previous = 0;
             int count = 0;
+            int k = 0;
             for (int i = 0; i < F.Length; i++)
             {
                 if (count == 2)
@@ -50,7 +60,8 @@ namespace Level1Space
                         {
                             previous = 1;
                         }
-                        if ((F[j] > F[j - 1] && F[j] < F[j + 1]) && ((F[previous] > F[previous - 1]) && (F[previous] < F[previous + 1])))
+                        k = j + 1 >= F.Length ? j - 1 : j;
+                        if ((F[j] > F[j - 1] && F[j] < F[k + 1]) && ((F[previous] > F[previous - 1]) && (F[previous] < F[previous + 1])))
                         {
                             result = true;
                         }
@@ -76,9 +87,12 @@ namespace Level1Space
             int ResultChainValue = 0;
             int SaveFirstPosition = 0;
             int previous = 0;
+            int k, j = 1;
             for (int i = 0; i < F.Length; i++)
             {
-                if (F[i] > previous && CountChainMinSide == 0)
+                int a = F[i];
+                int b = F[previous];
+                if (F[i] >= F[previous] && CountChainMinSide == 0)
                 {
                     if (CountChainMaxSide == 0)
                     {
@@ -93,7 +107,7 @@ namespace Level1Space
                     ChainExist = false;
                     CountChainMinSide = 0;
                 }
-                if (F[i] < previous && CountChainMaxSide == 0)
+                if (F[i] <= F[previous] && CountChainMaxSide == 0)
                 {
                     if (CountChainMinSide == 0)
                     {
@@ -111,14 +125,14 @@ namespace Level1Space
             }
             if (ChainExist)
             {
-                ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;
-            }            
-            if (SaveFirstPosition == 0 || )
-            if (F[SaveFirstPosition] >= F[SaveFirstPosition - 1] && F[ResultChainValue - 1] >= F[ResultChainValue] )
+            ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;            
+            SaveFirstPosition = SaveFirstPosition == 0 ? k = 0 : k = 1;
+            ResultChainValue = ResultChainValue == 0 ? j = 0 : j = 1;
+            if (F[SaveFirstPosition] >= F[SaveFirstPosition - k] && F[ResultChainValue - j] >= F[ResultChainValue])
             {
                 result = true;
             }
-                       
+            }
             return result;
         }
     }
