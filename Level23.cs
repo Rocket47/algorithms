@@ -7,14 +7,14 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            int[] F = new int[] { 9, 5, 3, 7, 1 };
+            int[] F = new int[] { 1, 4, 3, 2, 5 };
             Console.WriteLine(Footbal(F, 3));
             Console.ReadKey();
         }
         public static bool Footbal(int[] F, int N)
         {
             bool result = false;
-            result = Check1stMethod(F);
+            result = Check2ndMethod(F);
             return result;
         }
 
@@ -69,19 +69,56 @@ namespace Level1Space
 
         public static bool Check2ndMethod(int[] F)
         {
-            bool chainExist = false;
-            int countChainMaxSide = 0;
-            int countChainMinSide = 0;
+            bool ChainExist = false;
+            bool result = false;
+            int CountChainMaxSide = 0;
+            int CountChainMinSide = 0;
+            int ResultChainValue = 0;
+            int SaveFirstPosition = 0;
             int previous = 0;
             for (int i = 0; i < F.Length; i++)
             {
-                if ()
+                if (F[i] > previous && CountChainMinSide == 0)
                 {
-                    countChain
+                    if (CountChainMaxSide == 0)
+                    {
+                        SaveFirstPosition = i;
+                    }
+                    ChainExist = true;
+                    CountChainMaxSide++;
+                    previous = i;                   
+                }         
+                else
+                {
+                    ChainExist = false;
+                    CountChainMinSide = 0;
+                }
+                if (F[i] < previous && CountChainMaxSide == 0)
+                {
+                    if (CountChainMinSide == 0)
+                    {
+                        SaveFirstPosition = i;
+                    }
+                    ChainExist = true;
+                    CountChainMinSide++;
                     previous = i;
-                }                
+                }
+                else
+                {
+                    ChainExist = false;
+                    CountChainMaxSide++;
+                }
             }
-            bool result = false;
+            if (ChainExist)
+            {
+                ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;
+            }            
+            if (SaveFirstPosition == 0 || )
+            if (F[SaveFirstPosition] >= F[SaveFirstPosition - 1] && F[ResultChainValue - 1] >= F[ResultChainValue] )
+            {
+                result = true;
+            }
+                       
             return result;
         }
     }
