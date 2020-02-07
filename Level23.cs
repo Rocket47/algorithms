@@ -13,12 +13,15 @@ namespace Level1Space
         }
         public static bool Footbal(int[] F, int N)
         {
-            int[] SaveArr = F;
+            int[] SaveArr = { 3, 2, 1 };
             bool ResultCheck1stMethod = false;
             bool Result2ndMethod = false;
             bool result = false;
-            ResultCheck1stMethod = Check1stMethod(F);
-            F = SaveArr;
+            ResultCheck1stMethod = Check1stMethod(F);  
+            foreach(int n in SaveArr)
+            {
+                Console.WriteLine(n);
+            }
             Result2ndMethod = Check2ndMethod(SaveArr);
             if (ResultCheck1stMethod == true || Result2ndMethod == true)
             {
@@ -55,7 +58,7 @@ namespace Level1Space
                     {
                         int tmp = F[j];
                         F[j] = F[previous];
-                        F[previous] = tmp;         
+                        F[previous] = tmp;
                         if (previous == 0)
                         {
                             previous = 1;
@@ -96,12 +99,18 @@ namespace Level1Space
                 {
                     if (CountChainMaxSide == 0)
                     {
-                        SaveFirstPosition = i;
+                        SaveFirstPosition = i;                       
                     }
-                    ChainExist = true;
-                    CountChainMaxSide++;
-                    previous = i;                   
-                }         
+                    else if (i > 0)
+                    {
+                        CountChainMaxSide++;
+                    } 
+                    else
+                    {
+                        ChainExist = true;                        
+                        previous = i;
+                    }                 
+                }
                 else
                 {
                     ChainExist = false;
@@ -113,25 +122,27 @@ namespace Level1Space
                     {
                         SaveFirstPosition = i;
                     }
-                    ChainExist = true;
-                    CountChainMinSide++;
+                    else if (i > 0)
+                    {
+                       CountChainMinSide++;
+                    }
+                    ChainExist = true;                    
                     previous = i;
                 }
                 else
                 {
-                    ChainExist = false;
-                    CountChainMaxSide++;
+                    ChainExist = false;                    
                 }
             }
             if (ChainExist)
             {
-            ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;            
-            SaveFirstPosition = SaveFirstPosition == 0 ? k = 0 : k = 1;
-            ResultChainValue = ResultChainValue == 0 ? j = 0 : j = 1;
-            if (F[SaveFirstPosition] >= F[SaveFirstPosition - k] && F[ResultChainValue - j] >= F[ResultChainValue])
-            {
-                result = true;
-            }
+                ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;
+                SaveFirstPosition = SaveFirstPosition == 0 ? k = 0 : k = 1;
+                ResultChainValue = ResultChainValue == 0 ? j = 0 : j = 1;
+                if (F[SaveFirstPosition] >= F[SaveFirstPosition - k] && F[ResultChainValue - j] >= F[ResultChainValue])
+                {
+                    result = true;
+                }
             }
             return result;
         }
