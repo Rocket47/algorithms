@@ -7,18 +7,17 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            int[] F = new int[] { 3, 2, 1 };
-            Console.WriteLine(Footbal(F, 5));
-            Console.ReadKey();
+            CheckJustReverseOrder(new int[] { 3, 2, 1 });
         }
         public static bool Footbal(int[] F, int N)
         {
-            int[] SaveArr = { 3, 2, 1 };
             bool ResultCheck1stMethod = false;
             bool Result2ndMethod = false;
             bool result = false;
-            ResultCheck1stMethod = Check1stMethod(F);  
-            foreach(int n in SaveArr)
+            int[] SaveArr = new int[F.Length];
+            F.CopyTo(SaveArr, 0);
+            ResultCheck1stMethod = Check1stMethod(F);
+            foreach (int n in SaveArr)
             {
                 Console.WriteLine(n);
             }
@@ -85,63 +84,74 @@ namespace Level1Space
         {
             bool ChainExist = false;
             bool result = false;
-            int CountChainMaxSide = 0;
-            int CountChainMinSide = 0;
+            int CountChainMaxSide = 1;
+            int CountChainMinSide = 1;
             int ResultChainValue = 0;
             int SaveFirstPosition = 0;
             int previous = 0;
             int k, j = 1;
-            for (int i = 0; i < F.Length; i++)
+
+            if (CheckJustReverseOrder(F))
             {
-                int a = F[i];
-                int b = F[previous];
-                if (F[i] >= F[previous] && CountChainMinSide == 0)
+                result = true;
+            }
+            else
+            {
+                for (int i = 1; i < F.Length; i++)
                 {
-                    if (CountChainMaxSide == 0)
+                    int a = F[i];
+                    int b = F[previous];
+                    if (F[i] >= F[previous] && CountChainMinSide == 1)
                     {
-                        SaveFirstPosition = i;                       
+                        previous = i;
+                        if (CountChainMaxSide == 0)
+                        {
+                            SaveFirstPosition = previous;
+                        }
+                        else
+                        {
+                            ChainExist = true;
+                        }
+                        CountChainMaxSide++;                        
                     }
-                    else if (i > 0)
-                    {
-                        CountChainMaxSide++;
-                    } 
                     else
                     {
-                        ChainExist = true;                        
+                        ChainExist = false;
+                        CountChainMaxSide = 0;
+                    }
+                    if (F[i] <= F[previous] && CountChainMaxSide == 1)
+                    {
+                        if (i > 0)
+                        {
+                            CountChainMinSide++;
+                        }
+                        if (CountChainMinSide == 0)
+                        {
+                            SaveFirstPosition = previous;
+                        }                                               
                         previous = i;
-                    }                 
-                }
-                else
-                {
-                    ChainExist = false;
-                    CountChainMinSide = 0;
-                }
-                if (F[i] <= F[previous] && CountChainMaxSide == 0)
-                {
-                    if (CountChainMinSide == 0)
+                    }                    
+                }                
+                    ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;
+                    SaveFirstPosition = SaveFirstPosition == 0 ? k = 0 : k = 1;
+                    ResultChainValue = ResultChainValue == 0 ? j = 0 : j = 1;
+                    if (F[SaveFirstPosition] >= F[SaveFirstPosition - k] && F[ResultChainValue - j] >= F[ResultChainValue])
                     {
-                        SaveFirstPosition = i;
-                    }
-                    else if (i > 0)
-                    {
-                       CountChainMinSide++;
-                    }
-                    ChainExist = true;                    
-                    previous = i;
-                }
-                else
-                {
-                    ChainExist = false;                    
-                }
+                        result = true;
+                    }                
             }
-            if (ChainExist)
+            return result;
+        }
+
+        public static bool CheckJustReverseOrder(int[] F)
+        {
+            bool result = true;
+            for (int i = F.Length - 1; i > 0; i--)
             {
-                ResultChainValue = CountChainMaxSide > 0 ? CountChainMaxSide : CountChainMinSide;
-                SaveFirstPosition = SaveFirstPosition == 0 ? k = 0 : k = 1;
-                ResultChainValue = ResultChainValue == 0 ? j = 0 : j = 1;
-                if (F[SaveFirstPosition] >= F[SaveFirstPosition - k] && F[ResultChainValue - j] >= F[ResultChainValue])
+                if (F[i] > F[i - 1])
                 {
-                    result = true;
+                    result = false;
+                    break;
                 }
             }
             return result;
