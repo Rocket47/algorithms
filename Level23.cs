@@ -107,8 +107,13 @@ namespace Level1Space
                         CountChainMinSide++;                        
                     }                                                                             
                     previous = i;
-                }                
-                for (int j = 0; j < CountChainMinSide / 2; j++)
+                }
+                int diapason = CountChainMinSide;
+                if (CountChainMinSide == 1)
+                {
+                    diapason++;
+                }
+                for (int j = 0; j < diapason / 2; j++)
                 {
                     int tmp = F[SaveFirstPosition];
                     F[SaveFirstPosition] = F[F.Length - CountChainMinSide];
