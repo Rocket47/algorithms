@@ -4,13 +4,8 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-        public static void Main(string[] args)
-        {
-            Check2ndMethod(new int[] { 1,2,3,5,4 });
-            Console.ReadKey();
-        }
-        public static bool Footbal(int[] F, int N)
+    {        
+        public static bool Football(int[] F, int N)
         {
             bool ResultCheck1stMethod = false;
             bool Result2ndMethod = false;
