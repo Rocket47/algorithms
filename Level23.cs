@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {        
+    {       
         public static bool Football(int[] F, int N)
         {
             bool ResultCheck1stMethod = false;
@@ -81,11 +81,15 @@ namespace Level1Space
             bool result = true;
             int CountChainMinSide = 0;
             int SaveFirstPosition = 0;
-            int previous = 0;                       
+            int previous = 0;
 
             if (CheckJustReverseOrder(F))
             {
                 result = true;
+            }
+            else if (CheckJustSimpleOrder(F))
+            {
+                result = false;
             }
             else
             {
@@ -99,8 +103,8 @@ namespace Level1Space
                         {
                             SaveFirstPosition = previous;
                         }
-                        CountChainMinSide++;                        
-                    }                                                                             
+                        CountChainMinSide++;
+                    }
                     previous = i;
                 }
                 int diapason = CountChainMinSide;
@@ -137,6 +141,20 @@ namespace Level1Space
             for (int i = F.Length - 1; i > 0; i--)
             {
                 if (F[i] > F[i - 1])
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public static bool CheckJustSimpleOrder(int[] F)
+        {
+            bool result = true;
+            for (int i = 0; i < F.Length - 1; i++)
+            {
+                if (F[i] > F[i + 1])
                 {
                     result = false;
                     break;
