@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {       
+    {        
         public static string Keymaker(int k)
         {
             string result = "";
@@ -42,36 +42,21 @@ namespace Level1Space
                     ShowDictionary(ListDoors);
                     Console.WriteLine("------------------------");
                 }
-                if (j == 3)
-                {
-                    Console.WriteLine("Performing 3rd step...");
-                    Console.WriteLine("************************");
-                    for (int ThirdStep = 3; ThirdStep <= k; ThirdStep += 3)
-                    {
-                        if (ListDoors[ThirdStep] == true)
-                        {
-                            ListDoors[ThirdStep] = false;
-                        }
-                        else
-                        {
-                            ListDoors[ThirdStep] = true;
-                        }                       
-                    }
-                    ShowDictionary(ListDoors);
-                    Console.WriteLine("------------------------");
-                }
-                if (j >= 4)
+                if (j >= 3)
                 {
                     Console.WriteLine("Performing " + j + " step...");
                     Console.WriteLine("************************");
-                    ListDoors[j] = ListDoors[j] == true ? false : true;
+                    for (int StepNumber = j; StepNumber <= k; StepNumber += j)
+                    {
+                        ListDoors[StepNumber] = ListDoors[StepNumber] == true ? false : true;
+                    }
                     ShowDictionary(ListDoors);
                     Console.WriteLine("------------------------");
-                }
-                result = GenerateResultString(ListDoors, k);
-                Console.WriteLine("Print result string...");
-                Console.WriteLine(result);
+                }                              
             }
+            result = GenerateResultString(ListDoors, k);
+            Console.WriteLine("Print result string...");
+            Console.WriteLine(result);
             return result;
         }
 
