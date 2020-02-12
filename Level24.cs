@@ -73,6 +73,9 @@ namespace Level1Space
                     ShowDictionary(ListDoors);
                     Console.WriteLine("------------------------");
                 }
+                result = GenerateResultString(ListDoors, k);
+                Console.WriteLine("Print result string...");
+                Console.WriteLine(result);
             }
             return result;
         }
@@ -83,6 +86,18 @@ namespace Level1Space
             {
                 Console.WriteLine("Door = {0}, Status = {1}", kvp.Key, kvp.Value);
             }
+        }
+
+        public static string GenerateResultString(Dictionary<int, bool> mListDoors, int CountDoors)
+        {
+            string mResult = "";
+            string mIndexDoor = "";
+            for (int i = 1; i <= CountDoors; i++)
+            {
+                mIndexDoor = mListDoors[i] == true ? "1" : "0";
+                mResult += mIndexDoor;
+            }
+            return mResult;
         }
     }
 }
