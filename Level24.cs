@@ -7,7 +7,7 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            Keymaker(5);
+            Keymaker(7);
             Console.ReadKey();
         }
         public static string Keymaker(int k)
@@ -60,10 +60,18 @@ namespace Level1Space
                         else
                         {
                             ListDoors[ThirdStep] = true;
-                        }
-                        ShowDictionary(ListDoors);
-                        Console.WriteLine("------------------------");
+                        }                       
                     }
+                    ShowDictionary(ListDoors);
+                    Console.WriteLine("------------------------");
+                }
+                if (j >= 4)
+                {
+                    Console.WriteLine("Performing " + j + " step...");
+                    Console.WriteLine("************************");
+                    ListDoors[j] = ListDoors[j] == true ? false : true;
+                    ShowDictionary(ListDoors);
+                    Console.WriteLine("------------------------");
                 }
             }
             return result;
