@@ -40,15 +40,30 @@ namespace Level1Space
                 {
                     Console.WriteLine("Performing 2nd step...");
                     Console.WriteLine("************************");
-                    for (int SecondStep = 1; SecondStep <= k; SecondStep++)
-                    {
-                        if (SecondStep % 2 == 0)
-                        {
-                            ListDoors[SecondStep] = false;
-                        }
+                    for (int SecondStep = 2; SecondStep <= k; SecondStep += 2)
+                    {                       
+                            ListDoors[SecondStep] = false;                        
                     }
                     ShowDictionary(ListDoors);
                     Console.WriteLine("------------------------");
+                }
+                if (j == 3)
+                {
+                    Console.WriteLine("Performing 3rd step...");
+                    Console.WriteLine("************************");
+                    for (int ThirdStep = 3; ThirdStep <= k; ThirdStep += 3)
+                    {
+                        if (ListDoors[ThirdStep] == true)
+                        {
+                            ListDoors[ThirdStep] = false;
+                        }
+                        else
+                        {
+                            ListDoors[ThirdStep] = true;
+                        }
+                        ShowDictionary(ListDoors);
+                        Console.WriteLine("------------------------");
+                    }
                 }
             }
             return result;
