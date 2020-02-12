@@ -4,12 +4,7 @@ using System.Collections.Generic;
 namespace Level1Space
 {
     public static class Level1
-    {
-        public static void Main(string[] args)
-        {
-            Keymaker(7);
-            Console.ReadKey();
-        }
+    {       
         public static string Keymaker(int k)
         {
             string result = "";
