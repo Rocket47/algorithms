@@ -18,18 +18,49 @@ namespace Level1Space
             {
                 ListDoors.Add(i, false);
             }
-            Console.WriteLine("Intiialize program...");            
+            Console.WriteLine("Intiialize program...");
             ShowDictionary(ListDoors);
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Started to initialize step by step...");
+            Console.WriteLine("************************");
+            for (int j = 1; j <= k; j++)
+            {
+                if (j == 1)
+                {
+                    Console.WriteLine("Performing 1st step...");
+                    Console.WriteLine("************************");
+                    for (int FirstStep = 1; FirstStep <= k; FirstStep++)
+                    {
+                        ListDoors[FirstStep] = true;
+                    }
+                    ShowDictionary(ListDoors);
+                    Console.WriteLine("------------------------");
+                }
+                if (j == 2)
+                {
+                    Console.WriteLine("Performing 2nd step...");
+                    Console.WriteLine("************************");
+                    for (int SecondStep = 1; SecondStep <= k; SecondStep++)
+                    {
+                        if (SecondStep % 2 == 0)
+                        {
+                            ListDoors[SecondStep] = false;
+                        }
+                    }
+                    ShowDictionary(ListDoors);
+                    Console.WriteLine("------------------------");
+                }
+            }
             return result;
         }
 
         public static void ShowDictionary(Dictionary<int, bool> Dictionary)
         {
             foreach (KeyValuePair<int, bool> kvp in Dictionary)
-            {               
+            {
                 Console.WriteLine("Door = {0}, Status = {1}", kvp.Key, kvp.Value);
             }
-        } 
+        }
     }
 }
     
