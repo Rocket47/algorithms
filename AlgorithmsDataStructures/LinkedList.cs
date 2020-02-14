@@ -61,6 +61,17 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(int _value)
         {
+            Node node = head;
+            Node Previous_Node = null;
+            if (node.value == _value)
+            {
+                node = Previous_Node;                
+            }
+            else
+            {
+                node = node.next;
+            }
+            Previous_Node = node;           
             return true;
         }
 
