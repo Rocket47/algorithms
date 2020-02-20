@@ -61,31 +61,28 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(int _value)
         {
-            Node SaveFirstHead = head;
-            Node node = head;
-            Node PreviousNode = null;
-            if (PreviousNode == null && node.value == _value)
+            bool result = false;
+            Node current = head;
+            if (head == null)
+            {
+                return result;
+            }
+            if (head.value == _value)
             {
                 head = head.next;
-                node = head;                
-            }           
-            while (node != null)
-            {                
-                if (node.value == _value)
-                {                    
-                    int test = PreviousNode.next.next.value;                    
-                    head = PreviousNode;
-                    int test2 = head.next.next.value;
-                    node = head.next.next;
-                    head = SaveFirstHead;
-                }
-                else
-                {
-                    PreviousNode = node;
-                    node = node.next;
-                }
+                return result;
             }
-            return true;
+            while (current.next.value != null)
+            {
+                if (current.next.value == _value)
+                {
+                    current.next = current.next.next;
+                    result = true;
+                    return result;
+                }
+                current = current.next;
+            }
+            return result;
         }
 
         public void RemoveAll(int _value)
