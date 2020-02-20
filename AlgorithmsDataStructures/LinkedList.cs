@@ -72,7 +72,7 @@ namespace AlgorithmsDataStructures
                 head = head.next;
                 return result;
             }
-            while (current.next.value != null)
+            while (current.next != null)
             {
                 if (current.next.value == _value)
                 {
@@ -87,7 +87,24 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {
-
+            Node current = head;
+            if (head == null)
+            {
+                return;
+            }
+            while (head.value == _value)
+            {
+                head = head.next;
+                return;
+            }
+            while (current.next != null)
+            {
+                while (current.next.value == _value)
+                {
+                    current.next = current.next.next;
+                }
+                current = current.next;
+            }
         }
 
         public void Clear()
