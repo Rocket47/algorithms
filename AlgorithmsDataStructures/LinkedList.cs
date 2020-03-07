@@ -138,7 +138,18 @@ namespace AlgorithmsDataStructures
 
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
         {
-
+            Node current = head;
+            if (current == _nodeAfter)
+            {
+                current.next = _nodeToInsert;
+            }
+            while (current.next != null)
+            {
+                if (current.next == _nodeAfter)
+                {
+                    current.next.next = _nodeToInsert;
+                }
+            }
         }
     }
 }
