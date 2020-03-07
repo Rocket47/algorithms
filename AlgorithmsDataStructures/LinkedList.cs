@@ -92,13 +92,13 @@ namespace AlgorithmsDataStructures
             if (head == null)
             {
                 return;
-            }        
+            }
             while (current.value == _value)
             {
                 if (current.next == null)
                 {
                     head = null;
-                    break;                    
+                    break;
                 }
                 current = current.next;
             }
@@ -122,7 +122,18 @@ namespace AlgorithmsDataStructures
 
         public int Count()
         {
-            return 0;
+            Node current = head;
+            int count = 1;
+            if (current == null)
+            {
+                count = 0;
+            }
+            while (current.next != null)
+            {
+                count++;
+                current = current.next;
+            }
+            return count;
         }
 
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
