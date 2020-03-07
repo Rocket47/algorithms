@@ -69,6 +69,7 @@ namespace AlgorithmsDataStructures
             }
             if (head.value == _value)
             {
+                result = true;
                 head = head.next;
                 return result;
             }
@@ -91,17 +92,23 @@ namespace AlgorithmsDataStructures
             if (head == null)
             {
                 return;
-            }
-            while (head.value == _value)
+            }        
+            while (current.value == _value)
             {
-                head = head.next;
-                return;
+                if (current.next == null)
+                {
+                    head = null;
+                    break;                    
+                }
+                current = current.next;
             }
             while (current.next != null)
             {
-                while (current.next.value == _value)
+                if (current.next.value == _value)
                 {
+                    head = current;
                     current.next = current.next.next;
+                    continue;
                 }
                 current = current.next;
             }
@@ -109,7 +116,8 @@ namespace AlgorithmsDataStructures
 
         public void Clear()
         {
-
+            head = null;
+            tail = null;
         }
 
         public int Count()
