@@ -149,6 +149,7 @@ namespace AlgorithmsDataStructures
                 {
                     current.next.next = _nodeToInsert;
                 }
+                current = current.next;
             }
         }
     }
