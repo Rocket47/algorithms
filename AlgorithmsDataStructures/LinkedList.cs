@@ -71,6 +71,10 @@ namespace AlgorithmsDataStructures
             {
                 result = true;
                 head = head.next;
+                if (head == null)
+                {
+                    tail = null;
+                }
                 return result;
             }
             while (current.next != null)
@@ -98,6 +102,7 @@ namespace AlgorithmsDataStructures
                 if (current.next == null)
                 {
                     head = null;
+                    tail = null;
                     break;
                 }
                 current = current.next;
