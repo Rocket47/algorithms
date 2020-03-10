@@ -19,8 +19,8 @@ namespace AlgorithmsDataStructures
         {
             head = null;
             tail = null;
-        }        
-
+        }
+       
         public void AddInTail(Node _item)
         {
             if (head == null) head = _item;
@@ -88,12 +88,16 @@ namespace AlgorithmsDataStructures
         public void RemoveAll(int _value)
         {
             Node current = head;
+            Node saveCurrent = current;
+            bool flagMain = false;
+            bool flagSecond = false;
             if (head == null)
             {
                 return;
             }
             while (current.value == _value)
             {
+                flagSecond = true;
                 if (current.next == null)
                 {
                     head = null;
@@ -107,16 +111,42 @@ namespace AlgorithmsDataStructures
                     tail = current;
                 }
             }
-            while (current.next != null)
+            if (!flagSecond)
             {
-                if (current.next.value == _value)
+                while (current.next.value == _value)
                 {
-                    head = current;
-                    current.next = current.next.next;
-                    continue;
+                    current = current.next;
+                    head = saveCurrent;
+                    tail = saveCurrent;
+                    if (current.value == _value)
+                    {
+                        flagMain = true;
+                    }
+                    else
+                    {
+                        flagMain = false;
+                        break;
+                    }
+                    if (current.next == null)
+                    {
+                        break;
+                    }
                 }
-                current = current.next;
             }
+            if (!flagMain)
+            {
+                while (current.next != null)
+                {
+                    if (current.next.value == _value)
+                    {
+                        head = current;
+                        current.next = current.next.next;
+                        continue;
+                    }
+                    current = current.next;
+                }
+            }
+           
         }
 
         public void Clear()
