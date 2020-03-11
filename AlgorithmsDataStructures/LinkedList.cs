@@ -20,7 +20,12 @@ namespace AlgorithmsDataStructures
             head = null;
             tail = null;
         }
-       
+
+        public static void Main(string[] args)
+        {
+
+        }
+
         public void AddInTail(Node _item)
         {
             if (head == null) head = _item;
@@ -108,18 +113,17 @@ namespace AlgorithmsDataStructures
                 if (current.value != _value && current.next == null)
                 {
                     head = current;
-                    tail = current;
+                    tail = current;                
                 }
-            }
+            }            
             if (!flagSecond)
             {
                 while (current.next.value == _value)
                 {
-                    current = current.next;
-                    head = saveCurrent;
-                    tail = saveCurrent;
+                    Node previous = current;
+                    current = current.next;                    
                     if (current.value == _value)
-                    {
+                    {                       
                         flagMain = true;
                     }
                     else
@@ -127,11 +131,25 @@ namespace AlgorithmsDataStructures
                         flagMain = false;
                         break;
                     }
-                    if (current.next == null)
+                    if (current.next == null && tail.value == _value)
                     {
+                        tail = head;
                         break;
                     }
-                }
+                    if (current.next == null)
+                    {                        
+                        break;
+                    }
+                    if (current.next.value != _value && current.next.next == null)
+                    {
+                        tail = current.next;
+                    }
+                    if (current.next.next != null && current.next.value != _value && current.next.next.value == _value)
+                    {
+                        current = current.next;
+                        tail = current;                       
+                    }                    
+                }                
             }
             if (!flagMain)
             {
