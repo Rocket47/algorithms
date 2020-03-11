@@ -91,80 +91,35 @@ namespace AlgorithmsDataStructures
         }
 
         public void RemoveAll(int _value)
-        {
-            Node current = head;
-            Node saveCurrent = current;
-            bool flagMain = false;
-            bool flagSecond = false;
-            if (head == null)
+        {           
+            while (head.value == _value)
             {
-                return;
-            }
-            while (current.value == _value)
-            {
-                flagSecond = true;
-                if (current.next == null)
+                head = head.next;
+                if (head == null)
                 {
                     head = null;
                     tail = null;
-                    break;
+                    return;
+                }
+            }
+            Node current = head;
+            Node previous = null;
+            while (current.next != null)
+            {
+                if (current.value != _value)
+                {
+                    previous = current;
+                }               
+                if (current.next.value == _value)
+                {
+                    tail = previous;
+                }
+                else
+                {
+                    tail = current.next;
                 }
                 current = current.next;
-                if (current.value != _value && current.next == null)
-                {
-                    head = current;
-                    tail = current;                
-                }
-            }            
-            if (!flagSecond)
-            {
-                while (current.next.value == _value)
-                {
-                    Node previous = current;
-                    current = current.next;                    
-                    if (current.value == _value)
-                    {                       
-                        flagMain = true;
-                    }
-                    else
-                    {
-                        flagMain = false;
-                        break;
-                    }
-                    if (current.next == null && tail.value == _value)
-                    {
-                        tail = head;
-                        break;
-                    }
-                    if (current.next == null)
-                    {                        
-                        break;
-                    }
-                    if (current.next.value != _value && current.next.next == null)
-                    {
-                        tail = current.next;
-                    }
-                    if (current.next.next != null && current.next.value != _value && current.next.next.value == _value)
-                    {
-                        current = current.next;
-                        tail = current;                       
-                    }                    
-                }                
             }
-            if (!flagMain)
-            {
-                while (current.next != null)
-                {
-                    if (current.next.value == _value)
-                    {
-                        head = current;
-                        current.next = current.next.next;
-                        continue;
-                    }
-                    current = current.next;
-                }
-            }
-           
         }
 
         public void Clear()
