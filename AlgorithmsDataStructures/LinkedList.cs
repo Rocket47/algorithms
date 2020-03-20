@@ -20,7 +20,12 @@ namespace AlgorithmsDataStructures
             head = null;
             tail = null;
         }
-       
+
+        public static void Main(string[] args)
+        {
+
+        }
+
         public void AddInTail(Node _item)
         {
             if (head == null) head = _item;
@@ -87,33 +92,28 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {           
-            while (head.value == _value)
+            Node tmpNode = head;
+            Node prevNode = null;           
+            while (tmpNode != null)
             {
-                head = head.next;
-                if (head == null)
+                if (tmpNode.value == _value)
                 {
-                    head = null;
-                    tail = null;
-                    return;
-                }
-            }
-            Node current = head;
-            Node previous = null;
-            while (current.next != null)
-            {
-                if (current.value != _value)
-                {
-                    previous = current;
-                }               
-                if (current.next.value == _value)
-                {
-                    tail = previous;
+                    if (tmpNode == head)
+                    {
+                        head = head.next;
+                        tail = head;
+                    }
+                    else
+                    {
+                        prevNode.next = tmpNode.next;
+                    }                   
                 }
                 else
                 {
-                    tail = current.next;
+                    prevNode = tmpNode;
                 }
-                current = current.next;
+                tmpNode = tmpNode.next;
+                tail = prevNode;
             }
         }
 
