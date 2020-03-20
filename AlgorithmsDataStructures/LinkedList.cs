@@ -19,12 +19,7 @@ namespace AlgorithmsDataStructures
         {
             head = null;
             tail = null;
-        }
-
-        public static void Main(string[] args)
-        {
-
-        }
+        }       
 
         public void AddInTail(Node _item)
         {
