@@ -120,13 +120,9 @@ namespace AlgorithmsDataStructures
 
         public int Count()
         {
-            Node current = head;
-            int count = 1;
-            if (current == null)
-            {
-                count = 0;
-            }
-            while (current.next != null)
+            int count = 0;
+            Node current = head;           
+            while (current != null)
             {
                 count++;
                 current = current.next;
