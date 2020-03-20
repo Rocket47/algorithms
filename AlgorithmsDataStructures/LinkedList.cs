@@ -19,7 +19,7 @@ namespace AlgorithmsDataStructures
         {
             head = null;
             tail = null;
-        }       
+        }        
 
         public void AddInTail(Node _item)
         {
@@ -131,12 +131,12 @@ namespace AlgorithmsDataStructures
         }
 
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
-        {
-            Node current = head;
+        {          
             if (_nodeAfter == null)
             {
                 head = _nodeToInsert;
             }
+            Node current = head;
             if (current == _nodeAfter)
             {
                 current.next = _nodeToInsert;
