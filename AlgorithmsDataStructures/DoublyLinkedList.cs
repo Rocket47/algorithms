@@ -59,10 +59,10 @@ namespace AlgorithmsDataStructures
                 {
                     ResultNode = node;
                     return node;
-                }                
+                }
                 node = node.next;
             }
-            return ResultNode;            
+            return ResultNode;
         }
 
         public List<Node> FindAll(int _value)
@@ -82,8 +82,32 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(int _value)
         {
-            // здесь будет ваш код удаления одного узла по заданному значению
-            return true; // если узел был удалён
+            bool result = false;
+            Node current = head;
+            if (head == null)
+            {
+                result = true;
+                return result;
+            }
+            if (head.value == _value)
+            {
+                result = true;
+                head = head.next;
+                tail = head;
+                return result;
+            }
+            while (current.next != null)
+            {
+                if (current.next.value == _value)
+                {
+                    current.next = current.next.next;
+                    current.next.prev = current;
+                    result = true;
+                    return result;
+                }
+                current = current.next;
+            }
+            return result;           
         }
 
         public void RemoveAll(int _value)
@@ -109,6 +133,5 @@ namespace AlgorithmsDataStructures
             // добавьте новый элемент первым в списке 
 
         }
-
     }
 }
