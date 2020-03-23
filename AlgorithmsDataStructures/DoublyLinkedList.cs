@@ -147,12 +147,20 @@ namespace AlgorithmsDataStructures
 
         public void Clear()
         {
-            // здесь будет ваш код очистки всего списка
+            head = null;
+            tail = null;
         }
 
         public int Count()
         {
-            return 0; // здесь будет ваш код подсчёта количества элементов в списке
+            int count = 0;
+            Node current = head;
+            while (current != null)
+            {
+                count++;
+                current = current.next;
+            }
+            return count;
         }
 
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
