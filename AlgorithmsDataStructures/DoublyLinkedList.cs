@@ -26,7 +26,12 @@ namespace AlgorithmsDataStructures
         {
             head = null;
             tail = null;
-        }       
+        }
+
+        public static void Main(string[] args)
+        {
+
+        }
 
         public void AddInTail(Node _item)
         {
@@ -93,6 +98,7 @@ namespace AlgorithmsDataStructures
                 if (head != null)
                 {
                     Node tmp = head;
+                    tail.prev = null;
                     while (tmp.next != null)
                     {
                         Node prv = tmp;                        
