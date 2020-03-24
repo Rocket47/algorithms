@@ -86,10 +86,21 @@ namespace AlgorithmsDataStructures
             }
             if (head.value == _value)
             {
-                result = true;               
+                result = true;
                 head = head.next;
                 tail.prev = null;
-                tail = head;               
+                tail = head;
+                if (head != null)
+                {
+                    Node tmp = head;
+                    while (tmp.next != null)
+                    {
+                        Node prv = tmp;                        
+                        tmp = tmp.next;
+                        tail = tmp;
+                        tail.prev = prv;                        
+                    }
+                }
                 return result;
             }
             while (current.next != null)
@@ -103,7 +114,7 @@ namespace AlgorithmsDataStructures
                 }
                 current = current.next;
             }
-            return result;           
+            return result;
         }
 
         public void RemoveAll(int _value)
@@ -121,15 +132,15 @@ namespace AlgorithmsDataStructures
                         if (head != null)
                         {
                             tail.prev = null;
-                        }                        
+                        }
                     }
                     else
                     {
                         prevNode.next = tmpNode.next;
-                        if (tmpNode.next != null) 
+                        if (tmpNode.next != null)
                         {
                             tmpNode.next.prev = prevNode;
-                        }                        
+                        }
                     }
                 }
                 else
