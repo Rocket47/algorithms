@@ -165,10 +165,32 @@ namespace AlgorithmsDataStructures
 
         public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
         {
-            // здесь будет ваш код вставки узла после заданного узла
-
-            // если _nodeAfter = null
-            // добавьте новый элемент первым в списке 
+            if (head == null && tail == null)
+            {
+                head = _nodeToInsert;
+                tail = _nodeToInsert;
+            }
+            if (_nodeAfter == null)
+            {
+                head = _nodeToInsert;
+                head.prev = null;
+            }
+            Node current = head;
+            if (current == _nodeAfter)
+            {
+                current.next = _nodeToInsert;
+                current.next.prev = current;
+            }
+            while (current.next != null)
+            {
+                if (current.next == _nodeAfter)
+                {
+                    current.next.next = _nodeToInsert;
+                    current.next.next.prev = current.next;
+                }
+                current = current.next;
+                tail = current;
+            }
 
         }
     }
