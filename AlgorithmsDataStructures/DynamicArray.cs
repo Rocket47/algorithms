@@ -18,10 +18,13 @@ namespace AlgorithmsDataStructures
 
         public void MakeArray(int new_capacity)
         {
-            this.capacity = 16;
-            this.array = new T[capacity];
+            if (capacity == 0)
+            {
+                capacity = 16;
+            }
+            array = new T[capacity];
             T[] newArray = new T[capacity];
-            int currentCapacity = this.capacity;
+            int currentCapacity = capacity;
             if (new_capacity > currentCapacity)
             {
                 while (currentCapacity < new_capacity)
@@ -29,7 +32,7 @@ namespace AlgorithmsDataStructures
                     currentCapacity *= 2;
                 }
                 newArray = new T[currentCapacity];
-                Array.Copy(this.array, newArray, this.array.Length);                
+                Array.Copy(array, newArray, array.Length);
             }
             else if (new_capacity < currentCapacity)
             {
@@ -38,15 +41,16 @@ namespace AlgorithmsDataStructures
                     var newSize = currentCapacity / 1.5;
                     if (newSize < 16)
                     {
+                        currentCapacity = 16;
                         break;
                     }
                     currentCapacity = Convert.ToInt32(newSize);
                 }
                 newArray = new T[currentCapacity];
-                Array.Copy(this.array, newArray, capacity);                
+                Array.Copy(this.array, newArray, currentCapacity);
             }
-            this.capacity = newArray.Length;
-            this.count = GetCountElementsArr(newArray);
+            capacity = newArray.Length;
+            count = GetCountElementsArr(newArray);
         }
 
         public int GetCountElementsArr(T[] array)
@@ -58,7 +62,7 @@ namespace AlgorithmsDataStructures
                 if (resultConvert && Convert.ToInt32(i) != 0)
                 {
                     count++;
-                }                                                    
+                }
             }
             return count;
         }
