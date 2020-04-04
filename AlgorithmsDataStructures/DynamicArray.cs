@@ -18,16 +18,18 @@ namespace AlgorithmsDataStructures
 
         public void MakeArray(int new_capacity)
         {
-            T[] newArray;
-            int currentCapacity = capacity;
-            if (new_capacity >= capacity)
+            this.capacity = 16;
+            this.array = new T[capacity];
+            T[] newArray = new T[capacity];
+            int currentCapacity = this.capacity;
+            if (new_capacity > currentCapacity)
             {
                 while (currentCapacity < new_capacity)
                 {
-                    currentCapacity += 16;
+                    currentCapacity *= 2;
                 }
                 newArray = new T[currentCapacity];
-                Array.Copy(array, newArray, capacity);
+                Array.Copy(this.array, newArray, this.array.Length);                
             }
             else if (new_capacity < currentCapacity)
             {
@@ -38,11 +40,27 @@ namespace AlgorithmsDataStructures
                     {
                         break;
                     }
-                    currentCapacity = Convert.ToInt32(currentCapacity / 1.5);
+                    currentCapacity = Convert.ToInt32(newSize);
                 }
                 newArray = new T[currentCapacity];
-                Array.Copy(array, newArray, capacity);
+                Array.Copy(this.array, newArray, capacity);                
             }
+            this.capacity = newArray.Length;
+            this.count = GetCountElementsArr(newArray);
+        }
+
+        public int GetCountElementsArr(T[] array)
+        {
+            int count = 0;
+            foreach (T i in array)
+            {
+                bool resultConvert = int.TryParse(i.ToString(), out int result);
+                if (resultConvert && Convert.ToInt32(i) != 0)
+                {
+                    count++;
+                }                                                    
+            }
+            return count;
         }
 
         public T GetItem(int index)
