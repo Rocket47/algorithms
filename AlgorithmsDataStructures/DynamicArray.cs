@@ -69,10 +69,10 @@ namespace AlgorithmsDataStructures
         }
 
         public T GetItem(int index)
-        {            
+        {
             if (index > capacity || index < 0)
             {
-                throw new IndexOutOfRangeException();               
+                throw new IndexOutOfRangeException();
             }
             return array[index];
         }
@@ -88,33 +88,47 @@ namespace AlgorithmsDataStructures
         }
 
         public void Insert(T itm, int index)
-        {
+        {                     
             T[] newArray = new T[capacity];
+           
             int tmp = 0;
             for (int i = 0; i < capacity - 1; i++)
-            {                
+            {
                 if (i != index)
                 {
                     newArray[tmp] = array[i];
                     tmp++;
-                }      
-                if (i == index)
+                }
+                if (i == index && index < count)
                 {
                     newArray[tmp] = itm;
-                    tmp++;                    
+                    tmp++;
                     newArray[tmp] = array[i];
                     tmp++;
                 }
             }
-            if (newArray.Length > capacity)
+            if (index >= GetCountElementsArr(array))
             {
-                MakeArray(capacity + 1);                
-            }           
+                newArray[GetCountElementsArr(array)] = itm;
+            }
             for (int i = 0; i < newArray.Length; i++)
             {
                 array[i] = newArray[i];
             }
+            count = GetCountElementsArr(array);
 
+            foreach (T a in array)
+            {
+                Console.Write(a + " ");
+            }
+
+            if (count == capacity)
+            {
+                MakeArray(capacity * 2);
+            }
+           
+
+            Console.WriteLine();
             foreach (T a in array)
             {
                 Console.Write(a + " ");
@@ -126,7 +140,6 @@ namespace AlgorithmsDataStructures
         {
             // ваш код
         }
-
     }
 
     class Program
@@ -134,11 +147,23 @@ namespace AlgorithmsDataStructures
         static void Main(string[] args)
         {
             DynArray<int> da = new DynArray<int>();
-            da.Append(2);           
-            da.Append(3);           
-            da.Append(4);
-            da.Insert(5, 1);                                
-            da.Insert(7, 5);                                
+            da.Append(1);                       
+            da.Append(2);                       
+            da.Append(3);
+            da.Insert(4, 0);
+            da.Insert(5, 0);
+            da.Insert(6, 0);
+            da.Insert(7, 0);
+            da.Insert(8, 0);
+            da.Insert(9, 0);
+            da.Insert(3, 0);
+            da.Insert(4, 0);
+            da.Insert(5, 0);
+            da.Insert(6, 0);
+            da.Insert(7, 0);
+            da.Insert(8, 0);
+            da.Insert(9, 0);
+            da.Insert(10, 0);
             Console.ReadKey();
         }
     }
