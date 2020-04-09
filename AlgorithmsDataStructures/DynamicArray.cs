@@ -51,6 +51,7 @@ namespace AlgorithmsDataStructures
             }
             capacity = newArray.Length;
             count = GetCountElementsArr(newArray);
+            array = newArray;
         }
 
         public int GetCountElementsArr(T[] array)
@@ -68,14 +69,22 @@ namespace AlgorithmsDataStructures
         }
 
         public T GetItem(int index)
-        {
-            // ваш код
-            return default(T);
+        {            
+            if (index > capacity || index < 0)
+            {
+                throw new IndexOutOfRangeException();               
+            }
+            return array[index];
         }
 
         public void Append(T itm)
         {
-            // ваш код
+            if (count == capacity)
+            {
+                MakeArray(capacity * 2);
+            }
+            array[count] = itm;
+            count++;
         }
 
         public void Insert(T itm, int index)
