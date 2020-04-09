@@ -88,9 +88,17 @@ namespace AlgorithmsDataStructures
         }
 
         public void Insert(T itm, int index)
-        {                     
+        {                                 
             T[] newArray = new T[capacity];
-           
+            if (count + 1 == capacity)
+            {
+                Array.Copy(array, newArray, capacity);
+                capacity *= 2;
+                array = new T[capacity];                
+                Array.Copy(newArray, array, capacity / 2);
+                newArray = new T[capacity];
+                Array.Copy(array, newArray, capacity);
+            }
             int tmp = 0;
             for (int i = 0; i < capacity - 1; i++)
             {
@@ -115,23 +123,11 @@ namespace AlgorithmsDataStructures
             {
                 array[i] = newArray[i];
             }
-            count = GetCountElementsArr(array);
-
-            foreach (T a in array)
+            count = GetCountElementsArr(array);              
+            Array.Copy(array, newArray, capacity);
+            foreach (T i in array)
             {
-                Console.Write(a + " ");
-            }
-
-            if (count == capacity)
-            {
-                MakeArray(capacity * 2);
-            }
-           
-
-            Console.WriteLine();
-            foreach (T a in array)
-            {
-                Console.Write(a + " ");
+                Console.Write(i + " ");
             }
             Console.WriteLine();
         }
@@ -146,25 +142,7 @@ namespace AlgorithmsDataStructures
     {
         static void Main(string[] args)
         {
-            DynArray<int> da = new DynArray<int>();
-            da.Append(1);                       
-            da.Append(2);                       
-            da.Append(3);
-            da.Insert(4, 0);
-            da.Insert(5, 0);
-            da.Insert(6, 0);
-            da.Insert(7, 0);
-            da.Insert(8, 0);
-            da.Insert(9, 0);
-            da.Insert(3, 0);
-            da.Insert(4, 0);
-            da.Insert(5, 0);
-            da.Insert(6, 0);
-            da.Insert(7, 0);
-            da.Insert(8, 0);
-            da.Insert(9, 0);
-            da.Insert(10, 0);
-            Console.ReadKey();
+           
         }
     }
 }
