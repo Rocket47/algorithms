@@ -89,7 +89,37 @@ namespace AlgorithmsDataStructures
 
         public void Insert(T itm, int index)
         {
-            // ваш код
+            T[] newArray = new T[capacity];
+            int tmp = 0;
+            for (int i = 0; i < capacity - 1; i++)
+            {                
+                if (i != index)
+                {
+                    newArray[tmp] = array[i];
+                    tmp++;
+                }      
+                if (i == index)
+                {
+                    newArray[tmp] = itm;
+                    tmp++;                    
+                    newArray[tmp] = array[i];
+                    tmp++;
+                }
+            }
+            if (newArray.Length > capacity)
+            {
+                MakeArray(capacity + 1);                
+            }           
+            for (int i = 0; i < newArray.Length; i++)
+            {
+                array[i] = newArray[i];
+            }
+
+            foreach (T a in array)
+            {
+                Console.Write(a + " ");
+            }
+            Console.WriteLine();
         }
 
         public void Remove(int index)
@@ -103,7 +133,13 @@ namespace AlgorithmsDataStructures
     {
         static void Main(string[] args)
         {
-
+            DynArray<int> da = new DynArray<int>();
+            da.Append(2);           
+            da.Append(3);           
+            da.Append(4);
+            da.Insert(5, 1);                                
+            da.Insert(7, 5);                                
+            Console.ReadKey();
         }
     }
 }
