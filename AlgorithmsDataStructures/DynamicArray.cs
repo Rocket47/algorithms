@@ -72,7 +72,7 @@ namespace AlgorithmsDataStructures
         {
             if (index > capacity || index < 0)
             {
-                throw new IndexOutOfRangeException();
+                throw new ArgumentOutOfRangeException();
             }
             return array[index];
         }
@@ -88,7 +88,11 @@ namespace AlgorithmsDataStructures
         }
 
         public void Insert(T itm, int index)
-        {                                 
+        {                              
+            if (index > capacity || index < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             T[] newArray = new T[capacity];
             if (count + 1 == capacity)
             {
@@ -134,7 +138,31 @@ namespace AlgorithmsDataStructures
 
         public void Remove(int index)
         {
-            // ваш код
+            T[] newArray = new T[capacity];
+            for (int i = 0; i < capacity; i++)
+            {               
+                if (i == index)
+                {
+                    for (int j = i; j < capacity - 1; j++)
+                    {
+                        T test = array[j + 1];
+                        newArray[j] = array[j + 1]; 
+                    }
+                    break;
+                }
+                newArray[i] = array[i];
+            }
+            for (int i = 0; i < newArray.Length; i++)
+            {
+                array[i] = newArray[i];
+            }
+
+            Console.WriteLine("========================");
+            foreach (T test in newArray)
+            {
+                Console.Write(test + " ");
+            }
+            Console.WriteLine("");
         }
     }
 
@@ -142,7 +170,16 @@ namespace AlgorithmsDataStructures
     {
         static void Main(string[] args)
         {
-           
+            DynArray<int> da = new DynArray<int>();
+            da.Insert(1, 0);
+            da.Insert(2, 1);
+            da.Insert(3, 2);
+            da.Insert(4, 3);
+            da.Insert(5, 4);
+            da.Remove(3);
+            da.Remove(1);
+            Console.ReadKey();
+            
         }
     }
 }
