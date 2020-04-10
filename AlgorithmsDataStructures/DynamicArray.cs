@@ -135,11 +135,7 @@ namespace AlgorithmsDataStructures
             if (index > capacity || index < 0)
             {
                 throw new ArgumentOutOfRangeException();
-            }
-            if (count < 10)
-            {
-                Console.WriteLine("hi");
-            }
+            }            
             if (count <= capacity * 0.5 && capacity / 1.5 >= 16)
             {
                 capacity = Convert.ToInt32(capacity / 1.5);
