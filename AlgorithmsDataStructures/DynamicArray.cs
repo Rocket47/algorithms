@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-
     public class DynArray<T>
     {
         public T[] array;
@@ -88,7 +87,7 @@ namespace AlgorithmsDataStructures
         }
 
         public void Insert(T itm, int index)
-        {                              
+        {
             if (index > capacity || index < 0)
             {
                 throw new ArgumentOutOfRangeException();
@@ -98,7 +97,7 @@ namespace AlgorithmsDataStructures
             {
                 Array.Copy(array, newArray, capacity);
                 capacity *= 2;
-                array = new T[capacity];                
+                array = new T[capacity];
                 Array.Copy(newArray, array, capacity / 2);
                 newArray = new T[capacity];
                 Array.Copy(array, newArray, capacity);
@@ -127,26 +126,38 @@ namespace AlgorithmsDataStructures
             {
                 array[i] = newArray[i];
             }
-            count = GetCountElementsArr(array);              
-            Array.Copy(array, newArray, capacity);
-            foreach (T i in array)
-            {
-                Console.Write(i + " ");
-            }
-            Console.WriteLine();
+            count = GetCountElementsArr(array);
+            Array.Copy(array, newArray, capacity);            
         }
 
         public void Remove(int index)
         {
+            if (index > capacity || index < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (count < 10)
+            {
+                Console.WriteLine("hi");
+            }
+            if (count <= capacity * 0.5 && capacity / 1.5 >= 16)
+            {
+                capacity = Convert.ToInt32(capacity / 1.5);
+            }
+
+            if (count <= capacity * 0.5 && capacity / 1.5 < 16)
+            {
+                capacity = 16;
+            }
             T[] newArray = new T[capacity];
             for (int i = 0; i < capacity; i++)
-            {               
+            {
                 if (i == index)
                 {
                     for (int j = i; j < capacity - 1; j++)
                     {
                         T test = array[j + 1];
-                        newArray[j] = array[j + 1]; 
+                        newArray[j] = array[j + 1];
                     }
                     break;
                 }
@@ -156,31 +167,8 @@ namespace AlgorithmsDataStructures
             {
                 array[i] = newArray[i];
             }
-
-            Console.WriteLine("========================");
-            foreach (T test in newArray)
-            {
-                Console.Write(test + " ");
-            }
-            Console.WriteLine("");
+            count--;            
         }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            DynArray<int> da = new DynArray<int>();
-            da.Insert(1, 0);
-            da.Insert(2, 1);
-            da.Insert(3, 2);
-            da.Insert(4, 3);
-            da.Insert(5, 4);
-            da.Remove(3);
-            da.Remove(1);
-            Console.ReadKey();
-            
-        }
-    }
+    }   
 }
 
