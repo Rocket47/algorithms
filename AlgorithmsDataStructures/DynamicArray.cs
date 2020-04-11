@@ -92,11 +92,24 @@ namespace AlgorithmsDataStructures
 
         public void Insert(T itm, int index)
         {
-            if (index > capacity || index < 0)
+            if (index < 0)
             {
                 throw new ArgumentOutOfRangeException();
-            }
+            }               
             T[] newArray = new T[capacity];
+            if (index > capacity)
+            {
+                Array.Copy(array, newArray, capacity);
+                while (index > capacity)
+                {
+                    capacity *= 2;
+                }
+                newArray = new T[capacity];
+                array = new T[capacity];
+                Array.Copy(newArray, array, capacity / 2);
+                newArray = new T[capacity];
+                Array.Copy(array, newArray, capacity);
+            }
             if (count + 1 == capacity)
             {
                 Array.Copy(array, newArray, capacity);
@@ -167,7 +180,7 @@ namespace AlgorithmsDataStructures
                 array[i] = newArray[i];
             }
             count--;
-        }
+        }       
     }
 
     static class Counter<T>
@@ -183,7 +196,7 @@ namespace AlgorithmsDataStructures
                 }
             }
             return count;
-        }
+        }        
     }
 }
 
