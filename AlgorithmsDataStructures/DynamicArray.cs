@@ -26,7 +26,7 @@ namespace AlgorithmsDataStructures
             {
                 capacity = 16;
                 return;
-            }            
+            }
             array = new T[capacity];
             T[] newArray = new T[capacity];
             int currentCapacity = capacity;
@@ -42,11 +42,11 @@ namespace AlgorithmsDataStructures
             else if (new_capacity < currentCapacity)
             {
                 while (currentCapacity > new_capacity)
-                {                    
+                {
                     if (Convert.ToInt32(currentCapacity / 1.5) < new_capacity)
                     {
                         break;
-                    } 
+                    }
                     var newSize = currentCapacity / 1.5;
                     if (newSize < 16)
                     {
@@ -66,9 +66,9 @@ namespace AlgorithmsDataStructures
             count = Counter<T>.GetCountElementsArr(newArray);
             array = newArray;
         }
-        
+
         public T GetItem(int index)
-        {            
+        {
             if (index > capacity || index < 0)
             {
                 throw new ArgumentOutOfRangeException();
@@ -95,7 +95,7 @@ namespace AlgorithmsDataStructures
             if (index > capacity || index < 0)
             {
                 throw new ArgumentOutOfRangeException();
-            }            
+            }
             T[] newArray = new T[capacity];
             if (count + 1 == capacity)
             {
@@ -106,7 +106,7 @@ namespace AlgorithmsDataStructures
                 newArray = new T[capacity];
                 Array.Copy(array, newArray, capacity);
             }
-            int tmp = 0;            
+            int tmp = 0;
             for (int i = 0; i < capacity - 1; i++)
             {
                 if (i != index)
@@ -155,7 +155,7 @@ namespace AlgorithmsDataStructures
                 if (i == index)
                 {
                     for (int j = i; j < capacity - 1; j++)
-                    {                        
+                    {
                         newArray[j] = array[j + 1];
                     }
                     break;
@@ -167,7 +167,7 @@ namespace AlgorithmsDataStructures
                 array[i] = newArray[i];
             }
             count--;
-        }        
+        }
     }
 
     static class Counter<T>
@@ -177,15 +177,14 @@ namespace AlgorithmsDataStructures
             int count = 0;
             foreach (T i in array)
             {
-                bool resultConvert = int.TryParse(i.ToString(), out int result);
-                if (resultConvert && Convert.ToInt32(i) != 0)
+                if (Convert.ToInt32(i) != 0)
                 {
                     count++;
                 }
             }
             return count;
-        }        
-    }      
+        }
+    }
 }
 
 
