@@ -63,7 +63,7 @@ namespace AlgorithmsDataStructures
                 Array.Copy(this.array, newArray, currentCapacity);
             }
             capacity = newArray.Length;
-            count = GetCountElementsArr(newArray);
+            count = Counter<T>.GetCountElementsArr(newArray);
             array = newArray;
         }
         
@@ -122,15 +122,15 @@ namespace AlgorithmsDataStructures
                     tmp++;
                 }
             }
-            if (index >= GetCountElementsArr(array))
+            if (index >= Counter<T>.GetCountElementsArr(array))
             {
-                newArray[GetCountElementsArr(array)] = itm;
+                newArray[Counter<T>.GetCountElementsArr(array)] = itm;
             }
             for (int i = 0; i < newArray.Length; i++)
             {
                 array[i] = newArray[i];
             }
-            count = GetCountElementsArr(array);
+            count = Counter<T>.GetCountElementsArr(array);
             Array.Copy(array, newArray, capacity);
         }
 
@@ -167,9 +167,12 @@ namespace AlgorithmsDataStructures
                 array[i] = newArray[i];
             }
             count--;
-        }
+        }        
+    }
 
-        public int GetCountElementsArr(T[] array)
+    static class Counter<T>
+    {
+        public static int GetCountElementsArr(T[] array)
         {
             int count = 0;
             foreach (T i in array)
@@ -181,8 +184,8 @@ namespace AlgorithmsDataStructures
                 }
             }
             return count;
-        }
-    }    
+        }        
+    }      
 }
 
 
