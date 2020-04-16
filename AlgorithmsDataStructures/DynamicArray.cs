@@ -16,18 +16,27 @@ namespace AlgorithmsDataStructures
         }
 
         public void MakeArray(int new_capacity)
-        {
-            capacity = 16;
+        {           
+            if (new_capacity == 16)
+            {
+                capacity = 16;
+                array = new T[new_capacity];
+            }
             if (new_capacity > capacity && count == 0)
             {
-                capacity = capacity * 2;
+                while (capacity < new_capacity)
+                {
+                    capacity = capacity * 2;
+                }              
                 array = new T[new_capacity];
+                return;
             }     
             
             if (new_capacity > capacity && count != 0)
             {
                 array = CopyArrayToNewSize(array, count, capacity * 2);
                 capacity = capacity * 2;
+                return;
             }
             
             if (new_capacity < capacity && count == 0)
@@ -36,37 +45,38 @@ namespace AlgorithmsDataStructures
                 {
                     capacity = 16;
                 }
-                while (Convert.ToInt32(capacity / 1.5) > count && Convert.ToInt32(capacity / 1.5) >= 16)
+                while (Convert.ToInt32(capacity / 1.5) > new_capacity && Convert.ToInt32(capacity / 1.5) >= 16)
                 {
                     capacity = Convert.ToInt32(capacity / 1.5);
                 }
                 array = new T[capacity];
+                return;
             }
 
             if (new_capacity < capacity &&  count != 0)
-            {
-                if (new_capacity < 16)
-                {
-                    capacity = 16;
-                }
-                if (new_capacity > count)
-                {
-                    while (Convert.ToInt32(capacity / 1.5) > count && count >= 16)
+            {               
+                    if (new_capacity < 16)
                     {
-                        capacity = Convert.ToInt32(capacity / 1.5);
-                        if (Convert.ToInt32(capacity / 1.5) < 16)
-                        {
-                            capacity = 16;
-                            break;
-                        }
+                        capacity = 16;
                     }
-                    array = CopyArrayToNewSize(array, count, capacity);
-                }
-                else if (new_capacity < count)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }                
-                else { }
+                    if (new_capacity > count)
+                    {
+                        while (Convert.ToInt32(capacity / 1.5) > new_capacity && Convert.ToInt32(capacity / 1.5) > count && Convert.ToInt32(capacity / 1.5) >= 16)
+                        {
+                            capacity = Convert.ToInt32(capacity / 1.5);
+                            if (capacity < 16)
+                            {
+                                capacity = 16;
+                                break;
+                            }
+                        }
+                        array = CopyArrayToNewSize(array, count, capacity);
+                    }
+                    else if (new_capacity < count)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    else { }                                
             }          
         }
 
@@ -77,7 +87,7 @@ namespace AlgorithmsDataStructures
                 return array[index];
             }
 
-            if (index < 0 || index >= count)
+            if (index < 0 || index >= count || index > capacity)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -86,7 +96,14 @@ namespace AlgorithmsDataStructures
 
         public void Append(T itm)
         {
-            count = count + 1;
+            if (count == 0)
+            {
+                array[0] = itm;
+                count++;
+                return;
+            }
+
+            count = count + 1;            
             if (count > capacity)
             {
                 MakeArray(capacity * 2);
@@ -97,6 +114,12 @@ namespace AlgorithmsDataStructures
 
         public void Insert(T itm, int index)
         {
+            if (count == 0)
+            {
+                Append(itm);
+                return;
+            }
+
             if (index > count || index < 0)
             {
                 throw new ArgumentOutOfRangeException();
@@ -108,22 +131,25 @@ namespace AlgorithmsDataStructures
                 if (count > capacity)
                 {
                     MakeArray(capacity * 2);
-                    ShiftArrayToRightSide(array, index, capacity / 2, itm);
+                    array = ShiftArrayToRightSide(array, index, capacity, itm);
                 }
                 if (count < capacity)
                 {
-                    ShiftArrayToRightSide(array, index, capacity / 2, itm);
-                }               
+                    array = ShiftArrayToRightSide(array, index, capacity, itm);
+                }
+                return;
             }
 
             if (index >= 0 && count == 0)
             {
                 array[0] = itm;
+                return;
             }
 
             if (index == count)
             {
                 array[count - 1] = itm;
+                return;
             }
         }
 
@@ -136,49 +162,67 @@ namespace AlgorithmsDataStructures
             count = count - 1;
            while (count < capacity && capacity >= 16)
             {
-                if (count < Convert.ToInt32(capacity * 0.5))
+                if (count < Convert.ToInt32(capacity * 0.5) && count >= 16)
                 {
                     capacity = Convert.ToInt32(capacity / 1.5);
                 }
             }
             MakeArray(capacity);
-            ShiftArrayToLeftSide(array, index, capacity);
+            array = ShiftArrayToLeftSide(array, index, capacity);
         }
 
         public T[] CopyArrayToNewSize(T[] oldArray, int count, int new_capacity)
         {
             T[] newArray = new T[new_capacity];
-            Array.Copy(oldArray, newArray, count);
+            if (new_capacity > capacity)
+            {
+                Array.Copy(oldArray, newArray, oldArray.Length);
+            }
+            else
+            {
+                Array.Copy(oldArray, newArray, new_capacity);
+            }
+            
             return newArray;
         }
 
         public T[] ShiftArrayToRightSide(T[] oldArray, int index, int capacity, T item)
         {
             T[] newArray = new T[capacity];
-            for (int i = 0; i < capacity + 1; i++)
+            int NewArrayCount = 0;
+            for (int i = 0; i < count; i++)
             {
                 if (i == index)
-                {
-                    newArray[i] = item;
-                    continue; 
+                {                    
+                    newArray[NewArrayCount] = item;
+                    NewArrayCount++;
+                    newArray[NewArrayCount] = oldArray[i];                    
                 }
-                newArray[i] = oldArray[i];               
+                if (i != index)
+                {                  
+                    newArray[NewArrayCount] = oldArray[i];
+                }
+                NewArrayCount++;
             }
             return newArray;
         }
 
         public T[] ShiftArrayToLeftSide(T[] oldArray, int index, int capacity)
         {
+            int NewArrayCount = 0;
             T[] newArray = new T[capacity];
             for (int i = 0; i < capacity; i++)
             {                
                 if (i == index)
-                {                    
-                    i++;
-                    newArray[i] = array[i];
-                    continue;
+                {
+                    NewArrayCount++;
+                    newArray[i] = array[NewArrayCount];                    
                 }
-                newArray[i] = oldArray[i];
+                if (i != index)
+                {
+                    newArray[i] = array[NewArrayCount];
+                }
+                NewArrayCount++;
             }
             return newArray;
         }
