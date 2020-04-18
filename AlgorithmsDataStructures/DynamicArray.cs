@@ -149,6 +149,10 @@ namespace AlgorithmsDataStructures
                 {
                     array = ShiftArrayToRightSide(array, index, capacity, itm);
                 }
+                if (count == capacity)
+                {
+                    array = ShiftArrayToRightSide(array, index, capacity, itm);
+                }
                 return;
             }
 
@@ -159,8 +163,7 @@ namespace AlgorithmsDataStructures
             }
 
             if (index == count)
-            {
-                array[count - 1] = itm;
+            {                
                 return;
             }
         }
@@ -203,17 +206,25 @@ namespace AlgorithmsDataStructures
         {
             T[] newArray = new T[capacity];
             int NewArrayCount = 0;
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < capacity; i++)
             {
                 if (i == index)
                 {                    
-                    newArray[NewArrayCount] = item;
-                    NewArrayCount++;
-                    newArray[NewArrayCount] = oldArray[i];                    
+                        newArray[NewArrayCount] = item;
+                        NewArrayCount++;
+                    if (NewArrayCount < capacity)
+                    {
+                        newArray[NewArrayCount] = oldArray[i];
+                        NewArrayCount++;
+                    }
+                    continue;
                 }
                 if (i != index)
                 {                  
-                    newArray[NewArrayCount] = oldArray[i];
+                    if (NewArrayCount < capacity)
+                    {
+                        newArray[NewArrayCount] = oldArray[i];
+                    }                   
                 }
                 NewArrayCount++;
             }
