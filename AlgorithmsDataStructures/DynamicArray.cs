@@ -7,7 +7,7 @@ namespace AlgorithmsDataStructures
     {
         public T[] array;
         public int count;
-        public int capacity;
+        public int capacity;        
 
         public DynArray()
         {
@@ -16,10 +16,17 @@ namespace AlgorithmsDataStructures
         }
 
         public void MakeArray(int new_capacity)
-        {           
+        {
+
+            if (new_capacity == 16 && count != 0)
+            {               
+                array = CopyArrayToNewSize(array, count, new_capacity);
+                capacity = 16;
+                return;
+            }
             if (new_capacity == 16)
             {
-                capacity = 16;
+                capacity = 16;                
                 array = new T[new_capacity];
             }
             if (new_capacity > capacity && count == 0)
@@ -28,7 +35,7 @@ namespace AlgorithmsDataStructures
                 {
                     capacity = capacity * 2;
                 }              
-                array = new T[new_capacity];
+                array = new T[capacity];
                 return;
             }     
             
@@ -87,7 +94,7 @@ namespace AlgorithmsDataStructures
                 return array[index];
             }
 
-            if (index < 0 || index >= count || index > capacity)
+            if (index < 0 || index > count || index > capacity)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -114,10 +121,15 @@ namespace AlgorithmsDataStructures
 
         public void Insert(T itm, int index)
         {
-            if (count == 0)
+            if (count == 0 && index == 0)
             {
                 Append(itm);
                 return;
+            }
+
+            if (count == 0 && index != 0)
+            {
+                throw new ArgumentOutOfRangeException();
             }
 
             if (index > count || index < 0)
@@ -160,15 +172,16 @@ namespace AlgorithmsDataStructures
                 throw new ArgumentOutOfRangeException();
             }            
             count = count - 1;
-           while (count < capacity && capacity >= 16)
+            if (count < capacity * 0.5)
             {
-                if (count < Convert.ToInt32(capacity * 0.5) && count >= 16)
+                while (Convert.ToInt32(capacity / 1.5) >= 16 && Convert.ToInt32(capacity / 1.5) >= count)
                 {
                     capacity = Convert.ToInt32(capacity / 1.5);
                 }
             }
-            MakeArray(capacity);
-            array = ShiftArrayToLeftSide(array, index, capacity);
+            T[] ArrayForCopy = array;
+            array = new T[capacity];
+            array = ShiftArrayToLeftSide(ArrayForCopy, index, capacity);
         }
 
         public T[] CopyArrayToNewSize(T[] oldArray, int count, int new_capacity)
@@ -178,7 +191,7 @@ namespace AlgorithmsDataStructures
             {
                 Array.Copy(oldArray, newArray, oldArray.Length);
             }
-            else
+            if (new_capacity <= capacity)
             {
                 Array.Copy(oldArray, newArray, new_capacity);
             }
@@ -211,19 +224,19 @@ namespace AlgorithmsDataStructures
         {
             int NewArrayCount = 0;
             T[] newArray = new T[capacity];
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < count; i++)
             {                
                 if (i == index)
                 {
                     NewArrayCount++;
-                    newArray[i] = array[NewArrayCount];                    
+                    newArray[i] = oldArray[NewArrayCount];                    
                 }
                 if (i != index)
                 {
-                    newArray[i] = array[NewArrayCount];
+                    newArray[i] = oldArray[NewArrayCount];
                 }
                 NewArrayCount++;
-            }
+            }           
             return newArray;
         }
     }
