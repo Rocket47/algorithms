@@ -18,15 +18,15 @@ namespace AlgorithmsDataStructures
         public void MakeArray(int new_capacity)
         {
 
-            if (new_capacity == 16 && count != 0)
+            if (new_capacity == 16 && count != 0 && new_capacity > count)
             {               
                 array = CopyArrayToNewSize(array, count, new_capacity);
                 capacity = 16;
                 return;
             }
-            if (new_capacity == 16)
+            if (new_capacity == 16 && new_capacity > count)
             {
-                capacity = 16;                
+                capacity = 16;
                 array = new T[new_capacity];
             }
             if (new_capacity > capacity && count == 0)
@@ -175,7 +175,7 @@ namespace AlgorithmsDataStructures
                 throw new ArgumentOutOfRangeException();
             }            
             count = count - 1;
-            if (count < capacity * 0.5)
+            if ((count * 100 / capacity) < 50)
             {
                 while (Convert.ToInt32(capacity / 1.5) >= 16 && Convert.ToInt32(capacity / 1.5) >= count)
                 {
