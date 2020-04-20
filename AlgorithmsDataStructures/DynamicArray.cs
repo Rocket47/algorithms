@@ -177,8 +177,13 @@ namespace AlgorithmsDataStructures
             count = count - 1;
             if ((count * 100 / capacity) < 50)
             {
-                while (Convert.ToInt32(capacity / 1.5) >= 16 && Convert.ToInt32(capacity / 1.5) >= count)
+                while (Convert.ToInt32(capacity / 1.5) >= count)
                 {
+                    if (Convert.ToInt32(capacity / 1.5) <= 16)
+                    {
+                        capacity = 16;
+                        break;
+                    }
                     capacity = Convert.ToInt32(capacity / 1.5);
                 }
             }
