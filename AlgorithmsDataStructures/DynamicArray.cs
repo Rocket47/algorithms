@@ -52,9 +52,9 @@ namespace AlgorithmsDataStructures
                 {
                     capacity = 16;
                 }
-                while (Convert.ToInt32(capacity / 1.5) > new_capacity && Convert.ToInt32(capacity / 1.5) >= 16)
+                while ((int)(capacity / 1.5) > new_capacity && (int)(capacity / 1.5) >= 16)
                 {
-                    capacity = Convert.ToInt32(capacity / 1.5);
+                    capacity = (int)(capacity / 1.5);
                 }
                 array = new T[capacity];
                 return;
@@ -68,9 +68,9 @@ namespace AlgorithmsDataStructures
                     }
                     if (new_capacity > count)
                     {
-                        while (Convert.ToInt32(capacity / 1.5) > new_capacity && Convert.ToInt32(capacity / 1.5) > count && Convert.ToInt32(capacity / 1.5) >= 16)
+                        while ((int)(capacity / 1.5) > new_capacity && (int)(capacity / 1.5) > count && (int)(capacity / 1.5) >= 16)
                         {
-                            capacity = Convert.ToInt32(capacity / 1.5);
+                            capacity = (int)(capacity / 1.5);
                             if (capacity < 16)
                             {
                                 capacity = 16;
@@ -177,14 +177,14 @@ namespace AlgorithmsDataStructures
             count = count - 1;
             if ((count * 100 / capacity) < 50)
             {
-                while (Convert.ToInt32(capacity / 1.5) >= count)
+                while ((int)(capacity / 1.5) >= count)
                 {
-                    if (Convert.ToInt32(capacity / 1.5) <= 16)
+                    if ((int)(capacity / 1.5) <= 16)
                     {
                         capacity = 16;
                         break;
                     }
-                    capacity = Convert.ToInt32(capacity / 1.5);
+                    capacity = (int)(capacity / 1.5);
                 }
             }
             T[] ArrayForCopy = array;
