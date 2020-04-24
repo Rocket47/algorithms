@@ -6,33 +6,54 @@ namespace AlgorithmsDataStructures
 
     public class Stack<T>
     {
+        public List<T> stack;
+        int index;
         public Stack()
         {
-            // инициализация внутреннего хранилища стека
+            stack = new List<T>();
+            index = 0;// инициализация внутреннего хранилища стека
         }
         //*////////////////////////////////////////////////////
         public int Size()
         {
-            // размер текущего стека		  
+            int count = 0;
+            foreach (var tmp in stack)
+            {
+                count++;
+            }
+            if (count > 0)
+            {
+                return count;
+            }		  
             return 0;
         }
         //*////////////////////////////////////////////////////
         public T Pop()
         {
-            // ваш код
+            index = Size() - 1;
+            if (index >= 0)
+            {
+                T val = stack[index];
+                stack.Remove(val);
+                return val;
+            }
             return default(T); // null, если стек пустой
         }
         //*////////////////////////////////////////////////////
         public void Push(T val)
-        {
-            // ваш код
+        {           
+            stack.Add(val);                   
         }
         //*////////////////////////////////////////////////////
         public T Peek()
         {
-            // ваш код
+            index = Size() - 1;
+            if (index >= 0)
+            {
+                return stack[index];
+            }
             return default(T); // null, если стек пустой
-        }
+        }       
     }
 
 }
