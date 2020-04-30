@@ -15,7 +15,7 @@ namespace AlgorithmsDataStructures
             prev = null;
         }
     }
-    
+
     public class OrderedList<T>
     {
         public Node<T> head, tail;
@@ -60,36 +60,40 @@ namespace AlgorithmsDataStructures
 
         //*////////////////////////////////////////
         public void Add(T value)
-        {          
-            Node<T> tmp = new Node<T>(value);           
+        {
+            Node<T> tmp = new Node<T>(value);
             if (head == null)
-            {               
-                head = tmp;                
+            {
+                head = tmp;
                 return;
-            }      
-            
+            }
+
             if (head != null && head.next == null)
             {
-                head.next = tmp;                
+                head.next = tmp;
                 return;
             }
 
             if (head != null && head.next != null)
             {
-                Node<T> headNode = head;                
+                Node<T> headNode = head;
+                Node<T> headPosition = null;                     
                 while (headNode != null)
                 {
                     int result = Compare(value, headNode.value);
-                    
-                    if (result == 1 && headNode.next == null)
-                    {                        
-                        headNode.next = tmp;
-                        headNode = headNode.next;
+
+                    if (result == 1 || result == 0)
+                    {
+                        headPosition = headNode;                                          
                     }
                     headNode = headNode.next;
                 }
-                Console.WriteLine("head value " + head.value);                
-            }                    
+                headNode = headPosition;
+                Node<T> saveNode = headNode.next;
+                headNode.next = tmp;
+                tmp.next = saveNode;
+                Console.WriteLine("head value " + head.value);
+            }
         }
 
         //*////////////////////////////////////////
