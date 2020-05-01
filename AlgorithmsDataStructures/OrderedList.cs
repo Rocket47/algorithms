@@ -68,31 +68,50 @@ namespace AlgorithmsDataStructures
                 return;
             }
 
-            if (head != null && head.next == null)
+            if (_ascending)
             {
-                head.next = tmp;
-                return;
-            }
-
-            if (head != null && head.next != null)
-            {
-                Node<T> headNode = head;
-                Node<T> headPosition = null;                     
-                while (headNode != null)
+                int result1 = (Compare(value, head.value));
+                if (head != null && head.next == null && (result1 == 1 || result1 == 0))
                 {
-                    int result = Compare(value, headNode.value);
-
-                    if (result == 1 || result == 0)
-                    {
-                        headPosition = headNode;                                          
-                    }
-                    headNode = headNode.next;
+                    head.next = tmp;
+                    return;
                 }
-                headNode = headPosition;
-                Node<T> saveNode = headNode.next;
-                headNode.next = tmp;
-                tmp.next = saveNode;
-                Console.WriteLine("head value " + head.value);
+
+                if (head != null && (result1 == -1))
+                {
+                    Node<T> saveFirstHead = head;
+                    head = tmp;
+                    tmp.next = saveFirstHead;
+                }
+
+                if (head != null && head.next != null)
+                {
+                    Node<T> headNode = head;
+                    Node<T> headPosition = null;
+                    while (headNode != null)
+                    {
+                        int result2 = Compare(value, headNode.value);
+
+                        if (result2 == 1 || result2 == 0)
+                        {
+                            headPosition = headNode;
+                        }
+                        headNode = headNode.next;
+                    }
+                    headNode = headPosition;
+                    Node<T> saveNode = headNode.next;
+                    headNode.next = tmp;
+                    tmp.next = saveNode;
+                    Console.WriteLine("head value " + head.value);
+                }
+            }
+            else
+            {
+                if (head != null && head.next == null)
+                {
+                    head.next = tmp;
+                    return;
+                }
             }
         }
 
