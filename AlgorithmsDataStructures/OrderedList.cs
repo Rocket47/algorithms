@@ -109,8 +109,41 @@ namespace AlgorithmsDataStructures
             {
                 if (head != null && head.next == null)
                 {
-                    head.next = tmp;
-                    return;
+                    int resultFalse = Compare(head.value, value);
+                    if (resultFalse == -1)
+                    {
+                        Node<T> saveHead = head;
+                        head = tmp;
+                        head.next = saveHead;
+                        return;                        
+                    }
+
+                    if (resultFalse == 0 || resultFalse == 1)
+                    {
+                        head.next = tmp;
+                        return;
+                    }                    
+                }
+
+                if (head != null && head.next != null)
+                {
+                    Node<T> headNode = head;
+                    Node<T> headPosition = null;
+                    while (headNode != null)
+                    {
+                        int result2 = Compare(value, headNode.value);
+
+                        if (result2 == 1 || result2 == 0)
+                        {
+                            headPosition = headNode;
+                        }
+                        headNode = headNode.next;
+                    }
+                    headNode = headPosition;
+                    Node<T> saveNode = headNode.next;
+                    headNode.next = tmp;
+                    tmp.next = saveNode;
+                    Console.WriteLine("head value " + head.value);
                 }
             }
         }
