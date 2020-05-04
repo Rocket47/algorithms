@@ -102,7 +102,6 @@ namespace AlgorithmsDataStructures
                     Node<T> saveNode = headNode.next;
                     headNode.next = tmp;
                     tmp.next = saveNode;
-                    Console.WriteLine("head value " + head.value);
                 }
             }
             else
@@ -115,14 +114,14 @@ namespace AlgorithmsDataStructures
                         Node<T> saveHead = head;
                         head = tmp;
                         head.next = saveHead;
-                        return;                        
+                        return;
                     }
 
                     if (resultFalse == 0 || resultFalse == 1)
                     {
                         head.next = tmp;
                         return;
-                    }                    
+                    }
                 }
 
                 if (head != null && head.next != null)
@@ -131,19 +130,29 @@ namespace AlgorithmsDataStructures
                     Node<T> headPosition = null;
                     while (headNode != null)
                     {
-                        int result2 = Compare(value, headNode.value);
+                        int result2 = Compare(headNode.value, value);
 
                         if (result2 == 1 || result2 == 0)
                         {
                             headPosition = headNode;
                         }
+                        else
+                        {
+                            if (headPosition == null)
+                            {
+                                head = tmp;
+                                tmp.next = headNode;
+                                return;
+                            }
+                        }
                         headNode = headNode.next;
                     }
                     headNode = headPosition;
+
                     Node<T> saveNode = headNode.next;
                     headNode.next = tmp;
                     tmp.next = saveNode;
-                    Console.WriteLine("head value " + head.value);
+
                 }
             }
         }
