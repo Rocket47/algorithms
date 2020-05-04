@@ -179,7 +179,35 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////
         public void Delete(T val)
         {
-            // здесь будет ваш код
+            Node<T> currentHead = head;
+            Node<T> previous;
+
+            while (currentHead != null)
+            {
+                int result = Compare(currentHead.value, val);
+                if (result == 0 && currentHead.prev == null)
+                {
+                    currentHead = currentHead.next;
+                    head = currentHead;
+                    return;
+                }
+                if (result == 0)
+                {                    
+                    if (currentHead.next != null && currentHead.prev != null)
+                    {
+                        previous = currentHead.prev;
+                        previous.next = currentHead.next;                                              
+                        return;
+                    }                    
+                    else
+                    {
+                        currentHead = null;
+                        return;
+                    }
+                }
+                currentHead.prev = currentHead;
+                currentHead = currentHead.next;
+            }
         }
 
         //*////////////////////////////////////////
