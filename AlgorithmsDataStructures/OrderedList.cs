@@ -33,7 +33,45 @@ namespace AlgorithmsDataStructures
             int result = 0;
             if (typeof(T) == typeof(String))
             {
-               
+                string V1 = v1.ToString();
+                string V2 = v2.ToString();
+                V1 = V1.TrimStart(' ').TrimEnd(' ');
+                V2 = V2.TrimStart(' ').TrimEnd(' ');
+                char[] charArrV1 = V1.ToCharArray();
+                char[] charArrV2 = V2.ToCharArray();
+                int lengthArr;
+                if (charArrV1.Length < charArrV2.Length)
+                {
+                    lengthArr = charArrV1.Length;
+                }
+                else
+                {
+                    lengthArr = charArrV2.Length;
+                }                
+                for (int i = 0; i < lengthArr; i++)
+                {
+                    if (charArrV1[i] < charArrV2[i])
+                    {
+                        return -1;
+                    }
+                    if (charArrV1[i] > charArrV2[i])
+                    {
+                        return 1;
+                    }                    
+                }
+                if (result == 0 && charArrV1.Length == charArrV2.Length)
+                {
+                    result = 0;
+                }
+                if (result == 0 && charArrV1.Length < charArrV2.Length)
+                {
+                    result = -1;
+                }
+                if (result == 0 && charArrV1.Length > charArrV2.Length)
+                {
+                    result = 1;
+                }
+                return result;
             }
             else
             { 
