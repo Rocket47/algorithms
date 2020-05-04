@@ -73,7 +73,7 @@ namespace AlgorithmsDataStructures
                 int result1 = (Compare(value, head.value));
                 if (head != null && head.next == null && (result1 == 1 || result1 == 0))
                 {
-                    head.next = tmp;
+                    head.next = tmp;                    
                     return;
                 }
 
@@ -179,15 +179,14 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////
         public void Delete(T val)
         {
-            Node<T> currentHead = head;
-            Node<T> previous;
+            Node<T> currentHead = head;           
 
             while (currentHead != null)
             {
                 int result = Compare(currentHead.value, val);
                 if (result == 0 && currentHead.prev == null)
-                {
-                    currentHead = currentHead.next;
+                {                    
+                    currentHead = currentHead.next;                    
                     head = currentHead;
                     return;
                 }
@@ -195,8 +194,7 @@ namespace AlgorithmsDataStructures
                 {                    
                     if (currentHead.next != null && currentHead.prev != null)
                     {
-                        previous = currentHead.prev;
-                        previous.next = currentHead.next;                                              
+                        
                         return;
                     }                    
                     else
@@ -214,13 +212,24 @@ namespace AlgorithmsDataStructures
         public void Clear(bool asc)
         {
             _ascending = asc;
-            // здесь будет ваш код
+            if (_ascending)
+            {
+                head = null;
+                tail = null;
+            }// здесь будет ваш код
         }
 
         //*////////////////////////////////////////
         public int Count()
         {
-            return 0; // здесь будет ваш код подсчёта количества элементов в списке
+            Node<T> currentHead = head;
+            int count = 0;
+            while (currentHead != null)
+            {
+                count++;
+                currentHead = currentHead.next;
+            }
+            return count; // здесь будет ваш код подсчёта количества элементов в списке
         }
 
         List<Node<T>> GetAll() // выдать все элементы упорядоченного 
