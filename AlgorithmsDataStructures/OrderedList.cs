@@ -33,10 +33,10 @@ namespace AlgorithmsDataStructures
             int result = 0;
             if (typeof(T) == typeof(String))
             {
-                // версия для лексикографического сравнения строк
+               
             }
             else
-            {
+            { 
                 int number1 = (int)(object)v1;
                 int number2 = (int)(object)v2;
                 if (number1 < number2)
@@ -50,12 +50,12 @@ namespace AlgorithmsDataStructures
                 else
                 {
                     result = 0;
-                }
+                }               
+                // -1 если v1 < v2
+                // 0 если v1 == v2
+                // +1 если v1 > v2
             }
             return result;
-            // -1 если v1 < v2
-            // 0 если v1 == v2
-            // +1 если v1 > v2
         }
 
         //*////////////////////////////////////////
@@ -160,6 +160,19 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////
         public Node<T> Find(T val)
         {
+            Node<T> HeadNode = head;
+            while (HeadNode != null)
+            {
+                int result = Compare(HeadNode.value, val);
+                if (result == 0)
+                {
+                    return HeadNode;
+                }
+                else
+                {
+                    HeadNode = HeadNode.next;
+                }
+            }
             return null; // здесь будет ваш код
         }
 
