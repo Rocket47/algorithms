@@ -179,31 +179,24 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////
         public void Delete(T val)
         {
-            Node<T> currentHead = head;           
+            Node<T> currentHead = head;
+            Node<T> currentPrev = null;          
 
             while (currentHead != null)
             {
                 int result = Compare(currentHead.value, val);
-                if (result == 0 && currentHead.prev == null)
+                if (result == 0 && currentPrev == null)
                 {                    
                     currentHead = currentHead.next;                    
                     head = currentHead;
                     return;
                 }
-                if (result == 0)
-                {                    
-                    if (currentHead.next != null && currentHead.prev != null)
-                    {
-                        
-                        return;
-                    }                    
-                    else
-                    {
-                        currentHead = null;
-                        return;
-                    }
+                if (result == 0 && currentPrev != null)
+                {
+                    currentPrev.next = currentHead.next;
+                    currentHead = currentPrev;
                 }
-                currentHead.prev = currentHead;
+                currentPrev = currentHead;
                 currentHead = currentHead.next;
             }
         }
