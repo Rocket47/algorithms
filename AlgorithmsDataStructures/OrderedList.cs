@@ -103,6 +103,7 @@ namespace AlgorithmsDataStructures
             if (head == null)
             {
                 head = tmp;
+                tail = tmp;
                 return;
             }
 
@@ -111,7 +112,9 @@ namespace AlgorithmsDataStructures
                 int result1 = (Compare(value, head.value));
                 if (head != null && head.next == null && (result1 == 1 || result1 == 0))
                 {
-                    head.next = tmp;                    
+                    head.next = tmp;
+                    tail = tmp;
+                    tail.prev = head;
                     return;
                 }
 
@@ -120,6 +123,8 @@ namespace AlgorithmsDataStructures
                     Node<T> saveFirstHead = head;
                     head = tmp;
                     tmp.next = saveFirstHead;
+                    tail.prev = head;
+                    tail = tmp.next;
                 }
 
                 if (head != null && head.next != null)
@@ -133,14 +138,24 @@ namespace AlgorithmsDataStructures
                         if (result2 == 1 || result2 == 0)
                         {
                             headPosition = headNode;
-                        }
-                        headNode = headNode.next;
+                        }                        
+                        headNode = headNode.next;                       
                     }
                     headNode = headPosition;
                     Node<T> saveNode = headNode.next;
                     headNode.next = tmp;
                     tmp.next = saveNode;
-                }
+
+                    headNode = head;
+                    tail.prev = null;
+                    while (headNode != null)
+                    {
+                        Node<T> svPrev = tail;
+                        tail = headNode;
+                        tail.prev = svPrev;
+                        headNode = headNode.next;                                               
+                    }
+                }                          
             }
             else
             {
@@ -152,12 +167,16 @@ namespace AlgorithmsDataStructures
                         Node<T> saveHead = head;
                         head = tmp;
                         head.next = saveHead;
+                        tail = head.next;
+                        tail.prev = head;
                         return;
                     }
 
                     if (resultFalse == 0 || resultFalse == 1)
                     {
                         head.next = tmp;
+                        tail = head.next;
+                        tail.prev = head;
                         return;
                     }
                 }
@@ -180,6 +199,15 @@ namespace AlgorithmsDataStructures
                             {
                                 head = tmp;
                                 tmp.next = headNode;
+                                headNode = head;
+                                tail.prev = null;
+                                while (headNode != null)
+                                {
+                                    Node<T> svPrev = tail;
+                                    tail = headNode;
+                                    tail.prev = svPrev;
+                                    headNode = headNode.next;
+                                }
                                 return;
                             }
                         }
@@ -191,6 +219,15 @@ namespace AlgorithmsDataStructures
                     headNode.next = tmp;
                     tmp.next = saveNode;
 
+                    headNode = head;
+                    tail.prev = null;
+                    while (headNode != null)
+                    {
+                        Node<T> svPrev = tail;
+                        tail = headNode;
+                        tail.prev = svPrev;
+                        headNode = headNode.next;
+                    }
                 }
             }
         }
