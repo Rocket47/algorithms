@@ -124,9 +124,9 @@ namespace AlgorithmsDataStructures
                 {
                     Node<T> saveFirstHead = head;
                     head = tmp;
-                    tmp.next = saveFirstHead;
-                    tail.prev = head;
-                    tail = tmp.next;
+                    saveFirstHead.prev = tmp;
+                    tmp.next = saveFirstHead;                    
+                    return;
                 }
 
                 if (head != null && head.next != null)
@@ -146,17 +146,9 @@ namespace AlgorithmsDataStructures
                     headNode = headPosition;
                     Node<T> saveNode = headNode.next;
                     headNode.next = tmp;
+                    tmp.prev = headNode;
                     tmp.next = saveNode;
-
-                    headNode = head;
-                    tail.prev = null;
-                    while (headNode != null)
-                    {
-                        Node<T> svPrev = tail;
-                        tail = headNode;
-                        tail.prev = svPrev;
-                        headNode = headNode.next;                                               
-                    }
+                    tail = tmp;
                 }                          
             }
             else
