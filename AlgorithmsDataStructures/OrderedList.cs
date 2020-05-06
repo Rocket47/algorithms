@@ -147,14 +147,14 @@ namespace AlgorithmsDataStructures
                     Node<T> saveNode = headNode.next;
                     headNode.next = tmp;
                     tmp.prev = headNode;
-                    tmp.next = saveNode;                    
+                    tmp.next = saveNode;
                     if (saveNode != null)
                     {
                         saveNode.prev = tmp;
                         if (tmp.next.next == null)
                         {
                             tail = tmp.next;
-                        }                        
+                        }
                     }
                     else
                     {
@@ -162,80 +162,77 @@ namespace AlgorithmsDataStructures
 
                     }
                 }
-                else
+            }
+            else
+            {
+                if (head != null && head.next == null)
                 {
-                    if (head != null && head.next == null)
+                    int resultFalse = Compare(head.value, value);
+                    if (resultFalse == -1)
                     {
-                        int resultFalse = Compare(head.value, value);
-                        if (resultFalse == -1)
-                        {
-                            Node<T> saveHead = head;
-                            head = tmp;
-                            head.next = saveHead;
-                            tail = head.next;
-                            tail.prev = head;
-                            return;
-                        }
-
-                        if (resultFalse == 0 || resultFalse == 1)
-                        {
-                            head.next = tmp;
-                            tail = head.next;
-                            tail.prev = head;
-                            return;
-                        }
+                        Node<T> saveHead = head;
+                        head = tmp;
+                        tmp.next = saveHead;
+                        tmp.next.prev = tmp;
+                        tail = saveHead;
+                        tail.prev = head;
+                        return;
                     }
 
-                    if (head != null && head.next != null)
+                    if (resultFalse == 0 || resultFalse == 1)
                     {
-                        Node<T> headNode = head;
-                        Node<T> headPosition = null;
-                        while (headNode != null)
-                        {
-                            int result2 = Compare(headNode.value, value);
-
-                            if (result2 == 1 || result2 == 0)
-                            {
-                                headPosition = headNode;
-                            }
-                            else
-                            {
-                                if (headPosition == null)
-                                {
-                                    head = tmp;
-                                    tmp.next = headNode;
-                                    headNode = head;
-                                    tail.prev = null;
-                                    while (headNode != null)
-                                    {
-                                        Node<T> svPrev = tail;
-                                        tail = headNode;
-                                        tail.prev = svPrev;
-                                        headNode = headNode.next;
-                                    }
-                                    return;
-                                }
-                            }
-                            headNode = headNode.next;
-                        }
-                        headNode = headPosition;
-
-                        Node<T> saveNode = headNode.next;
-                        headNode.next = tmp;
-                        tmp.next = saveNode;
-
-                        headNode = head;
-                        tail.prev = null;
-                        while (headNode != null)
-                        {
-                            Node<T> svPrev = tail;
-                            tail = headNode;
-                            tail.prev = svPrev;
-                            headNode = headNode.next;
-                        }
+                        head.next = tmp;
+                        tail = tmp;
+                        tmp.prev = head                        ;
+                        return;
                     }
                 }
-            }
+
+                if (head != null && head.next != null)
+                {
+                    Node<T> headNode = head;
+                    Node<T> headPosition = null;
+                    while (headNode != null)
+                    {
+                        int result2 = Compare(headNode.value, value);
+
+                        if (result2 == 1 || result2 == 0)
+                        {
+                            headPosition = headNode;
+                        }
+                        else
+                        {
+                            if (headPosition == null)
+                            {
+                                head = tmp;
+                                tmp.next = headNode;
+                                tmp.next.prev = tmp;                                                                                             
+                                return;
+                            }
+                        }
+                        headNode = headNode.next;
+                    }
+                    headNode = headPosition;
+
+                    Node<T> saveNode = headNode.next;
+                    headNode.next = tmp;
+                    tmp.prev = headNode;
+                    tmp.next = saveNode;
+                    if (saveNode != null)
+                    {
+                        saveNode.prev = tmp;
+                        if (tmp.next.next == null)
+                        {
+                            tail = tmp.next;
+                        }
+                    }
+                    else
+                    {
+                        tail = tmp;
+
+                    }
+                }
+            }                       
         }
         //*////////////////////////////////////////
         public Node<T> Find(T val)
