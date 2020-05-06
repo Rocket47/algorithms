@@ -104,6 +104,8 @@ namespace AlgorithmsDataStructures
             {
                 head = tmp;
                 tail = tmp;
+                head.next = null;
+                tail.prev = null;
                 return;
             }
 
@@ -254,37 +256,41 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////
         public void Delete(T val)
         {
-            Node<T> currentHead = head;
-            Node<T> currentPrev = null;          
+            Node<T> currentHead = head;            
+            Node<T> currentPrev = null;
 
             while (currentHead != null)
             {
                 int result = Compare(currentHead.value, val);
                 if (result == 0 && currentPrev == null)
-                {                    
-                    currentHead = currentHead.next;                    
+                {
+                    currentHead = currentHead.next;
                     head = currentHead;
+                    tail = currentHead;                  
                     return;
                 }
                 if (result == 0 && currentPrev != null)
                 {
                     currentPrev.next = currentHead.next;
                     currentHead = currentPrev;
-                }
-                currentPrev = currentHead;
-                currentHead = currentHead.next;
-            }
+                    if (GetAll().Count == 1)
+                    {
+                        tail.prev = null;
+                    }
+                    return;
+                }              
+                currentPrev = currentHead;                
+                currentHead = currentHead.next;                
+            }            
         }
 
         //*////////////////////////////////////////
         public void Clear(bool asc)
         {
             _ascending = asc;
-            if (_ascending)
-            {
-                head = null;
-                tail = null;
-            }// здесь будет ваш код
+            head = null;
+            tail = null;
+            // здесь будет ваш код
         }
 
         //*////////////////////////////////////////
