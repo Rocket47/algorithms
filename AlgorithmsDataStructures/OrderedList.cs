@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace AlgorithmsDataStructures
 {
@@ -183,7 +184,7 @@ namespace AlgorithmsDataStructures
                     {
                         head.next = tmp;
                         tail = tmp;
-                        tmp.prev = head                        ;
+                        tmp.prev = head;
                         return;
                     }
                 }
@@ -255,33 +256,56 @@ namespace AlgorithmsDataStructures
 
         //*////////////////////////////////////////
         public void Delete(T val)
-        {
-            Node<T> currentHead = head;            
-            Node<T> currentPrev = null;
+        {            
+            Node<T> current = head;
+            int resultDelete = -2;
 
-            while (currentHead != null)
+            if (GetAll().Count != 0)
             {
-                int result = Compare(currentHead.value, val);
-                if (result == 0 && currentPrev == null)
+              resultDelete = Compare(current.value, val);
+            }
+            else
+            {
+                return;
+            }
+
+            if (current.next == null && resultDelete == 0)
+            {
+                head = null;
+                tail = null;
+                return;
+            }
+
+            if (head.prev == null && resultDelete == 0)
+            {
+                head = head.next;
+                head.prev = null;
+                if (head.next == null)
                 {
-                    currentHead = currentHead.next;
-                    head = currentHead;
-                    tail = currentHead;                  
+                    tail = head;
+                    tail.prev = null;
+                }
+                return;
+            }
+           
+            while (current != null)
+            {
+                resultDelete = Compare(current.value, val);
+                if (resultDelete == 0)
+                {
+                    current.prev.next = current.next;                        
+                    if (current.next == null)
+                    {
+                        tail = current.prev;
+                        return;
+                    }
+                    current.next.prev = current.prev;
                     return;
                 }
-                if (result == 0 && currentPrev != null)
-                {
-                    currentPrev.next = currentHead.next;
-                    currentHead = currentPrev;
-                    if (GetAll().Count == 1)
-                    {
-                        tail.prev = null;
-                    }
-                    return;
-                }              
-                currentPrev = currentHead;                
-                currentHead = currentHead.next;                
-            }            
+                
+                current = current.next;
+            }
+            
         }
 
         //*////////////////////////////////////////
