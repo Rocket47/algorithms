@@ -18,13 +18,46 @@ namespace AlgorithmsDataStructures
         }
 
         public int HashFun(string value)
-        {
+        {           
+            int hashCode2 = 0;
+            char[] converterArray = value.ToCharArray();
+            for (int i = 0; i < converterArray.Length; i++)
+            {
+                byte[] bytesArray = BitConverter.GetBytes(converterArray[i]);
+                for (int j = 0; j < bytesArray.Length; j++)
+                {
+                    hashCode2 += bytesArray[j];
+                }
+            }
+            hashCode2 = hashCode2 % size;            
             // всегда возвращает корректный индекс слота
-            return 0;
+            return hashCode2;
         }
 
         public int SeekSlot(string value)
         {
+            int index = HashFun(value);
+
+            if (index >= size)
+            {
+                return -1;
+            }
+            while (step != 0)
+            {
+                for (int i = index; i < size; i++)
+                {
+                    if (slots[i] == null)
+                    {
+                        return i;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                step--;
+            }
+            
             // находит индекс пустого слота для значения, или -1
             return -1;
         }
