@@ -19,7 +19,7 @@ namespace AlgorithmsDataStructures
 
         public int HashFun(string value)
         {           
-            int hashCode2 = 0;
+            int hashCode2= 0;
             char[] converterArray = value.ToCharArray();
             for (int i = 0; i < converterArray.Length; i++)
             {
@@ -37,12 +37,13 @@ namespace AlgorithmsDataStructures
         public int SeekSlot(string value)
         {
             int index = HashFun(value);
+            int stepCopy = step;
 
             if (index >= size)
             {
                 return -1;
             }
-            while (step != 0)
+            while (stepCopy != 0)
             {
                 for (int i = index; i < size; i++)
                 {
@@ -55,7 +56,7 @@ namespace AlgorithmsDataStructures
                         continue;
                     }
                 }
-                step--;
+                stepCopy--;
             }
             
             // находит индекс пустого слота для значения, или -1
@@ -63,7 +64,13 @@ namespace AlgorithmsDataStructures
         }
 
         public int Put(string value)
-        {
+        {            
+            int indexEmptySlot = SeekSlot(value);
+            if (indexEmptySlot != -1)
+            {
+                slots[indexEmptySlot] = value;
+                return indexEmptySlot;
+            }   
             // записываем значение по хэш-функции
 
             // возвращается индекс слота или -1
@@ -73,6 +80,16 @@ namespace AlgorithmsDataStructures
 
         public int Find(string value)
         {
+            foreach (string searhSlot in slots)
+            {
+                for (int i = 0; i < searhSlot.Length; i++)
+                {
+                    if (searhSlot[i].Equals(value))
+                    {
+                        return i;
+                    }
+                }
+            }
             // находит индекс слота со значением, или -1
             return -1;
         }
