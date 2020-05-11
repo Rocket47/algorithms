@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 
 namespace AlgorithmsDataStructures
 {
@@ -9,6 +10,7 @@ namespace AlgorithmsDataStructures
         public string[] slots;
         public T[] values;
         public int globalIndex;
+        public int positionFoundKey;
 
         public NativeDictionary(int sz)
         {
@@ -36,38 +38,45 @@ namespace AlgorithmsDataStructures
 
         public bool IsKey(string key)
         {
-            foreach (string searchKey in slots)
+            for (int i = 0; i < slots.Length; i++)
             {
-                if (searchKey == null)
+                if (slots[i] == null)
                 {
                     continue;
                 }
-                if (searchKey.Equals(key))
+                if (slots[i].Equals(key))
                 {
+                    positionFoundKey = i;
                     return true;
                 }
-            }
+            }            
             return false;
         }
 
         public void Put(string key, T value)
         {
-            int indexEmptySlot = SeekSlot(value);
-            if (indexEmptySlot != -1)
+            if (!IsKey(key))
             {
-                slots[indexEmptySlot] = key;
-                values[indexEmptySlot] = value;                
+                int indexEmptySlot = SeekSlot();
+                if (indexEmptySlot != -1)
+                {
+                    slots[indexEmptySlot] = key;
+                    values[indexEmptySlot] = value;
+                }
             }
         }
 
         public T Get(string key)
         {
-            // возвращает value для key, 
-            // или null если ключ не найден
+            
+            if (IsKey(key))
+            {
+                return values[positionFoundKey];
+            }            
             return default(T);
         }
 
-        public int SeekSlot(T value)
+        public int SeekSlot()
         {            
             int stepCopy = 2;
 
