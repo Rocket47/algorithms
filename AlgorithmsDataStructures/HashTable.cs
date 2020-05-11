@@ -80,6 +80,7 @@ namespace AlgorithmsDataStructures
             {
                 for (int i = slotIndex; i < slots.Length; i++)
                 {
+                    if (slots[i] == null) { continue; }
                     if (slots[i].Equals(value))
                     {
                         return i;
