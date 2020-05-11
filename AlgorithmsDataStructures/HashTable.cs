@@ -3,24 +3,97 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-    public class HashTable
+    // наследуйте этот класс от HashTable
+    // или расширьте его методами из HashTable
+    public class PowerSet<T>
     {
-        public int size;
-        public int step;
-        public string[] slots;
-
-        public HashTable(int sz, int stp)
+        public int size = 0;
+        public T[] slots;
+        public PowerSet()
         {
-            size = sz;
-            step = stp;
-            slots = new string[size];
-            for (int i = 0; i < size; i++) slots[i] = null;
+            size = 20000;
+            slots = new T[20000];
+            for (int i = 0; i < 20000; i++) slots[i] = default(T);
         }
 
-        public int HashFun(string value)
+        //*////////////////////////////////////////////////////////
+        public int Size()
+        {
+            int count = 0;
+            foreach (T item in slots)
+            {
+                count++;
+            }
+            return count;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public void Put(T value)
+        {
+           if (!Get(value))
+            {
+                int indexEmptySlot = SeekSlot(value);
+                if (indexEmptySlot != -1) { slots[indexEmptySlot] = value; }                
+            }
+        }
+
+        //*////////////////////////////////////////////////////////
+        public bool Get(T value)
+        {
+            foreach (T searchValue in slots)
+            {
+                if (searchValue.Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public bool Remove(T value)
+        {
+            // возвращает true если value удалено
+            // иначе false
+            return false;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public PowerSet<T> Intersection(PowerSet<T> set2)
+        {
+            // пересечение текущего множества и set2
+            return null;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public PowerSet<T> Union(PowerSet<T> set2)
+        {
+            // объединение текущего множества и set2
+            return null;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public PowerSet<T> Difference(PowerSet<T> set2)
+        {
+            // разница текущего множества и set2
+            return null;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public bool IsSubset(PowerSet<T> set2)
+        {
+            // возвращает true, если set2 есть
+            // подмножество текущего множества,
+            // иначе false
+            return false;
+        }
+
+        //*////////////////////////////////////////////////////////
+        public int HashFun(T value)
         {
             int hashCode2 = 0;
-            char[] converterArray = value.ToCharArray();
+            string convertToStringValue = value.ToString();
+            char[] converterArray = convertToStringValue.ToCharArray();
             for (int i = 0; i < converterArray.Length; i++)
             {
                 byte[] bytesArray = BitConverter.GetBytes(converterArray[i]);
@@ -29,20 +102,21 @@ namespace AlgorithmsDataStructures
                     hashCode2 += bytesArray[j];
                 }
             }
-            hashCode2 = hashCode2 % size;            
+            hashCode2 = hashCode2 % size;
             return hashCode2;
         }
 
-        public int SeekSlot(string value)
+        //*////////////////////////////////////////////////////////
+        public int SeekSlot(T value)
         {
             int index = HashFun(value);
-            int stepCopy = step;
+            int stepSize = 2;
 
             if (index >= size)
             {
                 return -1;
             }
-            while (stepCopy != 0)
+            while (stepSize != 0)
             {
                 for (int i = index; i < size; i++)
                 {
@@ -56,39 +130,8 @@ namespace AlgorithmsDataStructures
                     }
                 }
                 index = 0;
-                stepCopy--;
-            }           
-            return -1;
-        }
-
-        public int Put(string value)
-        {
-            int indexEmptySlot = SeekSlot(value);
-            if (indexEmptySlot != -1)
-            {
-                slots[indexEmptySlot] = value;
-                return indexEmptySlot;
-            }            
-            return -1;
-        }
-
-        public int Find(string value)
-        {
-            int count = 2;
-            int slotIndex = HashFun(value);
-            while (count != 0)
-            {
-                for (int i = slotIndex; i < slots.Length; i++)
-                {
-                    if (slots[i] == null) { continue; }
-                    if (slots[i].Equals(value))
-                    {
-                        return i;
-                    }
-                }
-                slotIndex = 0;
-                count--;
-            }                       
+                stepSize--;
+            }
             return -1;
         }
     }
