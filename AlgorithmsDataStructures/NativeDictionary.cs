@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 
 namespace AlgorithmsDataStructures
 {
@@ -9,7 +8,6 @@ namespace AlgorithmsDataStructures
         public int size;
         public string[] slots;
         public T[] values;
-        public int globalIndex;
         public int positionFoundKey;
 
         public NativeDictionary(int sz)
@@ -32,7 +30,6 @@ namespace AlgorithmsDataStructures
                 }
             }
             hashCode2 = hashCode2 % size;
-            globalIndex = hashCode2;
             return hashCode2;
         }
 
@@ -49,44 +46,54 @@ namespace AlgorithmsDataStructures
                     positionFoundKey = i;
                     return true;
                 }
-            }            
+            }
             return false;
         }
 
         public void Put(string key, T value)
         {
-            if (!IsKey(key))
+            int indexEmptySlot = SeekSlot(key);
+            if (IsKey(key))
             {
-                int indexEmptySlot = SeekSlot();
-                if (indexEmptySlot != -1)
+                for (int searchIndex = 0; searchIndex < slots.Length; searchIndex++)
                 {
-                    slots[indexEmptySlot] = key;
-                    values[indexEmptySlot] = value;
+                    if (slots[searchIndex] == null) { continue; }
+                    if (slots[searchIndex].Equals(key))
+                    {
+                        values[searchIndex] = value;
+                        return;
+                    }
                 }
+            }
+            if (indexEmptySlot != -1)
+            {
+                slots[indexEmptySlot] = key;
+                values[indexEmptySlot] = value;
+                return;
             }
         }
 
         public T Get(string key)
         {
-            
             if (IsKey(key))
             {
                 return values[positionFoundKey];
-            }            
+            }
             return default(T);
         }
 
-        public int SeekSlot()
-        {            
+        public int SeekSlot(string key)
+        {
             int stepCopy = 2;
+            int slotIndex = HashFun(key);
 
-            if (globalIndex >= size)
+            if (slotIndex >= size)
             {
                 return -1;
             }
             while (stepCopy != 0)
             {
-                for (int i = globalIndex; i < size; i++)
+                for (int i = slotIndex; i < size; i++)
                 {
                     if (slots[i] == null)
                     {
@@ -97,7 +104,7 @@ namespace AlgorithmsDataStructures
                         continue;
                     }
                 }
-                globalIndex = 0;
+                slotIndex = 0;
                 stepCopy--;
             }
             return -1;
