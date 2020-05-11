@@ -3,21 +3,27 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-
     // наследуйте этот класс от HashTable
     // или расширьте его методами из HashTable
     public class PowerSet<T>
     {
-
+        public int size = 0;
+        public T[] slots;
         public PowerSet()
         {
-            // ваша реализация хранилища
+            size = 20000;
+            slots = new T[20000];
+            for (int i = 0; i < 20000; i++) slots[i] = default(T);
         }
 
         public int Size()
         {
-            // количество элементов в множестве
-            return 0;
+            int count = 0;
+            foreach (T item in slots)
+            {
+                count++;
+            }
+            return count;
         }
 
         public void Put(T value)
@@ -63,6 +69,22 @@ namespace AlgorithmsDataStructures
             // подмножество текущего множества,
             // иначе false
             return false;
+        }
+
+        public int HashFun(string value)
+        {
+            int hashCode2 = 0;
+            char[] converterArray = value.ToCharArray();
+            for (int i = 0; i < converterArray.Length; i++)
+            {
+                byte[] bytesArray = BitConverter.GetBytes(converterArray[i]);
+                for (int j = 0; j < bytesArray.Length; j++)
+                {
+                    hashCode2 += bytesArray[j];
+                }
+            }
+            hashCode2 = hashCode2 % size;
+            return hashCode2;
         }
     }
 }
