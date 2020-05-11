@@ -18,8 +18,8 @@ namespace AlgorithmsDataStructures
         }
 
         public int HashFun(string value)
-        {           
-            int hashCode2= 0;
+        {
+            int hashCode2 = 0;
             char[] converterArray = value.ToCharArray();
             for (int i = 0; i < converterArray.Length; i++)
             {
@@ -30,7 +30,6 @@ namespace AlgorithmsDataStructures
                 }
             }
             hashCode2 = hashCode2 % size;            
-            // всегда возвращает корректный индекс слота
             return hashCode2;
         }
 
@@ -56,43 +55,40 @@ namespace AlgorithmsDataStructures
                         continue;
                     }
                 }
+                index = 0;
                 stepCopy--;
-            }
-            
-            // находит индекс пустого слота для значения, или -1
+            }           
             return -1;
         }
 
         public int Put(string value)
-        {            
+        {
             int indexEmptySlot = SeekSlot(value);
             if (indexEmptySlot != -1)
             {
                 slots[indexEmptySlot] = value;
                 return indexEmptySlot;
-            }   
-            // записываем значение по хэш-функции
-
-            // возвращается индекс слота или -1
-            // если из-за коллизий элемент не удаётся разместить 
+            }            
             return -1;
         }
 
         public int Find(string value)
         {
-            foreach (string searhSlot in slots)
+            int count = 2;
+            int slotIndex = HashFun(value);
+            while (count != 0)
             {
-                for (int i = 0; i < searhSlot.Length; i++)
+                for (int i = slotIndex; i < slots.Length; i++)
                 {
-                    if (searhSlot[i].Equals(value))
+                    if (slots[i].Equals(value))
                     {
                         return i;
                     }
                 }
-            }
-            // находит индекс слота со значением, или -1
+                slotIndex = 0;
+                count--;
+            }                       
             return -1;
         }
     }
-
 }
