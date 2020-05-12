@@ -22,6 +22,7 @@ namespace AlgorithmsDataStructures
             int count = 0;
             foreach (T item in slots)
             {
+                if (item == null) { continue; }
                 count++;
             }
             return count;
@@ -54,43 +55,49 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////////////////////
         public bool Remove(T value)
         {
-            if (typeof(T) == typeof(string)) // возвращает true если value удалено
+            if (Get(value))
             {
-                for (int i = 0; i < slots.Length; i++)
+                if (typeof(T) == typeof(string)) 
                 {
-                    if (slots[i].Equals(value))
+                    for (int i = 0; i < slots.Length; i++)
                     {
-                        for (int j = i; j < slots.Length - 1; j++)
+                        if (slots[i] == null) { continue; }
+                        if (slots[i].Equals(value))
                         {
-                            slots[j] = slots[j + 1];
+                            slots[i] = default(T);
+                            return true;
                         }
-                        return true;
                     }
                 }
-            }
-            else
-            {
-                for (int i = 0; i < slots.Length; i++)
+                else
                 {
-                    if ((int)(object)slots[i] == (int)(object)(value))
+                    for (int i = 0; i < slots.Length; i++)
                     {
-                        for (int j = i; j < slots.Length - 1; j++)
+                        if (slots[i] == null) { continue; }
+                        if ((int)(object)slots[i] == (int)(object)(value))
                         {
-                            slots[j] = slots[j + 1];
+                            slots[i] = default(T);
+                            return true;
                         }
-                        return true;
                     }
                 }
-            }
-            // иначе false
+            }                       
             return false;
         }
 
         //*////////////////////////////////////////////////////////
         public PowerSet<T> Intersection(PowerSet<T> set2)
         {
-            // пересечение текущего множества и set2
-            return null;
+            PowerSet<T> set3 = new PowerSet<T>();
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i] == null) { continue; }
+                if (set2.Get(slots[i]))
+                {
+                    set3.Put(slots[i]);
+                }
+            }
+            return set3; 
         }
 
         //*////////////////////////////////////////////////////////
