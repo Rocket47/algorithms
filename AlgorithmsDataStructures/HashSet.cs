@@ -57,7 +57,7 @@ namespace AlgorithmsDataStructures
         {
             if (Get(value))
             {
-                if (typeof(T) == typeof(string)) 
+                if (typeof(T) == typeof(string))
                 {
                     for (int i = 0; i < size; i++)
                     {
@@ -81,7 +81,7 @@ namespace AlgorithmsDataStructures
                         }
                     }
                 }
-            }                       
+            }
             return false;
         }
 
@@ -97,7 +97,7 @@ namespace AlgorithmsDataStructures
                     set3.Put(slots[i]);
                 }
             }
-            return set3; 
+            return set3;
         }
 
         //*////////////////////////////////////////////////////////
@@ -106,27 +106,38 @@ namespace AlgorithmsDataStructures
             PowerSet<T> set3 = new PowerSet<T>();
             for (int i = 0; i < size; i++)
             {
+                if (slots[i] == null || set2.slots[i] == null) { continue; }
                 if (!set3.Get(slots[i])) { set3.Put(slots[i]); }
 
                 if (!set3.Get(set2.slots[i])) { set3.Put(set2.slots[i]); }
             }
-            return null;
+            return set3;
         }
 
         //*////////////////////////////////////////////////////////
         public PowerSet<T> Difference(PowerSet<T> set2)
         {
-            // разница текущего множества и set2
-            return null;
+            PowerSet<T> set3 = new PowerSet<T>();
+            for (int i = 0; i < size; i++)
+            {
+                if (slots[i] == null) { continue; }
+                if (!set2.Get(slots[i]))
+                {
+                    set3.Put(slots[i]);
+                }
+            }
+            return set3;
         }
 
         //*////////////////////////////////////////////////////////
         public bool IsSubset(PowerSet<T> set2)
         {
-            // возвращает true, если set2 есть
-            // подмножество текущего множества,
-            // иначе false
-            return false;
+            foreach (T tmp in set2.slots)
+            {
+                if (tmp == null) { continue; }
+                if (!Get(tmp)) { return false; }
+            }
+            return true;
         }
 
         //*////////////////////////////////////////////////////////
