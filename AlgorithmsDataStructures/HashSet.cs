@@ -42,6 +42,7 @@ namespace AlgorithmsDataStructures
         {
             foreach (T searchValue in slots)
             {
+                if (searchValue == null) { continue; }
                 if (searchValue.Equals(value))
                 {
                     return true;
