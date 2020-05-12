@@ -7,13 +7,13 @@ namespace AlgorithmsDataStructures
     // или расширьте его методами из HashTable
     public class PowerSet<T>
     {
-        public int size = 0;
+        public int size = 20;
         public T[] slots;
         public PowerSet()
         {
-            size = 20000;
-            slots = new T[20000];
-            for (int i = 0; i < 20000; i++) slots[i] = default(T);
+            size = 20;
+            slots = new T[size];
+            for (int i = 0; i < 20; i++) slots[i] = default(T);
         }
 
         //*////////////////////////////////////////////////////////
@@ -30,14 +30,23 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////////////////////
         public void Put(T value)
         {
-            // всегда срабатывает
+           if (!Get(value))
+            {
+                int indexEmptySlot = SeekSlot(value);
+                if (indexEmptySlot != -1) { slots[indexEmptySlot] = value; }                
+            }
         }
 
         //*////////////////////////////////////////////////////////
         public bool Get(T value)
         {
-            // возвращает true если value имеется в множестве,
-            // иначе false
+            foreach (T searchValue in slots)
+            {
+                if (searchValue.Equals(value))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
