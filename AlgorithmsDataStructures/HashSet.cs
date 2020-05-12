@@ -30,10 +30,10 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////////////////////
         public void Put(T value)
         {
-           if (!Get(value))
+            if (!Get(value))
             {
                 int indexEmptySlot = SeekSlot(value);
-                if (indexEmptySlot != -1) { slots[indexEmptySlot] = value; }                
+                if (indexEmptySlot != -1) { slots[indexEmptySlot] = value; }
             }
         }
 
@@ -53,7 +53,34 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////////////////////
         public bool Remove(T value)
         {
-            // возвращает true если value удалено
+            if (typeof(T) == typeof(string)) // возвращает true если value удалено
+            {
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if (slots[i].Equals(value))
+                    {
+                        for (int j = i; j < slots.Length - 1; j++)
+                        {
+                            slots[j] = slots[j + 1];
+                        }
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if ((int)(object)slots[i] == (int)(object)(value))
+                    {
+                        for (int j = i; j < slots.Length - 1; j++)
+                        {
+                            slots[j] = slots[j + 1];
+                        }
+                        return true;
+                    }
+                }
+            }
             // иначе false
             return false;
         }
