@@ -59,7 +59,7 @@ namespace AlgorithmsDataStructures
             {
                 if (typeof(T) == typeof(string)) 
                 {
-                    for (int i = 0; i < slots.Length; i++)
+                    for (int i = 0; i < size; i++)
                     {
                         if (slots[i] == null) { continue; }
                         if (slots[i].Equals(value))
@@ -71,7 +71,7 @@ namespace AlgorithmsDataStructures
                 }
                 else
                 {
-                    for (int i = 0; i < slots.Length; i++)
+                    for (int i = 0; i < size; i++)
                     {
                         if (slots[i] == null) { continue; }
                         if ((int)(object)slots[i] == (int)(object)(value))
@@ -103,7 +103,13 @@ namespace AlgorithmsDataStructures
         //*////////////////////////////////////////////////////////
         public PowerSet<T> Union(PowerSet<T> set2)
         {
-            // объединение текущего множества и set2
+            PowerSet<T> set3 = new PowerSet<T>();
+            for (int i = 0; i < size; i++)
+            {
+                if (!set3.Get(slots[i])) { set3.Put(slots[i]); }
+
+                if (!set3.Get(set2.slots[i])) { set3.Put(set2.slots[i]); }
+            }
             return null;
         }
 
