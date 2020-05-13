@@ -7,40 +7,70 @@ namespace AlgorithmsDataStructures
     public class BloomFilter
     {
         public int filter_len;
+        public byte[] filterArray;
 
         public BloomFilter(int f_len)
         {
             filter_len = f_len;
-            // создаём битовый массив длиной f_len ...
+            filterArray = new byte[filter_len];
         }
-
-        // хэш-функции
+       
+        //*//////////////////////////////////////////////////
         public int Hash1(string str1)
         {
-            // 17
+            int result = 0;            
+            
             for (int i = 0; i < str1.Length; i++)
             {
                 int code = (int)str1[i];
+                result = (result * (17 + code)) % filter_len;
             }
-            // реализация ...
-            return 0;
+            
+            return result;
         }
+
+        //*//////////////////////////////////////////////////
         public int Hash2(string str1)
         {
-            // 223
-            // реализация ...
-            return 0;
+            int result = 0;            
+            for (int i = 0; i < str1.Length; i++) 
+            {
+                int code = (int)str1[i];
+                result = (result * (223 + code)) % filter_len;
+            }
+            return result;
         }
 
+        //*//////////////////////////////////////////////////
         public void Add(string str1)
         {
-            // добавляем строку str1 в фильтр
+            int position1 = Hash1(str1);
+            int position2 = Hash2(str1);
+            filterArray[position1] = 1;
+            filterArray[position2] = 1;                       
         }
 
+        //*//////////////////////////////////////////////////
         public bool IsValue(string str1)
         {
-            // проверка, имеется ли строка str1 в фильтре
-            return false;
+            int position1 = Hash1(str1);
+            int position2 = Hash2(str1);
+            if (filterArray[position1] == 0 && filterArray[position2] == 0)
+            {
+                return false;
+            }
+            else if (filterArray[position1] == 0 && filterArray[position2] == 1)
+            {
+                return false;
+            }
+            else if (filterArray[position1] == 1 && filterArray[position2] == 0)
+            {
+                return false;
+            } 
+            else
+            {
+                return true;
+            }          
         }
     }
 }
