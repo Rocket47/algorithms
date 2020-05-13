@@ -106,10 +106,25 @@ namespace AlgorithmsDataStructures
             PowerSet<T> set3 = new PowerSet<T>();
             for (int i = 0; i < size; i++)
             {
-                if (slots[i] == null || set2.slots[i] == null) { continue; }
-                if (!set3.Get(slots[i])) { set3.Put(slots[i]); }
-
-                if (!set3.Get(set2.slots[i])) { set3.Put(set2.slots[i]); }
+                if (slots[i] != null && !set3.Get(slots[i]))
+                {
+                    set3.Put(slots[i]);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            for (int j = 0; j < size; j++)
+            {
+                if (set2.slots[j] != null && !set3.Get(set2.slots[j]))
+                {
+                    set3.Put(set2.slots[j]);
+                }
+                else
+                {
+                    continue;
+                }
             }
             return set3;
         }
