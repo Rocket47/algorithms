@@ -9,14 +9,18 @@ namespace AlgorithmsDataStructures
         public string[] slots;
         public T[] values;
         public int positionFoundKey;
+        public int positionMinumumHits;
+        public int[] hits;
 
         public NativeCache(int sz)
         {
             size = sz;
             slots = new string[size];
             values = new T[size];
+            hits = new int[size];
         }
 
+        //*//////////////////////////////////////////////////////////////////////////////
         public int HashFun(string key)
         {
             int hashCode2 = 0;
@@ -33,6 +37,7 @@ namespace AlgorithmsDataStructures
             return hashCode2;
         }
 
+        //*//////////////////////////////////////////////////////////////////////////////
         public bool IsKey(string key)
         {
             for (int i = 0; i < slots.Length; i++)
@@ -43,6 +48,7 @@ namespace AlgorithmsDataStructures
                 }
                 if (slots[i].Equals(key))
                 {
+                    hits[i] += 1;
                     positionFoundKey = i;
                     return true;
                 }
@@ -50,8 +56,10 @@ namespace AlgorithmsDataStructures
             return false;
         }
 
+        //*//////////////////////////////////////////////////////////////////////////////
         public void Put(string key, T value)
         {
+            
             int indexEmptySlot = SeekSlot(key);
             if (IsKey(key))
             {
@@ -73,6 +81,7 @@ namespace AlgorithmsDataStructures
             }
         }
 
+        //*//////////////////////////////////////////////////////////////////////////////
         public T Get(string key)
         {
             if (IsKey(key))
@@ -82,6 +91,7 @@ namespace AlgorithmsDataStructures
             return default(T);
         }
 
+        //*//////////////////////////////////////////////////////////////////////////////
         public int SeekSlot(string key)
         {
             int stepCopy = 2;
@@ -108,6 +118,33 @@ namespace AlgorithmsDataStructures
                 stepCopy--;
             }
             return -1;
+        }
+
+        //*//////////////////////////////////////////////////////////////////////////////
+        public void SearchMinimumHits()
+        {
+            int min = hits[0];
+            for (int i = 1; i < hits.Length; i++)
+            {
+                if (hits[i] < min)
+                {
+                    min = hits[i];
+                    positionMinumumHits = i;
+                }
+            }           
+        }
+
+        //*//////////////////////////////////////////////////////////////////////////////
+        public bool isArrayFull()
+        {
+            foreach (string item in slots)
+            {
+                if (item == null)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
