@@ -59,9 +59,19 @@ namespace AlgorithmsDataStructures
         //*//////////////////////////////////////////////////////////////////////////////
         public void Put(string key, T value)
         {
-            
+            bool status = IsKey(key);           
+            if (isArrayFull())
+            {
+                if (!status)
+                {
+                    SearchMinimumHits();
+                    slots[positionMinumumHits] = null;
+                    values[positionMinumumHits] = default(T);
+                    hits[positionMinumumHits] = 0;
+                }                
+            }            
             int indexEmptySlot = SeekSlot(key);
-            if (IsKey(key))
+            if (status)
             {
                 for (int searchIndex = 0; searchIndex < slots.Length; searchIndex++)
                 {
@@ -124,7 +134,7 @@ namespace AlgorithmsDataStructures
         public void SearchMinimumHits()
         {
             int min = hits[0];
-            for (int i = 1; i < hits.Length; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i] < min)
                 {
@@ -141,10 +151,10 @@ namespace AlgorithmsDataStructures
             {
                 if (item == null)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }
