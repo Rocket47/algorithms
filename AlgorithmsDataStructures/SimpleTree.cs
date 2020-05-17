@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -83,8 +84,25 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> FindNodesByValue(T val)
         {
-            // ваш код поиска узлов по значению
-            return null;
+            List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
+            foreach (SimpleTreeNode<T> tmp in GetAllNodes())
+            {
+                if (typeof(T) == typeof(string))
+                {
+                    if (string.Compare(tmp.NodeValue.ToString(), val.ToString()) == 0)
+                    {
+                        resultList.Add(tmp);
+                    }
+                }
+                else
+                {
+                    if ((int)(object)tmp.NodeValue == (int)(object)val)
+                    {
+                        resultList.Add(tmp);
+                    }
+                }                
+            }
+            return resultList;
         }
 
         //*////////////////////////////////////////////////////////////////////////////
