@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace AlgorithmsDataStructures2
 {
@@ -8,31 +10,42 @@ namespace AlgorithmsDataStructures2
         public T NodeValue; // значение в узле
         public SimpleTreeNode<T> Parent; // родитель или null для корня
         public List<SimpleTreeNode<T>> Children; // список дочерних узлов или null
+        
 
         public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
         {
             NodeValue = val;
             Parent = parent;
-            Children = null;
+            Children = null;            
         }
     }
 
     public class SimpleTree<T>
     {
-        public SimpleTreeNode<T> Root; // корень, может быть null
+        public SimpleTreeNode<T> Root;
+        public List<SimpleTreeNode<T>> resultList; // корень, может быть null
 
         public SimpleTree(SimpleTreeNode<T> root)
         {
             Root = root;
+            resultList = new List<SimpleTreeNode<T>>();
         }
 
         //*////////////////////////////////////////////////////////////////////////////
         public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
         {
-            if (ParentNode == null)
+            if (Root.Children == null)
             {
-                Root = NewChild;
+                Root.Children = new List<SimpleTreeNode<T>>();
+                Root.Children.Add(NewChild);
+                return;
             }
+            if (ParentNode.Children == null)
+            {
+                ParentNode.Children = new List<SimpleTreeNode<T>>();
+                ParentNode.Children.Add(NewChild);
+                return;
+            }           
             else
             {
                 ParentNode.Children.Add(NewChild);
@@ -42,14 +55,29 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            // ваш код удаления существующего узла NodeToDelete
+
         }
 
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> GetAllNodes()
         {
-            // ваш код выдачи всех узлов дерева в определённом порядке
-            return null;
+            List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
+            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
+            stack.Push(Root);            
+            while (stack.Any())
+            {
+                SimpleTreeNode<T> node = stack.Pop();
+                resultList.Add(node);
+                
+                if (node.Children != null)
+                {
+                    for (int i = 0; i < node.Children.Count; i++)
+                    {
+                        stack.Push(node.Children[i]);
+                    }
+                }                
+            }
+            return resultList;                                  
         }
 
         //*////////////////////////////////////////////////////////////////////////////
@@ -81,5 +109,4 @@ namespace AlgorithmsDataStructures2
         }
 
     }
-
 }
