@@ -133,14 +133,31 @@ namespace AlgorithmsDataStructures2
         public int Count()
         {
             // количество всех узлов в дереве
-            return 0;
+            return GetAllNodes().Count;
         }
 
         //*////////////////////////////////////////////////////////////////////////////
         public int LeafCount()
         {
-            // количество листьев в дереве
-            return 0;
+            int LeafCount = 0;            
+            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
+            stack.Push(Root);
+            while (stack.Any())
+            {
+                SimpleTreeNode<T> node = stack.Pop();                
+                if (node.Children == null)
+                {
+                    LeafCount++;
+                }
+                if (node.Children != null)
+                {
+                    for (int i = 0; i < node.Children.Count; i++)
+                    {
+                        stack.Push(node.Children[i]);
+                    }
+                }
+            }
+            return LeafCount;
         }
 
     }
