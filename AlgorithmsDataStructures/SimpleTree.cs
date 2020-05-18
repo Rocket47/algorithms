@@ -56,7 +56,24 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-
+            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
+            foreach (SimpleTreeNode<T> tmp in GetAllNodes())
+            {
+                if (typeof(T) == typeof(string))
+                {
+                    if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.ToString()) == 0)
+                    {
+                        listToDelete.Remove(tmp);
+                    }
+                }
+                else
+                {
+                    if ((int)(object)tmp.NodeValue == (int)(object)NodeToDelete.NodeValue)
+                    {
+                        listToDelete.Remove(tmp);
+                    }
+                }
+            }
         }
 
         //*////////////////////////////////////////////////////////////////////////////
