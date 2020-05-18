@@ -125,8 +125,8 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {
-            // ваш код перемещения узла вместе с его поддеревом -- 
-            // в качестве дочернего для узла NewParent
+            DeleteNode(OriginalNode);
+            AddChild(NewParent, OriginalNode);
         }
 
         //*////////////////////////////////////////////////////////////////////////////
@@ -159,6 +159,5 @@ namespace AlgorithmsDataStructures2
             }
             return LeafCount;
         }
-
     }
 }
