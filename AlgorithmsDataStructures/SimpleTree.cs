@@ -56,7 +56,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            if (NodeToDelete == null) { return; }
+            if (NodeToDelete == null || Root == null) { return; }
             List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
 
             foreach (SimpleTreeNode<T> tmp in listToDelete)
