@@ -128,7 +128,8 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null) { return null; }
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
-            foreach (SimpleTreeNode<T> tmp in GetAllNodes())
+            List<SimpleTreeNode<T>> listToFindNode = GetAllNodes();
+            foreach (SimpleTreeNode<T> tmp in listToFindNode)
             {
                 if (typeof(T) == typeof(string))
                 {
