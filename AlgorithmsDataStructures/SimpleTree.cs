@@ -123,7 +123,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {
-            if (OriginalNode == null || NewParent == null) { return; }
+            if (OriginalNode == null || OriginalNode == Root || NewParent == Root || NewParent == null) { return; }
             DeleteNode(OriginalNode);
             AddChild(NewParent, OriginalNode);
         }
