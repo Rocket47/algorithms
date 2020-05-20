@@ -88,6 +88,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> GetAllNodes()
         {
+            if (Root == null) { return null; }
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
             Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
             stack.Push(Root);            
@@ -98,7 +99,7 @@ namespace AlgorithmsDataStructures2
                 
                 if (node.Children != null)
                 {
-                    for (int i = 0; i < node.Children.Count; i++)
+                    for (int i = node.Children.Count - 1; i >= 0; i--)
                     {
                         stack.Push(node.Children[i]);
                     }
