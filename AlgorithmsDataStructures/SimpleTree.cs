@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace AlgorithmsDataStructures2
 {
@@ -83,7 +80,7 @@ namespace AlgorithmsDataStructures2
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
             Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
             stack.Push(Root);            
-            while (stack.Any())
+            while (stack.Count != 0)
             {
                 SimpleTreeNode<T> node = stack.Pop();
                 resultList.Add(node);
@@ -141,8 +138,8 @@ namespace AlgorithmsDataStructures2
         {
             int LeafCount = 0;            
             Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
-            stack.Push(Root);
-            while (stack.Any())
+            stack.Push(Root);           
+            while (stack.Count != 0)
             {
                 SimpleTreeNode<T> node = stack.Pop();                
                 if (node.Children == null)
