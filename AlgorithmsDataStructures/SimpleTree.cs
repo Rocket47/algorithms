@@ -8,9 +8,9 @@ namespace AlgorithmsDataStructures2
 {
     public class SimpleTreeNode<T>
     {
-        public T NodeValue; // значение в узле
-        public SimpleTreeNode<T> Parent; // родитель или null для корня
-        public List<SimpleTreeNode<T>> Children; // список дочерних узлов или null
+        public T NodeValue;
+        public SimpleTreeNode<T> Parent;
+        public List<SimpleTreeNode<T>> Children; 
         
 
         public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
@@ -24,7 +24,7 @@ namespace AlgorithmsDataStructures2
     public class SimpleTree<T>
     {
         public SimpleTreeNode<T> Root;
-        public List<SimpleTreeNode<T>> resultList; // корень, может быть null
+        public List<SimpleTreeNode<T>> resultList; 
 
         public SimpleTree(SimpleTreeNode<T> root)
         {
@@ -56,23 +56,24 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
-            foreach (SimpleTreeNode<T> tmp in GetAllNodes())
+            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();            
+
+            foreach (SimpleTreeNode<T> tmp in listToDelete)
             {
                 if (typeof(T) == typeof(string))
                 {
                     if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.ToString()) == 0)
                     {
-                        listToDelete.Remove(tmp);
+                        tmp.Parent.Children.Remove(tmp);
                     }
                 }
                 else
                 {
                     if ((int)(object)tmp.NodeValue == (int)(object)NodeToDelete.NodeValue)
                     {
-                        listToDelete.Remove(tmp);
+                        tmp.Parent.Children.Remove(tmp);
                     }
-                }
+                }               
             }
         }
 
@@ -131,8 +132,7 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public int Count()
-        {
-            // количество всех узлов в дереве
+        {           
             return GetAllNodes().Count;
         }
 
