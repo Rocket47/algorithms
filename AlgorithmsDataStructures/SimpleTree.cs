@@ -87,10 +87,10 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> GetAllNodes()
-        {
+        {           
             if (Root == null) { return null; }
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
-            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
+            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();                      
             stack.Push(Root);            
             while (stack.Count != 0)
             {
@@ -103,7 +103,7 @@ namespace AlgorithmsDataStructures2
                     {
                         stack.Push(node.Children[i]);
                     }
-                }                
+                }                   
             }
             return resultList;                                  
         }
@@ -111,6 +111,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> FindNodesByValue(T val)
         {
+            if (Root == null) { return null; }
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
             foreach (SimpleTreeNode<T> tmp in GetAllNodes())
             {
@@ -150,6 +151,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public int LeafCount()
         {
+            if (Root == null) { return 0; }
             int LeafCount = 0;            
             Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
             stack.Push(Root);           
