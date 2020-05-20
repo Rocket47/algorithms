@@ -36,41 +36,52 @@ namespace AlgorithmsDataStructures2
             {
                 Root.Children = new List<SimpleTreeNode<T>>();
                 Root.Children.Add(NewChild);
+                NewChild.Parent = Root;
                 return;
             }
             if (ParentNode.Children == null)
             {
                 ParentNode.Children = new List<SimpleTreeNode<T>>();
                 ParentNode.Children.Add(NewChild);
+                NewChild.Parent = ParentNode;
                 return;
             }           
             else
             {
                 ParentNode.Children.Add(NewChild);
+                NewChild.Parent = ParentNode;
             }
         }
 
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();            
+            if (NodeToDelete == null) { return; }
+            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
 
             foreach (SimpleTreeNode<T> tmp in listToDelete)
             {
+                if (tmp == Root) { continue; }
                 if (typeof(T) == typeof(string))
                 {
                     if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.ToString()) == 0)
                     {
-                        tmp.Parent.Children.Remove(tmp);
+                        if (tmp.Parent.Children != null)
+                        {
+                            tmp.Parent.Children.Remove(tmp);
+                        }
                     }
                 }
                 else
                 {
                     if ((int)(object)tmp.NodeValue == (int)(object)NodeToDelete.NodeValue)
-                    {
-                        tmp.Parent.Children.Remove(tmp);
+                    {                       
+                        if (tmp.Parent.Children != null)
+                        {
+                            tmp.Parent.Children.Remove(tmp);
+                        }
                     }
-                }               
+                }
             }
         }
 
@@ -123,7 +134,8 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {
-            if (OriginalNode == null || OriginalNode == Root || NewParent == Root || NewParent == null) { return; }
+            if (OriginalNode == null || OriginalNode == Root || NewParent == null) { return; }
+            if (OriginalNode == NewParent) { return; }
             DeleteNode(OriginalNode);
             AddChild(NewParent, OriginalNode);
         }
