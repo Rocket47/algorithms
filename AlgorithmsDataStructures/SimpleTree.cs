@@ -7,21 +7,21 @@ namespace AlgorithmsDataStructures2
     {
         public T NodeValue;
         public SimpleTreeNode<T> Parent;
-        public List<SimpleTreeNode<T>> Children; 
-        
+        public List<SimpleTreeNode<T>> Children;
+
 
         public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
         {
             NodeValue = val;
             Parent = parent;
-            Children = null;            
+            Children = null;
         }
     }
 
     public class SimpleTree<T>
     {
         public SimpleTreeNode<T> Root;
-        public List<SimpleTreeNode<T>> resultList; 
+        public List<SimpleTreeNode<T>> resultList;
 
         public SimpleTree(SimpleTreeNode<T> root)
         {
@@ -32,6 +32,11 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
         {
+            if (Root == null)
+            {
+                Root = NewChild;
+                return;
+            }
             if (Root.Children == null)
             {
                 Root.Children = new List<SimpleTreeNode<T>>();
@@ -45,7 +50,7 @@ namespace AlgorithmsDataStructures2
                 ParentNode.Children.Add(NewChild);
                 NewChild.Parent = ParentNode;
                 return;
-            }           
+            }
             else
             {
                 ParentNode.Children.Add(NewChild);
@@ -56,7 +61,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            if (NodeToDelete == null || Root == null) { return; }
+            if (NodeToDelete == null) { return; }
             List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
 
             foreach (SimpleTreeNode<T> tmp in listToDelete)
@@ -75,7 +80,7 @@ namespace AlgorithmsDataStructures2
                 else
                 {
                     if ((int)(object)tmp.NodeValue == (int)(object)NodeToDelete.NodeValue)
-                    {                       
+                    {
                         if (tmp.Parent.Children != null)
                         {
                             tmp.Parent.Children.Remove(tmp);
@@ -87,25 +92,35 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public List<SimpleTreeNode<T>> GetAllNodes()
-        {           
-            if (Root == null) { return null; }
+        {
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
-            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();                      
-            stack.Push(Root);            
+            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
+
+            if (Root == null) { return resultList; }
+
+            if (Root != null && Root.Children == null)
+            {
+                resultList.Add(Root);
+                return resultList;
+            }
+
+            stack.Push(Root);
+
+
             while (stack.Count != 0)
             {
                 SimpleTreeNode<T> node = stack.Pop();
                 resultList.Add(node);
-                
+
                 if (node.Children != null)
                 {
                     for (int i = node.Children.Count - 1; i >= 0; i--)
                     {
                         stack.Push(node.Children[i]);
                     }
-                }                   
+                }
             }
-            return resultList;                                  
+            return resultList;
         }
 
         //*////////////////////////////////////////////////////////////////////////////
@@ -128,7 +143,7 @@ namespace AlgorithmsDataStructures2
                     {
                         resultList.Add(tmp);
                     }
-                }                
+                }
             }
             return resultList;
         }
@@ -136,6 +151,7 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {
+            if (Root == null) { return; }
             if (OriginalNode == null || OriginalNode == Root || NewParent == null) { return; }
             if (OriginalNode == NewParent) { return; }
             DeleteNode(OriginalNode);
@@ -144,8 +160,7 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public int Count()
-        {
-            if (Root == null) { return 0; }
+        {            
             return GetAllNodes().Count;
         }
 
@@ -153,22 +168,14 @@ namespace AlgorithmsDataStructures2
         public int LeafCount()
         {
             if (Root == null) { return 0; }
-            int LeafCount = 0;            
-            Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
-            stack.Push(Root);           
-            while (stack.Count != 0)
+            int LeafCount = 0;
+            List<SimpleTreeNode<T>> listSaveNodes = GetAllNodes();
+            foreach (SimpleTreeNode<T> tmp in listSaveNodes)
             {
-                SimpleTreeNode<T> node = stack.Pop();                
-                if (node.Children == null)
+                if (tmp == null) { continue; }
+                if (tmp.Children == null)
                 {
                     LeafCount++;
-                }
-                if (node.Children != null)
-                {
-                    for (int i = 0; i < node.Children.Count; i++)
-                    {
-                        stack.Push(node.Children[i]);
-                    }
                 }
             }
             return LeafCount;
