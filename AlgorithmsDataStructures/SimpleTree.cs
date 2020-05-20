@@ -144,7 +144,8 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public int Count()
-        {           
+        {
+            if (Root == null) { return 0; }
             return GetAllNodes().Count;
         }
 
