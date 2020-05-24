@@ -32,9 +32,13 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
         {
-            if (Root == null)
+            if (NewChild == null)
             {
-                Root = NewChild;
+                return;
+            }
+            if (Root == null && Root == ParentNode)
+            {
+                Root = NewChild;                
                 return;
             }
             if (Root.Children == null)
@@ -96,7 +100,11 @@ namespace AlgorithmsDataStructures2
             List<SimpleTreeNode<T>> resultList = new List<SimpleTreeNode<T>>();
             Stack<SimpleTreeNode<T>> stack = new Stack<SimpleTreeNode<T>>();
 
-            if (Root == null) { return resultList; }
+            if (Root == null)
+            {
+                resultList.Add(null);
+                return resultList;
+            }
 
             if (Root != null && Root.Children == null)
             {
@@ -110,6 +118,7 @@ namespace AlgorithmsDataStructures2
             while (stack.Count != 0)
             {
                 SimpleTreeNode<T> node = stack.Pop();
+                if (node == null) { continue; }
                 resultList.Add(node);
 
                 if (node.Children != null)
