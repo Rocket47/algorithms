@@ -73,7 +73,7 @@ namespace AlgorithmsDataStructures2
                 if (tmp == Root) { continue; }
                 if (typeof(T) == typeof(string))
                 {
-                    if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.ToString()) == 0)
+                    if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.NodeValue.ToString()) == 0)
                     {
                         if (tmp.Parent.Children != null)
                         {
