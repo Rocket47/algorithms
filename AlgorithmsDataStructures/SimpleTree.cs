@@ -148,17 +148,15 @@ namespace AlgorithmsDataStructures2
 
         //*////////////////////////////////////////////////////////////////////////////
         public int LeafCount()
-        {
-            if (Root == null) { return 0; }
+        {            
             int LeafCount = 0;
-            List<SimpleTreeNode<T>> listSaveNodes = GetAllNodes();
+            List<SimpleTreeNode<T>> listSaveNodes = GetAllNodes();            
             foreach (SimpleTreeNode<T> tmp in listSaveNodes)
-            {
-                if (tmp == null) { continue; }
-                if (tmp.Children == null)
+            {                         
+               if (tmp == null || tmp.Children == null || tmp.Children.Count == 0)
                 {
                     LeafCount++;
-                }
+                }        
             }
             return LeafCount;
         }
