@@ -65,32 +65,11 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
         {
-            if (NodeToDelete == null) { return; }
-            List<SimpleTreeNode<T>> listToDelete = GetAllNodes();
-
-            foreach (SimpleTreeNode<T> tmp in listToDelete)
+            SimpleTreeNode<T> node = NodeToDelete;
+            if (node != Root)
             {
-                if (tmp == Root) { continue; }
-                if (typeof(T) == typeof(string))
-                {
-                    if (string.Compare(tmp.NodeValue.ToString(), NodeToDelete.NodeValue.ToString()) == 0)
-                    {
-                        if (tmp.Parent.Children != null)
-                        {
-                            tmp.Parent.Children.Remove(tmp);
-                        }
-                    }
-                }
-                else
-                {
-                    if ((int)(object)tmp.NodeValue == (int)(object)NodeToDelete.NodeValue)
-                    {
-                        if (tmp.Parent.Children != null)
-                        {
-                            tmp.Parent.Children.Remove(tmp);
-                        }
-                    }
-                }
+                node.Parent.Children.Remove(node);
+                node.Parent = null;
             }
         }
 
@@ -102,18 +81,11 @@ namespace AlgorithmsDataStructures2
 
             if (Root == null)
             {
-                resultList.Add(null);
-                return resultList;
-            }
-
-            if (Root != null && Root.Children == null)
-            {
                 resultList.Add(Root);
                 return resultList;
             }
 
             stack.Push(Root);
-
 
             while (stack.Count != 0)
             {
@@ -161,11 +133,11 @@ namespace AlgorithmsDataStructures2
         //*////////////////////////////////////////////////////////////////////////////
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {
-            if (Root == null) { return; }
-            if (OriginalNode == null || OriginalNode == Root || NewParent == null) { return; }
-            if (OriginalNode == NewParent) { return; }
-            DeleteNode(OriginalNode);
-            AddChild(NewParent, OriginalNode);
+            if (OriginalNode != Root)
+            {
+                DeleteNode(OriginalNode);
+                AddChild(NewParent, OriginalNode);
+            }
         }
 
         //*////////////////////////////////////////////////////////////////////////////
