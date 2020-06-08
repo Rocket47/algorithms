@@ -79,29 +79,5 @@ namespace AlgorithmsDataStructures2
             return 0; // количество узлов в дереве
         }
 
-    }
-    
-    public static void ShowSimpleTreeString(SimpleTreeNode<string> tree, string indent, bool last)
-        {
-            if (tree == null)
-            {
-                Console.WriteLine(indent + "+- " + "null");
-            }
-            else
-            {
-                Console.WriteLine(indent + "+- " + tree.NodeValue);
-            }            
-            indent += last ? "   " : "|  ";
-
-            if (tree != null)
-            {
-                if (tree.Children != null)
-                {
-                    for (int i = 0; i < tree.Children.Count; i++)
-                    {
-                        ShowSimpleTreeString(tree.Children[i], indent, i == tree.Children.Count - 1);
-                    }
-                }
-            }           
-        }
+    }        
 }
