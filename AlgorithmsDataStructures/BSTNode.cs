@@ -19,6 +19,34 @@ namespace AlgorithmsDataStructures2
             LeftChild = null;
             RightChild = null;
         }
+
+        public void PrintPretty(string indent, bool last)
+        {
+            string result = null;
+            result += indent;
+            if (last)
+            {
+                result += "└─";
+                indent += "  ";
+            }
+            else
+            {
+                result += "├─";
+                indent += "| ";
+            }
+            result += NodeKey.ToString() + '\n';
+
+            var children = new List<BSTNode<T>>();
+            if (LeftChild != null)
+                children.Add(LeftChild);
+            if (RightChild != null)
+                children.Add(RightChild);
+
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].PrintPretty(indent, i == children.Count - 1);
+            }
+        }
     }
     
     // промежуточный результат поиска
@@ -45,17 +73,59 @@ namespace AlgorithmsDataStructures2
             Root = node;
         }
 
+       
+
         //@////////////////////////////////////////////////////////////////////////////
-        public BSTFind<T> FindNodeByKey(int key)
+        public BSTFind<T> FindNodeByKey(int key) // ищем в дереве узел и сопутствующую информацию по ключу
         {
-            // ищем в дереве узел и сопутствующую информацию по ключу
-            return null;
+            BSTFind<T> bSTFind = new BSTFind<T>();
+            BSTNode<T> nodeSearch = new BSTNode<T>(0, default(T), null);
+            
+            if (Count() == 0) { bSTFind.Node = null; }
+            
+            while (nodeSearch.Parent != null)
+            {
+                if (key == nodeSearch.NodeKey )
+                {
+                    bSTFind.Node = nodeSearch;
+                    bSTFind.NodeHasKey = true;
+                    bSTFind.ToLeft = true;
+                }
+               
+                if (key < nodeSearch.NodeKey)
+                {
+                    nodeSearch = nodeSearch.LeftChild;
+                    bSTFind.Node = nodeSearch;
+                    bSTFind.NodeHasKey = false;
+                    bSTFind.ToLeft = true;
+                }
+                else
+                {
+                    nodeSearch = nodeSearch.RightChild;
+                    bSTFind.Node = nodeSearch;
+                    bSTFind.NodeHasKey = false;
+                    bSTFind.ToLeft = false;
+                }
+            }                
+            return bSTFind;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
         public bool AddKeyValue(int key, T val)
         {
-            // добавляем ключ-значение в дерево
+            BSTFind<T> bSTFind = FindNodeByKey(key);
+            if (!bSTFind.NodeHasKey)
+            {
+                if (bSTFind.ToLeft)
+                {
+                    bSTFind.Node.LeftChild = new BSTNode<T>(key, val, bSTFind.Node);
+                }
+                else
+                {
+                    bSTFind.Node.RightChild = new BSTNode<T>(key, val, bSTFind.Node);
+                }
+                return true;
+            }
             return false; // если ключ уже есть
         }
 
@@ -79,5 +149,5 @@ namespace AlgorithmsDataStructures2
             return 0; // количество узлов в дереве
         }
 
-    }        
+    }
 }
