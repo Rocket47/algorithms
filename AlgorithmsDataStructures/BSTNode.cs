@@ -60,7 +60,7 @@ namespace AlgorithmsDataStructures2
             while (nodeSearch != null)
             {
                 if (key == nodeSearch.NodeKey )
-                {
+                {                    
                     bSTFind.Node = nodeSearch;
                     bSTFind.NodeHasKey = true;
                     bSTFind.ToLeft = true;
@@ -117,8 +117,24 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
-            // ищем максимальное/минимальное в поддереве
-            return null;
+            BSTNode<T> minMaxNode = null;
+            if (FromNode.LeftChild != null)
+            {                
+               minMaxNode.LeftChild = FinMinMax(FromNode.LeftChild, true);
+            }
+            else
+            {
+                minMaxNode.RightChild = FinMinMax(FromNode.RightChild, true);
+            }
+            if (FindMax)
+            {
+                minMaxNode.NodeKey = minMaxNode.RightChild.NodeKey; 
+            }
+            else
+            {
+                minMaxNode.NodeKey = minMaxNode.LeftChild.NodeKey;
+            }
+            return minMaxNode;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
