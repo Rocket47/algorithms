@@ -201,8 +201,36 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public int Count()
         {
-            return 0; // количество узлов в дереве
+            int count = 0;
+            BSTNode<T> currentRoot = Root;
+
+            if (currentRoot == null)
+            {
+                return 0;
+            }
+
+            count = getCountRecursive(Root);
+            return count; // количество узлов в дереве
         }
 
+        //@////////////////////////////////////////////////////////////////////////////
+        public int getCountRecursive(BSTNode<T> node)
+        {
+            int count = 0;
+            BSTNode<T> currentRoot = node;
+
+            if (currentRoot == null)
+            {
+                return 0;
+            }
+
+            if (currentRoot.LeftChild != null && currentRoot.RightChild != null)
+            {
+                count++;
+            }
+
+            count += getCountRecursive(currentRoot.LeftChild) + getCountRecursive(currentRoot.RightChild);
+            return count; // количество узлов в дереве
+        }
     }
 }
