@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 
 namespace AlgorithmsDataStructures2
 {
@@ -10,6 +11,7 @@ namespace AlgorithmsDataStructures2
         public BSTNode<T> Parent; // родитель или null для корня
         public BSTNode<T> LeftChild; // левый потомок
         public BSTNode<T> RightChild; // правый потомок	
+        public string result = null;
 
         public BSTNode(int key, T val, BSTNode<T> parent)
         {
@@ -18,37 +20,9 @@ namespace AlgorithmsDataStructures2
             Parent = parent;
             LeftChild = null;
             RightChild = null;
-        }
-
-        public void PrintPretty(string indent, bool last)
-        {
-            string result = null;
-            result += indent;
-            if (last)
-            {
-                result += "└─";
-                indent += "  ";
-            }
-            else
-            {
-                result += "├─";
-                indent += "| ";
-            }
-            result += NodeKey.ToString() + '\n';
-
-            var children = new List<BSTNode<T>>();
-            if (LeftChild != null)
-                children.Add(LeftChild);
-            if (RightChild != null)
-                children.Add(RightChild);
-
-            for (int i = 0; i < children.Count; i++)
-            {
-                children[i].PrintPretty(indent, i == children.Count - 1);
-            }
-        }
+        }       
     }
-    
+
     // промежуточный результат поиска
     public class BSTFind<T>
     {
@@ -78,42 +52,53 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public BSTFind<T> FindNodeByKey(int key) // ищем в дереве узел и сопутствующую информацию по ключу
         {
-            BSTFind<T> bSTFind = new BSTFind<T>();
-            BSTNode<T> nodeSearch = new BSTNode<T>(0, default(T), null);
+            BSTFind<T> bSTFind = new BSTFind<T>();            
+            BSTNode<T> nodeSearch = Root;
+            BSTNode<T> parentNode = null;
             
-            if (Count() == 0) { bSTFind.Node = null; }
-            
-            while (nodeSearch.Parent != null)
+            //if (Count() == 0) { bSTFind.Node = null; }            
+            while (nodeSearch != null)
             {
                 if (key == nodeSearch.NodeKey )
                 {
                     bSTFind.Node = nodeSearch;
                     bSTFind.NodeHasKey = true;
                     bSTFind.ToLeft = true;
+                    break;
                 }
                
                 if (key < nodeSearch.NodeKey)
                 {
+                    parentNode = nodeSearch;
                     nodeSearch = nodeSearch.LeftChild;
-                    bSTFind.Node = nodeSearch;
+                    bSTFind.Node = parentNode;
                     bSTFind.NodeHasKey = false;
                     bSTFind.ToLeft = true;
                 }
                 else
                 {
+                    parentNode = nodeSearch;
                     nodeSearch = nodeSearch.RightChild;
-                    bSTFind.Node = nodeSearch;
+                    bSTFind.Node = parentNode;
                     bSTFind.NodeHasKey = false;
                     bSTFind.ToLeft = false;
                 }
-            }                
+            }            
             return bSTFind;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
         public bool AddKeyValue(int key, T val)
         {
-            BSTFind<T> bSTFind = FindNodeByKey(key);
+            if (Root.LeftChild == null && key < Root.NodeKey)
+            {
+                Root.LeftChild = new BSTNode<T>(key, val, Root);
+            }
+            if (Root.RightChild == null && key > Root.NodeKey)
+            { 
+                Root.RightChild = new BSTNode<T>(key, val, Root);            
+            }
+            BSTFind<T> bSTFind = FindNodeByKey(key);            
             if (!bSTFind.NodeHasKey)
             {
                 if (bSTFind.ToLeft)
