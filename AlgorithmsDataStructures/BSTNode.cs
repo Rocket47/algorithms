@@ -117,24 +117,24 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
-            BSTNode<T> minMaxNode = null;
-            if (FromNode.LeftChild != null)
-            {                
-               minMaxNode.LeftChild = FinMinMax(FromNode.LeftChild, true);
-            }
-            else
+            BSTNode<T> result = null;
+            if (!FindMax)
             {
-                minMaxNode.RightChild = FinMinMax(FromNode.RightChild, true);
+                while (FromNode.LeftChild != null)
+                {
+                    result = FromNode.LeftChild;
+                    FromNode.LeftChild = FromNode.LeftChild.LeftChild;
+                }
             }
-            if (FindMax)
-            {
-                minMaxNode.NodeKey = minMaxNode.RightChild.NodeKey; 
+           
+            if (FindMax) {               
+                while (FromNode.RightChild != null)
+                {
+                    result = FromNode.RightChild;
+                    FromNode.RightChild = FromNode.RightChild.RightChild;
+                }              
             }
-            else
-            {
-                minMaxNode.NodeKey = minMaxNode.LeftChild.NodeKey;
-            }
-            return minMaxNode;
+            return result;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
