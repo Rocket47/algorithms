@@ -139,10 +139,15 @@ namespace AlgorithmsDataStructures2
 
         //@////////////////////////////////////////////////////////////////////////////
         public bool DeleteNodeByKey(int key)
-        {            
-            BSTNode<T> node = FindNodeByKey(key).Node;
+        {
+            bool left = true;
+            BSTNode<T> node = FindNodeByKey(key).Node;            
             BSTNode<T> parent = node.Parent;
-            if (node == null) { return false; }// удаляем узел по ключу
+            if (parent.LeftChild.NodeKey != key)
+            {
+                left = false;
+            }
+            if (node == null) { return false; }
             if (node.LeftChild == null && node.RightChild == null)
             {
                 node = null;
@@ -161,20 +166,36 @@ namespace AlgorithmsDataStructures2
                     if (currentNode.LeftChild == null && currentNode.RightChild == null)
                     {
                         node = currentNode;
-                        node.Parent = parent;                       
+                        node.Parent = parent;   
+                        if (left)
+                        {
+                            parent.LeftChild = node;
+                        }
+                        else
+                        {
+                            parent.RightChild = node;
+                        }
                         break;
                     }
                     if (currentNode.LeftChild == null && currentNode.RightChild != null)
                     {
                         node = currentNode.RightChild;
-                        node.Parent = parent;                        
-                        break;
+                        node.Parent = parent;
+                        if (left)
+                        {
+                            parent.LeftChild = node;
+                        }
+                        else
+                        {
+                            parent.RightChild = node;
+                        }
+                        break;                        
                     }                   
                     currentNode = currentNode.LeftChild;
                 }
                 return true;
             }                        
-            return false; // если узел не найден
+            return false; 
         }
 
         //@////////////////////////////////////////////////////////////////////////////
