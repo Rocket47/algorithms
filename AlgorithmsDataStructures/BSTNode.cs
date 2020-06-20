@@ -62,8 +62,7 @@ namespace AlgorithmsDataStructures2
                 if (key == nodeSearch.NodeKey )
                 {                    
                     bSTFind.Node = nodeSearch;
-                    bSTFind.NodeHasKey = true;
-                    bSTFind.ToLeft = true;
+                    bSTFind.NodeHasKey = true;                   
                     break;
                 }
                
@@ -93,10 +92,12 @@ namespace AlgorithmsDataStructures2
             if (Root.LeftChild == null && key < Root.NodeKey)
             {
                 Root.LeftChild = new BSTNode<T>(key, val, Root);
+                return true;
             }
             if (Root.RightChild == null && key > Root.NodeKey)
             { 
-                Root.RightChild = new BSTNode<T>(key, val, Root);            
+                Root.RightChild = new BSTNode<T>(key, val, Root);
+                return true;
             }
             BSTFind<T> bSTFind = FindNodeByKey(key);            
             if (!bSTFind.NodeHasKey)
