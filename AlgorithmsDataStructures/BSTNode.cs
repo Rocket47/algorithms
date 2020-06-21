@@ -151,7 +151,16 @@ namespace AlgorithmsDataStructures2
             bool left = true;
             BSTNode<T> node = FindNodeByKey(key).Node;            
             BSTNode<T> parent = node.Parent;
-            if (parent.LeftChild.NodeKey != key)
+            if (Root.NodeKey == key)
+            {
+                Root = null;
+                return true;
+            }
+            if (node == null)
+            {
+                return false;
+            }
+            if (parent.LeftChild == null || parent.LeftChild.NodeKey != key)
             {
                 left = false;
             }
@@ -159,11 +168,20 @@ namespace AlgorithmsDataStructures2
             if (node.LeftChild == null && node.RightChild == null)
             {
                 node = null;
+                if (left)
+                {
+                    parent.LeftChild = node;
+                }
+                else
+                {
+                    parent.RightChild = node;
+                }
                 return true;
             }
             if (node.LeftChild != null && node.RightChild == null)
             {
                 node = node.LeftChild;
+
                 return true;
             }
             if (node.RightChild != null)
