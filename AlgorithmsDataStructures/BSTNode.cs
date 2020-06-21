@@ -133,17 +133,15 @@ namespace AlgorithmsDataStructures2
                     current = current.LeftChild;                
                 }
                 return current;
-            }
-           
-            if (FindMax) 
+            }           
+            else  
             {               
                 while (current.RightChild != null)
                 {
                     current = current.RightChild;
                 }
                 return current;
-            }
-            return current;
+            }           
         }
 
         //@////////////////////////////////////////////////////////////////////////////
