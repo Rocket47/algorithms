@@ -125,7 +125,7 @@ namespace AlgorithmsDataStructures2
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
             BSTNode<T> current = FromNode;
-            if (current== null) { return null; }            
+            if (FromNode == null) { return null; }            
             if (!FindMax)
             {
                 while (current.LeftChild != null)
