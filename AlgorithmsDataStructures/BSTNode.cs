@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace AlgorithmsDataStructures2
 {
@@ -248,6 +249,10 @@ namespace AlgorithmsDataStructures2
             if (currentRoot == null)
             {
                 return 0;
+            }
+            if (currentRoot.LeftChild == null && currentRoot.RightChild == null)
+            {
+                return 1;
             }
 
             if (currentRoot.LeftChild != null && currentRoot.RightChild != null)
