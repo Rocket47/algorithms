@@ -131,16 +131,19 @@ namespace AlgorithmsDataStructures2
                 while (FromNode.LeftChild != null)
                 {
                     result = FromNode.LeftChild;
-                    FromNode.LeftChild = FromNode.LeftChild.LeftChild;
+                    FromNode.LeftChild = FromNode.LeftChild.LeftChild;                   
                 }
+                return result;
             }
            
-            if (FindMax) {               
+            if (FindMax) 
+            {               
                 while (FromNode.RightChild != null)
                 {
                     result = FromNode.RightChild;
                     FromNode.RightChild = FromNode.RightChild.RightChild;
-                }              
+                }
+                return result;
             }
             return result;
         }
