@@ -89,6 +89,11 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public bool AddKeyValue(int key, T val)
         {
+            if (Root == null)
+            {
+                Root = new BSTNode<T>(key, val, null);               
+                return true;                
+            }
             if (Root.LeftChild == null && key < Root.NodeKey)
             {
                 Root.LeftChild = new BSTNode<T>(key, val, Root);
@@ -119,6 +124,7 @@ namespace AlgorithmsDataStructures2
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
             BSTNode<T> result = null;
+            if (Root == null) { return result; }
             if (!FindMax)
             {
                 while (FromNode.LeftChild != null)
@@ -141,6 +147,7 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public bool DeleteNodeByKey(int key)
         {
+            if (Root == null) { return false; }
             bool left = true;
             BSTNode<T> node = FindNodeByKey(key).Node;            
             BSTNode<T> parent = node.Parent;
