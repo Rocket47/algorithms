@@ -21,7 +21,7 @@ namespace AlgorithmsDataStructures2
             Parent = parent;
             LeftChild = null;
             RightChild = null;
-        }       
+        }
     }
 
     // промежуточный результат поиска
@@ -37,13 +37,6 @@ namespace AlgorithmsDataStructures2
         public bool ToLeft;
 
         public BSTFind() { Node = null; }
-
-        public BSTFind(BSTNode<T> node, bool nodeHasKey, bool toLeft)
-        {
-            Node = node;
-            NodeHasKey = nodeHasKey;
-            ToLeft = toLeft;
-        }
     }
 
     public class BST<T>
@@ -55,86 +48,100 @@ namespace AlgorithmsDataStructures2
             Root = node;
         }
 
-       
+
+
         //@////////////////////////////////////////////////////////////////////////////
-        public BSTFind<T> FindNodeByKey(int key) 
+        public BSTFind<T> FindNodeByKey(int key) // ищем в дереве узел и сопутствующую информацию по ключу
         {
-            BSTNode<T> node = Root;
+            BSTFind<T> bSTFind = new BSTFind<T>();
+            BSTNode<T> nodeSearch = Root;
+            BSTNode<T> parentNode = Root.Parent;
 
-            if (node == null) return null;
-
-            while (node != null)
+            //if (Count() == 0) { bSTFind.Node = null; }            
+            while (nodeSearch != null)
             {
-                int result = key.CompareTo(node.NodeKey);
-                if (result < 0) 
+                if (key == nodeSearch.NodeKey)
                 {
-                    if (node.LeftChild != null)
-                    {
-                        node = node.LeftChild;
-                        continue;
-                    }
-                    return new BSTFind<T>(node, false, true); 
+                    bSTFind.Node = nodeSearch;
+                    bSTFind.NodeHasKey = true;
+                    return bSTFind;
                 }
-                else if (result > 0) 
+
+                if (key < nodeSearch.NodeKey)
                 {
-                    if (node.RightChild != null)
-                    {
-                        node = node.RightChild;
-                        continue;
-                    }
-                    return new BSTFind<T>(node, false, false); 
+                    parentNode = nodeSearch;
+                    nodeSearch = nodeSearch.LeftChild;
+                    bSTFind.Node = parentNode;
+                    bSTFind.NodeHasKey = false;
+                    bSTFind.ToLeft = true;
                 }
-                return new BSTFind<T>(node, true, false);
+                else
+                {
+                    parentNode = nodeSearch;
+                    nodeSearch = nodeSearch.RightChild;
+                    bSTFind.Node = parentNode;
+                    bSTFind.NodeHasKey = false;
+                    bSTFind.ToLeft = false;
+                }
             }
-            return null;
+            return bSTFind;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
         public bool AddKeyValue(int key, T val)
         {
-            BSTFind<T> find = FindNodeByKey(key);
-            var node = find.Node;
             if (Root == null)
             {
-                Root = node;                
+                Root = new BSTNode<T>(key, val, null);
                 return true;
             }
-            if (node.NodeKey == key) return false;
-            else
+            if (Root.LeftChild == null && key < Root.NodeKey)
             {
-                if (node.NodeKey > key)
+                Root.LeftChild = new BSTNode<T>(key, val, Root);
+                return true;
+            }
+            if (Root.RightChild == null && key > Root.NodeKey)
+            {
+                Root.RightChild = new BSTNode<T>(key, val, Root);
+                return true;
+            }
+            BSTFind<T> bSTFind = FindNodeByKey(key);
+            if (!bSTFind.NodeHasKey)
+            {
+                if (bSTFind.ToLeft)
                 {
-                    node.LeftChild = new BSTNode<T>(key, val, node);
+                    bSTFind.Node.LeftChild = new BSTNode<T>(key, val, bSTFind.Node);
                 }
                 else
                 {
-                    node.RightChild = new BSTNode<T>(key, val, node);
+                    bSTFind.Node.RightChild = new BSTNode<T>(key, val, bSTFind.Node);
                 }
-            }            
-            return true;
+                return true;
+            }
+            return false; // если ключ уже есть
         }
 
         //@////////////////////////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
             BSTNode<T> current = FromNode;
-            if (current== null) { return null; }            
+            if (FromNode == null) { return null; }
             if (!FindMax)
             {
                 while (current.LeftChild != null)
                 {
-                    current = current.LeftChild;                
+                    current = current.LeftChild;
                 }
                 return current;
-            }           
-            else  
-            {               
+            }
+            else
+            {
                 while (current.RightChild != null)
                 {
                     current = current.RightChild;
                 }
                 return current;
-            }           
+            }
         }
 
         //@////////////////////////////////////////////////////////////////////////////
@@ -142,42 +149,61 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null) { return false; }
             bool left = true;
-            BSTNode<T> node = FindNodeByKey(key).Node;            
-            BSTNode<T> parent = node.Parent;
-            if (Root.NodeKey == key)
-            {
-                Root = null;
-                return true;
-            }
+            BSTNode<T> node = FindNodeByKey(key).Node;
+            BSTNode<T> parent = node.Parent;            
             if (node == null)
             {
                 return false;
-            }
-            if (parent.LeftChild == null || parent.LeftChild.NodeKey != key)
+            }          
+                
+            if (parent != null)
             {
-                left = false;
+                if (parent.LeftChild == null || parent.LeftChild.NodeKey != key)
+                {
+                    left = false;
+                }
             }
-            if (node == null) { return false; }
+                 
             if (node.LeftChild == null && node.RightChild == null)
-            {
-                node = null;
+            {                
                 if (left)
                 {
-                    parent.LeftChild = node;
+                    parent.LeftChild = null;
                 }
                 else
                 {
-                    parent.RightChild = node;
+                    parent.RightChild = null;
                 }
                 return true;
             }
             if (node.LeftChild != null && node.RightChild == null)
-            {
-                node = node.LeftChild;
+            {                
+                if (left)
+                {
+                    parent.LeftChild = null;
+                }
+                else
+                {
+                    parent.RightChild = null;
+                }
 
                 return true;
             }
-            if (node.RightChild != null)
+
+            if (node.RightChild != null && node.LeftChild == null)
+            {
+                if (left)
+                {
+                    parent.LeftChild = null;
+                }
+                else
+                {
+                    parent.RightChild = null;
+                }
+
+                return true;
+            }
+            if (node.RightChild != null && node.LeftChild != null)
             {
                 BSTNode<T> currentNode = node.RightChild;
                 while (currentNode != null)
@@ -185,16 +211,23 @@ namespace AlgorithmsDataStructures2
                     if (currentNode.LeftChild == null && currentNode.RightChild == null)
                     {
                         node = currentNode;
-                        node.Parent = parent;   
-                        if (left)
+                        node.Parent = parent;
+                        if (parent != null)
                         {
-                            parent.LeftChild = node;
-                        }
+                            if (left)
+                            {
+                                parent.LeftChild = node;
+                            }
+                            else
+                            {
+                                parent.RightChild = node;
+                            }
+                            break;
+                        }   
                         else
                         {
-                            parent.RightChild = node;
+                            Root = node;
                         }
-                        break;
                     }
                     if (currentNode.LeftChild == null && currentNode.RightChild != null)
                     {
@@ -208,13 +241,13 @@ namespace AlgorithmsDataStructures2
                         {
                             parent.RightChild = node;
                         }
-                        break;                        
-                    }                   
-                    currentNode = currentNode.LeftChild;
+                        break;
+                    }
+                    currentNode = currentNode.LeftChild;                    
                 }
                 return true;
-            }                        
-            return false; 
+            }
+            return false;
         }
 
         //@////////////////////////////////////////////////////////////////////////////
@@ -257,3 +290,4 @@ namespace AlgorithmsDataStructures2
         }
     }
 }
+
