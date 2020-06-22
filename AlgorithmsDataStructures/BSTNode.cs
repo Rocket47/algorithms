@@ -166,6 +166,11 @@ namespace AlgorithmsDataStructures2
                  
             if (node.LeftChild == null && node.RightChild == null)
             {                
+                if (parent == null)
+                {
+                    Root = null;
+                    return true;
+                }
                 if (left)
                 {
                     parent.LeftChild = null;
@@ -178,6 +183,11 @@ namespace AlgorithmsDataStructures2
             }
             if (node.LeftChild != null && node.RightChild == null)
             {                
+                if (parent == null)
+                {
+                    Root = null;
+                    return true;
+                }
                 if (left)
                 {
                     parent.LeftChild = null;
@@ -192,6 +202,11 @@ namespace AlgorithmsDataStructures2
 
             if (node.RightChild != null && node.LeftChild == null)
             {
+                if (parent == null)
+                {
+                    Root = null;
+                    return true;
+                }
                 if (left)
                 {
                     parent.LeftChild = null;
