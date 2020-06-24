@@ -52,12 +52,12 @@ namespace AlgorithmsDataStructures2
 
         //@////////////////////////////////////////////////////////////////////////////
         public BSTFind<T> FindNodeByKey(int key) // ищем в дереве узел и сопутствующую информацию по ключу
-        {
+        {          
             BSTFind<T> bSTFind = new BSTFind<T>();
+           if (Root == null) { return null; }
             BSTNode<T> nodeSearch = Root;
             BSTNode<T> parentNode = Root.Parent;
-
-            //if (Count() == 0) { bSTFind.Node = null; }            
+                     
             while (nodeSearch != null)
             {
                 if (key == nodeSearch.NodeKey)
@@ -95,16 +95,6 @@ namespace AlgorithmsDataStructures2
                 Root = new BSTNode<T>(key, val, null);
                 return true;
             }
-            if (Root.LeftChild == null && key < Root.NodeKey)
-            {
-                Root.LeftChild = new BSTNode<T>(key, val, Root);
-                return true;
-            }
-            if (Root.RightChild == null && key > Root.NodeKey)
-            {
-                Root.RightChild = new BSTNode<T>(key, val, Root);
-                return true;
-            }
             BSTFind<T> bSTFind = FindNodeByKey(key);
             if (!bSTFind.NodeHasKey)
             {
@@ -124,6 +114,7 @@ namespace AlgorithmsDataStructures2
         //@////////////////////////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
+            if (FromNode == null) { return null; }
             if (!FindNodeByKey(FromNode.NodeKey).NodeHasKey) { return null; }
             BSTNode<T> current = FromNode;          
             if (FromNode == null) { return null; }
