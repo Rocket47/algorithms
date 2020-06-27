@@ -1,4 +1,4 @@
-#region FinMinMaxTests()
+ #region FinMinMaxTests()
 
         /*
         root == null
@@ -63,19 +63,19 @@
             BSTNode<string> node2FalseString = treeString.FinMinMax(rootString, false);           
 
             Assert.AreEqual(node1TrueInt, rootInt);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild);
             Assert.AreEqual(node1TrueString, rootString);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(7).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(7).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(7).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(7).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.LeftChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.LeftChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.LeftChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.LeftChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.LeftChild);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.LeftChild);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild);
         }
         /*
         root != null + rightChild
@@ -97,20 +97,20 @@
             BSTNode<string> node1TrueString = treeString.FinMinMax(rootString, true);
             BSTNode<string> node2FalseString = treeString.FinMinMax(rootString, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild);
             Assert.AreEqual(node2FalseInt, rootInt);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
+            Assert.AreEqual(node1TrueString, rootString.RightChild);
             Assert.AreEqual(node2FalseString, rootString);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.RightChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.RightChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.RightChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.RightChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.RightChild);
+            Assert.AreEqual(node1TrueString, rootString.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.RightChild);
         }
         /*
          root != null  + rightchild + leftchild
@@ -138,30 +138,30 @@
             BSTNode<string> node1TrueString = treeString.FinMinMax(rootString, true);
             BSTNode<string> node2FalseString = treeString.FinMinMax(rootString, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.RightChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.RightChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.RightChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.RightChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(10).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.RightChild);
+            Assert.AreEqual(node1TrueString, rootString.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.RightChild);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(7).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(7).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(7).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(7).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.LeftChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.LeftChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.LeftChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.LeftChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.LeftChild);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.LeftChild);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild);
         }
         /*
         root = 8, 4,12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15
@@ -212,29 +212,29 @@
             BSTNode<string> node1TrueString = treeString.FinMinMax(rootString, true);
             BSTNode<string> node2FalseString = treeString.FinMinMax(rootString, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(15).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(1).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(15).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(1).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild.RightChild.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild.LeftChild.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.RightChild.RightChild.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild.LeftChild.LeftChild);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(4).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(4).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(4).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(4).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.LeftChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.LeftChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.LeftChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.LeftChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(1).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(7).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(1).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.LeftChild.RightChild.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.LeftChild.LeftChild.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.LeftChild.RightChild.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.LeftChild.LeftChild.LeftChild);
 
-            node1TrueInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, true);
-            node2FalseInt = treeInt.FinMinMax(treeInt.FindNodeByKey(10).Node, false);
-            node1TrueString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, true);
-            node2FalseString = treeString.FinMinMax(treeString.FindNodeByKey(10).Node, false);
+            node1TrueInt = treeInt.FinMinMax(rootInt.RightChild.LeftChild, true);
+            node2FalseInt = treeInt.FinMinMax(rootInt.RightChild.LeftChild, false);
+            node1TrueString = treeString.FinMinMax(rootString.RightChild.LeftChild, true);
+            node2FalseString = treeString.FinMinMax(rootString.RightChild.LeftChild, false);
 
-            Assert.AreEqual(node1TrueInt.NodeKey, treeInt.FindNodeByKey(11).Node.NodeKey);
-            Assert.AreEqual(node2FalseInt.NodeKey, treeInt.FindNodeByKey(9).Node.NodeKey);
-            Assert.AreEqual(node1TrueString.NodeKey, treeString.FindNodeByKey(11).Node.NodeKey);
-            Assert.AreEqual(node2FalseString.NodeKey, treeString.FindNodeByKey(9).Node.NodeKey);
+            Assert.AreEqual(node1TrueInt, rootInt.RightChild.LeftChild.RightChild);
+            Assert.AreEqual(node2FalseInt, rootInt.RightChild.LeftChild.LeftChild);
+            Assert.AreEqual(node1TrueString, rootString.RightChild.LeftChild.RightChild);
+            Assert.AreEqual(node2FalseString, rootString.RightChild.LeftChild.LeftChild);
         }               
         #endregion
