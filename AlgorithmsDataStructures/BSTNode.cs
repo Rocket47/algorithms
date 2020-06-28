@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Runtime.InteropServices.WindowsRuntime;
+
 
 namespace AlgorithmsDataStructures2
 {
@@ -142,118 +141,128 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null) { return false; }
             bool left = true;
+            BSTFind<T> found = FindNodeByKey(key);
             BSTNode<T> node = FindNodeByKey(key).Node;
             BSTNode<T> parent = node.Parent;            
             if (node == null)
             {
                 return false;
-            }          
-                
-            if (parent != null)
+            }
+            if (found.NodeHasKey)
             {
-                if (parent.LeftChild == null || parent.LeftChild.NodeKey != key)
+                if (parent != null)
                 {
-                    left = false;
-                }
-            }
-                 
-            if (node.LeftChild == null && node.RightChild == null)
-            {                
-                if (parent == null)
-                {
-                    Root = null;
-                    return true;
-                }
-                if (left)
-                {
-                    parent.LeftChild = null;
-                }
-                else
-                {
-                    parent.RightChild = null;
-                }
-                return true;
-            }
-            if (node.LeftChild != null && node.RightChild == null)
-            {                
-                if (parent == null)
-                {
-                    Root = null;
-                    return true;
-                }
-                if (left)
-                {
-                    parent.LeftChild = null;
-                }
-                else
-                {
-                    parent.RightChild = null;
-                }
-
-                return true;
-            }
-
-            if (node.RightChild != null && node.LeftChild == null)
-            {
-                if (parent == null)
-                {
-                    Root = null;
-                    return true;
-                }
-                if (left)
-                {
-                    parent.LeftChild = null;
-                }
-                else
-                {
-                    parent.RightChild = null;
-                }
-
-                return true;
-            }
-            if (node.RightChild != null && node.LeftChild != null)
-            {
-                BSTNode<T> currentNode = node.RightChild;
-                while (currentNode != null)
-                {
-                    if (currentNode.LeftChild == null && currentNode.RightChild == null)
+                    if (parent.LeftChild == null || parent.LeftChild.NodeKey != key)
                     {
-                        node = currentNode;
-                        node.Parent = parent;
-                        if (parent != null)
+                        left = false;
+                    }
+                }
+
+                if (node.LeftChild == null && node.RightChild == null)
+                {
+                    if (parent == null)
+                    {
+                        Root = null;
+                        return true;
+                    }
+                    if (left)
+                    {
+                        parent.LeftChild = null;
+                    }
+                    else
+                    {
+                        parent.RightChild = null;
+                    }
+                    return true;
+                }
+                if (node.LeftChild != null && node.RightChild == null)
+                {
+                    if (parent == null)
+                    {
+                        Root = null;
+                        return true;
+                    }
+                    if (left)
+                    {
+                        parent.LeftChild = null;
+                    }
+                    else
+                    {
+                        parent.RightChild = null;
+                    }
+
+                    return true;
+                }
+
+                if (node.RightChild != null && node.LeftChild == null)
+                {
+                    if (parent == null)
+                    {
+                        Root = null;
+                        return true;
+                    }
+                    if (left)
+                    {
+                        parent.LeftChild = null;
+                    }
+                    else
+                    {
+                        parent.RightChild = null;
+                    }
+
+                    return true;
+                }
+                if (node.RightChild != null && node.LeftChild != null)
+                {
+                    BSTNode<T> currentNode = node.RightChild;
+                    while (currentNode != null)
+                    {
+                        if (currentNode.LeftChild == null && currentNode.RightChild == null)
                         {
-                            if (left)
+                            node = currentNode;
+                            node.Parent = parent;
+                            if (parent != null)
                             {
-                                parent.LeftChild = node;
+                                if (left)
+                                {
+                                    parent.LeftChild = node;
+                                }
+                                else
+                                {
+                                    parent.RightChild = node;
+                                }
+                                break;
                             }
                             else
                             {
-                                parent.RightChild = node;
+                                Root = node;
                             }
-                            break;
-                        }   
-                        else
-                        {
-                            Root = node;
                         }
+                        if (currentNode.LeftChild == null && currentNode.RightChild != null)
+                        {
+                            node = currentNode.RightChild;
+                            node.Parent = parent;
+                            if (parent != null)
+                            {
+                                if (left)
+                                {
+                                    parent.LeftChild = node;
+                                }
+                                else
+                                {
+                                    parent.RightChild = node;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                Root = node;
+                            }
+                        }
+                        currentNode = currentNode.LeftChild;
                     }
-                    if (currentNode.LeftChild == null && currentNode.RightChild != null)
-                    {
-                        node = currentNode.RightChild;
-                        node.Parent = parent;
-                        if (left)
-                        {
-                            parent.LeftChild = node;
-                        }
-                        else
-                        {
-                            parent.RightChild = node;
-                        }
-                        break;
-                    }
-                    currentNode = currentNode.LeftChild;                    
+                    return true;
                 }
-                return true;
             }
             return false;
         }
@@ -288,7 +297,7 @@ namespace AlgorithmsDataStructures2
                 return 1;
             }
 
-            if (currentRoot.LeftChild != null && currentRoot.RightChild != null)
+            if (currentRoot.LeftChild != null || currentRoot.RightChild != null)
             {
                 count++;
             }
