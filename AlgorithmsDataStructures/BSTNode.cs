@@ -47,7 +47,7 @@ namespace AlgorithmsDataStructures2
 
     public class BST<T>
     {
-       public BSTNode<T> Root; // корень дерева, или null
+        BSTNode<T> Root; // корень дерева, или null
 
         public BST(BSTNode<T> node)
         {
