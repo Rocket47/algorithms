@@ -47,7 +47,7 @@ namespace AlgorithmsDataStructures2
 
     public class BST<T>
     {
-        BSTNode<T> Root; // корень дерева, или null
+       public BSTNode<T> Root; // корень дерева, или null
 
         public BST(BSTNode<T> node)
         {
@@ -141,33 +141,11 @@ namespace AlgorithmsDataStructures2
         {
            BSTFind<T> found = FindNodeByKey(key);
             if (found.NodeHasKey)
-            {           
+            {
                 if (found.Node.Parent == null)
-                {                    
-                    BSTNode<T> tmpNode = FinMinMax(Root.RightChild, false);
-                    if (tmpNode.RightChild == null)
-                    {
-                        Root.LeftChild.Parent = tmpNode;
-                        Root.RightChild.Parent = tmpNode;
-                        tmpNode.Parent.LeftChild = null;
-                        tmpNode.LeftChild = Root.LeftChild;
-                        tmpNode.RightChild = Root.RightChild;
-                        tmpNode.Parent = null;
-                        Root = tmpNode;
-                        return true;
-                    }
-                    else
-                    {
-                        Root.LeftChild.Parent = tmpNode;
-                        Root.RightChild.Parent = tmpNode;
-                        tmpNode.Parent.LeftChild = tmpNode.RightChild;
-                        tmpNode.LeftChild = Root.LeftChild;
-                        tmpNode.RightChild = Root.RightChild;
-                        tmpNode.Parent = null;
-                        Root = tmpNode;
-                        return true;
-                    }                                      
-                }
+                {
+                        
+                }            
                 if (found.Node.LeftChild == null && found.Node.RightChild == null)
                 {
                     if (found.Node.Parent.LeftChild != null && found.Node.Parent.LeftChild.Equals(found.Node))
@@ -233,7 +211,7 @@ namespace AlgorithmsDataStructures2
             }
 
             return false; 
-        }
+        }    
 
         //@////////////////////////////////////////////////////////////////////////////
         public int Count()
