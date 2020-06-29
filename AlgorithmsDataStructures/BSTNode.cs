@@ -140,11 +140,78 @@ namespace AlgorithmsDataStructures2
         public bool DeleteNodeByKey(int key)
         {
            BSTFind<T> found = FindNodeByKey(key);
+            if (found == null)
+            {
+                return false;
+            }
             if (found.NodeHasKey)
             {
                 if (found.Node.Parent == null)
                 {
-                        
+                    if (found.Node.LeftChild == null && found.Node.RightChild == null)
+                    {
+                        Root = null;
+                        return true;
+                    }
+
+                    if (found.Node.LeftChild != null && found.Node.RightChild == null)
+                    {
+                        Root = found.Node.LeftChild;
+                    }
+
+                    if (found.Node.LeftChild == null && found.Node.RightChild != null)
+                    {
+                        BSTNode<T> minRightNode = FinMinMax(found.Node.RightChild, false);
+                        if (minRightNode.RightChild == null)
+                        {
+                            minRightNode.Parent.LeftChild = null;
+                            minRightNode.RightChild = Root.RightChild;
+                            Root.RightChild.Parent = minRightNode;
+                            minRightNode.LeftChild = Root.LeftChild;
+                            minRightNode.Parent = null;
+                            Root = minRightNode;
+                            return true;
+                        }
+                        if (minRightNode.RightChild != null)
+                        {
+                            minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            minRightNode.RightChild.Parent = minRightNode.Parent;
+                            minRightNode.RightChild = Root.RightChild;
+                            Root.RightChild.Parent = minRightNode;
+                            minRightNode.LeftChild = Root.LeftChild;
+                            minRightNode.Parent = null;
+                            Root = minRightNode;
+                            return true;
+                        }
+                    }
+
+                    if (found.Node.LeftChild != null && found.Node.RightChild != null)
+                    {
+                        BSTNode<T> minRightNode = FinMinMax(found.Node.RightChild, false);
+                        if (minRightNode.RightChild == null)
+                        {
+                            minRightNode.Parent.LeftChild = null;
+                            minRightNode.RightChild = Root.RightChild;
+                            Root.RightChild.Parent = minRightNode;
+                            minRightNode.LeftChild = Root.LeftChild;
+                            Root.LeftChild.Parent = minRightNode;
+                            minRightNode.Parent = null;
+                            Root = minRightNode;
+                            return true;
+                        }
+                        else
+                        {
+                            minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            minRightNode.RightChild.Parent = minRightNode.Parent;
+                            minRightNode.RightChild = Root.RightChild;
+                            Root.RightChild.Parent = minRightNode;
+                            minRightNode.LeftChild = Root.LeftChild;
+                            Root.LeftChild.Parent = minRightNode;
+                            minRightNode.Parent = null;
+                            Root = minRightNode;
+                            return true;
+                        }
+                    }
                 }            
                 if (found.Node.LeftChild == null && found.Node.RightChild == null)
                 {
