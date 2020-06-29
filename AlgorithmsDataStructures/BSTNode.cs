@@ -156,7 +156,9 @@ namespace AlgorithmsDataStructures2
 
                     if (found.Node.LeftChild != null && found.Node.RightChild == null)
                     {
+                        found.Node.LeftChild.Parent = null;
                         Root = found.Node.LeftChild;
+                        return true;
                     }
 
                     if (found.Node.LeftChild == null && found.Node.RightChild != null)
@@ -174,7 +176,10 @@ namespace AlgorithmsDataStructures2
                         }
                         if (minRightNode.RightChild != null)
                         {
-                            minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            if (minRightNode.Parent != Root)
+                            {
+                                minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            }                            
                             minRightNode.RightChild.Parent = minRightNode.Parent;
                             minRightNode.RightChild = Root.RightChild;
                             Root.RightChild.Parent = minRightNode;
@@ -190,7 +195,10 @@ namespace AlgorithmsDataStructures2
                         BSTNode<T> minRightNode = FinMinMax(found.Node.RightChild, false);
                         if (minRightNode.RightChild == null)
                         {
-                            minRightNode.Parent.LeftChild = null;
+                            if (minRightNode.Parent != Root)
+                            {
+                                minRightNode.Parent.LeftChild = null;
+                            }                           
                             minRightNode.RightChild = Root.RightChild;
                             Root.RightChild.Parent = minRightNode;
                             minRightNode.LeftChild = Root.LeftChild;
@@ -201,7 +209,10 @@ namespace AlgorithmsDataStructures2
                         }
                         else
                         {
-                            minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            if (minRightNode.Parent != null)
+                            {
+                                minRightNode.Parent.LeftChild = minRightNode.RightChild;
+                            }                            
                             minRightNode.RightChild.Parent = minRightNode.Parent;
                             minRightNode.RightChild = Root.RightChild;
                             Root.RightChild.Parent = minRightNode;
