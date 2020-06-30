@@ -139,8 +139,8 @@ namespace AlgorithmsDataStructures2.Tests
             BST<int> treeInt = new BST<int>(rootInt);
             BSTNode<int> node1 = new BSTNode<int>(2, 88, rootInt);
             BSTNode<int> node2 = new BSTNode<int>(3, 88, rootInt);
-            treeInt.AddKeyValue(node1.NodeKey, node1.NodeValue);
-            treeInt.AddKeyValue(node2.NodeKey, node2.NodeValue);
+            treeInt.AddKeyValue(2, 88);
+            treeInt.AddKeyValue(3, 88);
             Assert.AreEqual(treeInt.FindNodeByKey(2).Node.NodeKey, 2);
             Assert.AreEqual(treeInt.FindNodeByKey(2).Node.RightChild.NodeKey, 3);
         }
@@ -686,6 +686,8 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 8);
             Assert.AreEqual(treeInt.Root.Parent, null);
+            Assert.AreEqual(treeInt.Root.LeftChild, null);
+            Assert.AreEqual(treeInt.Root.RightChild, null);                       
         }
 
         [TestMethod()]
@@ -701,6 +703,8 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 9);
             Assert.AreEqual(treeInt.Root.Parent, null);
+            Assert.AreEqual(treeInt.Root.LeftChild, null);
+            Assert.AreEqual(treeInt.Root.RightChild, null);
         }
 
         [TestMethod()]
@@ -717,6 +721,8 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 8);
             Assert.AreEqual(treeInt.Root.Parent, null);
+            Assert.AreEqual(treeInt.Root.RightChild, null);
+            Assert.AreEqual(treeInt.Root.LeftChild, null);
         }
 
         [TestMethod()]
@@ -726,12 +732,14 @@ namespace AlgorithmsDataStructures2.Tests
             BSTNode<int> rootInt = new BSTNode<int>(8, 88, null);            
             BST<int> treeInt = new BST<int>(rootInt);
 
-            treeInt.AddKeyValue(7, 8);
+            treeInt.AddKeyValue(7, 88);
             bool result = treeInt.DeleteNodeByKey(8);
 
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 7);
             Assert.AreEqual(treeInt.Root.Parent, null);
+            Assert.AreEqual(treeInt.Root.LeftChild, null);
+            Assert.AreEqual(treeInt.Root.RightChild, null);
         }
 
         [TestMethod()]
@@ -747,6 +755,7 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(treeInt.Root.NodeKey, 8);
             Assert.AreEqual(treeInt.Root.LeftChild, null);
             Assert.AreEqual(treeInt.Root.RightChild.NodeKey, 9);
+            Assert.AreEqual(treeInt.Root.RightChild.Parent.NodeKey, 8);
         }
 
         [TestMethod()]
@@ -761,6 +770,7 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 8);
             Assert.AreEqual(treeInt.Root.LeftChild.NodeKey, 7);
+            Assert.AreEqual(treeInt.Root.LeftChild.Parent.NodeKey, 8);
             Assert.AreEqual(treeInt.Root.RightChild, null);
         }
 
@@ -776,6 +786,8 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(result, true);
             Assert.AreEqual(treeInt.Root.NodeKey, 9);
             Assert.AreEqual(treeInt.Root.LeftChild.NodeKey, 7);
+            Assert.AreEqual(treeInt.Root.LeftChild.Parent.NodeKey, 9);
+            Assert.AreEqual(treeInt.Root.RightChild, null);
         }
 
         [TestMethod()]
@@ -839,6 +851,108 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.NodeKey, 19);
             Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.Parent.NodeKey, 20);
         }
+
+        [TestMethod()]
+        public void DeleteNodeByKeyTest8()
+        {
+            //int
+            BSTNode<int> rootInt = new BSTNode<int>(16, 88, null);
+            BST<int> treeInt = new BST<int>(rootInt);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            treeInt.DeleteNodeByKey(16);
+            BSTNode<int> foundNull = treeInt.FinMinMax(treeInt.Root, false);
+            Assert.AreEqual(foundNull, null);
+            Assert.AreEqual(treeInt.Root, null);            
+            treeInt.AddKeyValue(16, 88);
+            BSTNode<int> foundNodeMin = treeInt.FinMinMax(treeInt.Root, false);
+            BSTNode<int> foundNodeMax = treeInt.FinMinMax(treeInt.Root, false);
+            Assert.AreEqual(foundNodeMin.NodeKey, 16);
+            Assert.AreEqual(foundNodeMax.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.Parent, null);
+            treeInt.AddKeyValue(8, 88);
+            treeInt.AddKeyValue(26, 88);
+            treeInt.AddKeyValue(4, 88);
+            treeInt.AddKeyValue(12, 88);
+            treeInt.AddKeyValue(20, 88);
+            treeInt.AddKeyValue(28, 88);
+            treeInt.AddKeyValue(2, 88);
+            treeInt.AddKeyValue(6, 88);
+            treeInt.AddKeyValue(10, 88);
+            treeInt.AddKeyValue(14, 88);
+            treeInt.AddKeyValue(18, 88);
+            treeInt.AddKeyValue(22, 88);
+            treeInt.AddKeyValue(26, 88);
+            treeInt.AddKeyValue(30, 88);
+            treeInt.AddKeyValue(19, 88);
+            bool result = treeInt.DeleteNodeByKey(16);
+            Assert.AreEqual(result, true);
+            Assert.AreEqual(treeInt.Root.NodeKey, 18);
+            Assert.AreEqual(treeInt.Root.LeftChild.NodeKey, 8);
+            Assert.AreEqual(treeInt.Root.LeftChild.Parent.NodeKey, 18);
+            Assert.AreEqual(treeInt.Root.RightChild.Parent.NodeKey, 18);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.NodeKey, 19);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.Parent.NodeKey, 20);
+        }
+
+
+        [TestMethod()]
+        public void DeleteNodeByKeyTest9()
+        {
+            //int
+            BSTNode<int> rootInt = new BSTNode<int>(16, 88, null);
+            BST<int> treeInt = new BST<int>(rootInt);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            treeInt.DeleteNodeByKey(16);
+            BSTNode<int> foundNull = treeInt.FinMinMax(treeInt.Root, false);
+            Assert.AreEqual(foundNull, null);
+            Assert.AreEqual(treeInt.Root, null);
+            treeInt.AddKeyValue(16, 88);
+            BSTNode<int> foundNodeMin = treeInt.FinMinMax(treeInt.Root, false);
+            BSTNode<int> foundNodeMax = treeInt.FinMinMax(treeInt.Root, false);
+            Assert.AreEqual(foundNodeMin.NodeKey, 16);
+            Assert.AreEqual(foundNodeMax.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.Parent, null);
+            treeInt.AddKeyValue(16, 88);
+            treeInt.AddKeyValue(8, 88);
+            treeInt.AddKeyValue(24, 88);
+            treeInt.AddKeyValue(4, 88);
+            treeInt.AddKeyValue(12, 88);
+            treeInt.AddKeyValue(20, 88);
+            treeInt.AddKeyValue(28, 88);
+            treeInt.AddKeyValue(2, 88);
+            treeInt.AddKeyValue(6, 88);
+            treeInt.AddKeyValue(10, 88);
+            treeInt.AddKeyValue(14, 88);
+            treeInt.AddKeyValue(18, 88);
+            treeInt.AddKeyValue(22, 88);
+            treeInt.AddKeyValue(26, 88);
+            treeInt.AddKeyValue(30, 88);
+
+            bool result = treeInt.DeleteNodeByKey(24);
+            Assert.AreEqual(result, true);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.LeftChild.NodeKey, 8);
+            Assert.AreEqual(treeInt.Root.LeftChild.Parent.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.RightChild.Parent.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.RightChild.NodeKey, 26);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.NodeKey, 18);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.Parent.NodeKey, 20);
+            Assert.AreEqual(treeInt.Root.RightChild.RightChild.LeftChild, null);
+
+            result = treeInt.DeleteNodeByKey(26);
+            Assert.AreEqual(result, true);
+            Assert.AreEqual(treeInt.Root.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.LeftChild.NodeKey, 8);
+            Assert.AreEqual(treeInt.Root.LeftChild.Parent.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.RightChild.Parent.NodeKey, 16);
+            Assert.AreEqual(treeInt.Root.RightChild.NodeKey, 28);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.NodeKey, 18);
+            Assert.AreEqual(treeInt.Root.RightChild.LeftChild.LeftChild.Parent.NodeKey, 20);
+            Assert.AreEqual(treeInt.Root.RightChild.RightChild.NodeKey, 30);
+        }
+
         #endregion
     }
 }
