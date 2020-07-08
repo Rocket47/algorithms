@@ -84,7 +84,7 @@ namespace AlgorithmsDataStructures2
                     {
                         findNode.Node = prev;
                         findNode.NodeHasKey = false;
-                        findNode.ToLeft = true;
+                        findNode.ToLeft = false;
                         return findNode;
                     }
                 }
@@ -119,8 +119,23 @@ namespace AlgorithmsDataStructures2
         //@/////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
-            // ищем максимальное/минимальное в поддереве
-            return null;
+            BSTNode<T> head = Root;
+            BSTNode<T> result = null;
+            BSTFind<T> foundNode = FindNodeByKey(FromNode.NodeKey);
+           
+            if (head == null) { return null; }
+
+            if (!foundNode.NodeHasKey) { return default; }
+
+            if (FindMax)
+            {
+                result = findMax(FromNode);
+            }
+            if (!FindMax)
+            {
+                result = findMin(FromNode);                
+            }
+            return result;
         }
         //@/////////////////////////////////////////////////////////
         public bool DeleteNodeByKey(int key)
@@ -166,6 +181,39 @@ namespace AlgorithmsDataStructures2
             count += getCountRecursive(currentRoot.LeftChild) + getCountRecursive(currentRoot.RightChild);
             return count; // количество узлов в дереве
         }
+        //@////////////////////////////////////////////////////////////////////////////
+        public BSTNode<T> findMin(BSTNode<T> minNode)
+        {
+            if (minNode == null)
+            {
+                return null;
+            }
+            else if (minNode.LeftChild == null)
+            {
+                return minNode;
+            }
+            else
+            {
+                return findMin(minNode.LeftChild);
+            }
+        }
+        //@////////////////////////////////////////////////////////////////////////////
+        public BSTNode<T> findMax(BSTNode<T> maxNode)
+        {
+            if (maxNode == null)
+            {
+                return null;
+            }
+            else if (maxNode.RightChild == null)
+            {
+                return maxNode;
+            }
+            else
+            {
+                return findMax(maxNode.RightChild);
+            }
+        }
+
     }
 }
 
