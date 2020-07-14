@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace AlgorithmsDataStructures2
 {
@@ -145,7 +146,7 @@ namespace AlgorithmsDataStructures2
 
             if (Root == null) { return false; }
 
-            // no child case
+            // no child case 
 
             if (found.LeftChild == null && found.RightChild == null)
             {
@@ -168,6 +169,48 @@ namespace AlgorithmsDataStructures2
             }
 
             // one child case
+
+            if (found.LeftChild == null)
+            {
+                if (found == Root)
+                {
+                    Root = Root.RightChild;
+                    return true;
+                }
+
+                if (parentFound.LeftChild == found)
+                {
+                    parentFound.LeftChild = found.RightChild;
+                    return true;
+                }
+                else
+                {
+                    parentFound.RightChild = found.RightChild;
+                    return true;
+                }
+            }
+
+            if (found.RightChild == null)
+            {
+                if (found == Root)
+                {
+                    Root = Root.LeftChild;
+                    return true;
+                }
+
+                if (parentFound.LeftChild == found)
+                {
+                    parentFound.LeftChild = found.LeftChild;
+                    return true;
+                }
+                else
+                {
+                    parentFound.RightChild = found.LeftChild;
+                    return true;
+                }
+            }
+
+            // two child case
 
             return false; // если узел не найден
         }
