@@ -140,7 +140,35 @@ namespace AlgorithmsDataStructures2
         //@/////////////////////////////////////////////////////////
         public bool DeleteNodeByKey(int key)
         {
-            // удаляем узел по ключу
+            BSTNode<T> found = FindNodeByKey(key).Node;
+            BSTNode<T> parentFound = found.Parent;
+
+            if (Root == null) { return false; }
+
+            // no child case
+
+            if (found.LeftChild == null && found.RightChild == null)
+            {
+                if (found == Root)
+                {
+                    Root = null;
+                    return false;
+                }
+
+                if (parentFound.LeftChild == found)
+                {
+                    parentFound.LeftChild = null;
+                    return true;
+                }
+                else
+                {
+                    parentFound.RightChild = null;
+                    return true;
+                }
+            }
+
+            // one child case
+
             return false; // если узел не найден
         }
         //@/////////////////////////////////////////////////////////
