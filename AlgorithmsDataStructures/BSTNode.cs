@@ -122,6 +122,8 @@ namespace AlgorithmsDataStructures2
         {
             BSTNode<T> head = Root;
             BSTNode<T> result = null;
+
+            if (FromNode == null) { return null; }
             BSTFind<T> foundNode = FindNodeByKey(FromNode.NodeKey);
            
             if (head == null) { return null; }
@@ -146,6 +148,7 @@ namespace AlgorithmsDataStructures2
 
             if (Root == null) { return false; }
 
+            if (found == null) { return false; }
             // no child case 
 
             if (found.LeftChild == null && found.RightChild == null)
@@ -153,7 +156,7 @@ namespace AlgorithmsDataStructures2
                 if (found == Root)
                 {
                     Root = null;
-                    return false;
+                    return true;
                 }
 
                 if (parentFound.LeftChild == found)
@@ -211,8 +214,27 @@ namespace AlgorithmsDataStructures2
             }
 
             // two child case
+           
+            BSTNode<T> succ = found.RightChild;
+            BSTNode<T> succParent = found;
 
-            return false; // если узел не найден
+            if (succ.LeftChild == null)
+            {
+                found.NodeKey = succ.NodeKey;
+                found.RightChild = succ.RightChild;
+                return true;
+            }
+
+            while (succ.LeftChild != null)
+            {
+                succParent = succ;
+                succ = succ.LeftChild;
+            }
+            found.NodeKey = succ.NodeKey;
+            succParent.LeftChild = succ.RightChild;
+            
+
+            return true; // если узел не найден
         }
         //@/////////////////////////////////////////////////////////
         public int Count()
