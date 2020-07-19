@@ -243,18 +243,12 @@ namespace AlgorithmsDataStructures2
 
         }
 
-
         public bool DeleteNodeByKey(int key)
         {
             // удаляем узел по ключу
             BSTNode<T> Node = FindNodeByKey(key).Node;
             if (Node != null)
             {
-                if (Node.Parent == null)
-                {
-                    Root = null;
-                    return true;
-                }
                 if (Node.LeftChild == null && Node.RightChild == null)
                 {
                     {
@@ -329,7 +323,7 @@ namespace AlgorithmsDataStructures2
                     return true;
                 }
             }
-            return false; // если узел не найден
+            return false; 
         }
 
         public int Count()
