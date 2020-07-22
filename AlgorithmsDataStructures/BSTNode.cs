@@ -38,7 +38,7 @@ namespace AlgorithmsDataStructures2
 
     public class BST<T>
     {
-        BSTNode<T> Root; // корень дерева, или null
+        public BSTNode<T> Root; // корень дерева, или null
 
         public BST(BSTNode<T> node)
         {
@@ -195,8 +195,13 @@ namespace AlgorithmsDataStructures2
 
         public bool AddKeyValue(int key, T val)
         {
-            // добавляем ключ-значение в дерево
+            // добавляем ключ-значение в дерево          
             BSTNode<T> Node = Root;
+            if (Root == null)
+            {
+                Root = new BSTNode<T>(key, val, null);
+                return true;
+            }
             BSTFind<T> FindNode = FindNodeByKey(key);
             if (FindNode.Node != null)
             {
