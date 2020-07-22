@@ -247,6 +247,11 @@ namespace AlgorithmsDataStructures2
         {
             // удаляем узел по ключу
             BSTNode<T> Node = FindNodeByKey(key).Node;
+            if (Node == null)
+            {
+                Root = null;
+                return true;
+            }
             if (Node != null)
             {
                 if (Node.LeftChild == null && Node.RightChild == null)
@@ -315,16 +320,17 @@ namespace AlgorithmsDataStructures2
                     else
                     {
                         find = find.RightChild;
-                        Node.RightChild.Parent = find;                       
+                        Node.RightChild.Parent = find;
                         find.Parent.LeftChild = null;
-                        find.Parent = Node.Parent;                        
+                        find.Parent = Node.Parent;
                         find.RightChild = Node.RightChild;
                     }
                     return true;
                 }
             }
-            return false; 
+            return false; // если узел не найден
         }
+
 
         public int Count()
         {
