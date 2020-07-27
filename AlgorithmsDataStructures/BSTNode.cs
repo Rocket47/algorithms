@@ -178,6 +178,19 @@ namespace AlgorithmsDataStructures2
             BSTNode<T> parentNodeForReplace = nodeForReplace.Parent;
             if (parentNodeForReplace != null)
             {
+                if (parentNodeForReplace.LeftChild == nodeForReplace)
+                {
+                    parentNodeForReplace.LeftChild = null;
+                }
+                else
+                {
+                    parentNodeForReplace.RightChild = null;
+                }
+            }
+            nodeForReplace.Parent = parentNodeToDelete;
+
+            if (parentNodeToDelete != null)
+            {
                 if (!isLeftChild)
                 {
                     parentNodeToDelete.RightChild = nodeForReplace;
