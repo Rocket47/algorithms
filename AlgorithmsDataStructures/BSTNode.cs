@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace AlgorithmsDataStructures2
 {
@@ -45,7 +46,7 @@ namespace AlgorithmsDataStructures2
         {
             Root = node;
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         public BSTFind<T> FindNodeByKey(int key)
         {
             BSTFind<T> bstFindResult = new BSTFind<T>();
@@ -84,7 +85,7 @@ namespace AlgorithmsDataStructures2
 
             return bstFindResult;
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         public bool AddKeyValue(int key, T val)
         {
             // добавляем ключ-значение в дерево
@@ -104,9 +105,9 @@ namespace AlgorithmsDataStructures2
             {
                 bstFind.Node.RightChild = bstNode;
             }
-            return true; 
+            return true;
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
         {
             BSTNode<T> nodeResult = FromNode;
@@ -128,9 +129,9 @@ namespace AlgorithmsDataStructures2
                     nodeResult = nodeResult.LeftChild;
                 }
             }
-            return nodeResult; 
+            return nodeResult;
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         public bool DeleteNodeByKey(int key)
         {
             bool isLeftChild = true;
@@ -222,20 +223,30 @@ namespace AlgorithmsDataStructures2
 
             return true; // если узел не найден
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         public int Count()
         {
             if (Root != null)
                 return CountNodes(Root.RightChild) + CountNodes(Root.LeftChild) + 1;
-            return 0;          
+            return 0;
         }
-
+        //@////////////////////////////////////////////////////////////////////////////////////
         private int CountNodes(BSTNode<T> node)
         {
             if (node != null)
                 return CountNodes(node.LeftChild) + CountNodes(node.RightChild) + 1;
             return 0;
         }
+        //@////////////////////////////////////////////////////////////////////////////////////
+        public List<BSTNode<T>> WideAllNodes()
+        {
+            if (Root == null) { return null; }
+
+            List<BSTNode<T>> ResultList = new List<BSTNode<T>>();
+
+            return ResultList;
+        }
 
     }
 }
+
