@@ -3,30 +3,68 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures2
 {
-  public class aBST
-  {
-    public int? [] Tree; // массив ключей
-	
-    public aBST(int depth)
+    public class aBST
     {
-      // правильно рассчитайте размер массива для дерева глубины depth:
-      int tree_size = 0;
-      Tree = new int?[ tree_size ];
-      for(int i=0; i<tree_size; i++) Tree[i] = null;
+        public int?[] Tree; // массив ключей
+
+        public aBST(int depth)
+        {
+            // правильно рассчитайте размер массива для дерева глубины depth:
+            int tree_size = 0;
+            Tree = new int?[tree_size];
+            for (int i = 0; i < tree_size; i++) Tree[i] = null;
+        }
+
+        public int? FindKeyIndex(int key)
+        {
+            // ищем в массиве индекс ключа
+            int indexSearch = 0;
+            while (indexSearch < Tree.Length)
+            {
+                if (Tree[indexSearch] == null)
+                {
+                    return -indexSearch;
+                }
+                if (key > Tree[indexSearch])
+                {
+                    //go to right child
+                    indexSearch = 2 * indexSearch + 2;
+                }
+                else if (key < Tree[indexSearch]) 
+                {
+                    //go to left child
+                    indexSearch = 2 * indexSearch + 1;
+                }
+                else
+                {
+                    return indexSearch;
+                }
+            }
+            return null; // не найден
+        }
+
+        public int AddKey(int key)
+        {
+            int? foundIndex = FindKeyIndex(key);
+            int mainIndexNotNull = foundIndex ?? -1;
+
+            //check unique case when found index == 0
+            if (mainIndexNotNull == 0)
+            {
+                if (Tree[0] == null)
+                {
+                    Tree[0] = key;
+                    return 0;
+                }           
+            }
+
+            if (mainIndexNotNull < 0)
+            {
+                Tree[0 - (mainIndexNotNull)] = key;
+                return mainIndexNotNull;
+            }
+            return mainIndexNotNull;
+            // индекс добавленного/существующего ключа или -1 если не удалось
+        }
     }
-	
-    public int? FindKeyIndex(int key)
-    {
-      // ищем в массиве индекс ключа
-      return null; // не найден
-    }
-	
-    public int AddKey(int key)
-    {
-      // добавляем ключ в массив
-      return -1; 
-      // индекс добавленного/существующего ключа или -1 если не удалось
-    }
-	
-  }
-}  
+}
