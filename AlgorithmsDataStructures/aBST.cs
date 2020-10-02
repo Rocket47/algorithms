@@ -10,7 +10,7 @@ namespace AlgorithmsDataStructures2
         public aBST(int depth)
         {
             // правильно рассчитайте размер массива для дерева глубины depth:
-            int tree_size = 0;
+            int tree_size = CalculateDepthTree(depth);
             Tree = new int?[tree_size];
             for (int i = 0; i < tree_size; i++) Tree[i] = null;
         }
@@ -58,6 +58,11 @@ namespace AlgorithmsDataStructures2
                 }           
             }
 
+            if (foundIndex == null)
+            {
+                return -1;
+            }
+
             if (mainIndexNotNull < 0)
             {
                 Tree[0 - (mainIndexNotNull)] = key;
@@ -65,6 +70,23 @@ namespace AlgorithmsDataStructures2
             }
             return mainIndexNotNull;
             // индекс добавленного/существующего ключа или -1 если не удалось
+        }
+
+        public int CalculateDepthTree(int depth)
+        {
+            int result = 1;
+            int prevValue = 1;
+            if (depth == 0)
+            {
+                result = 1;
+                return result;
+            }
+            for (int i = 0; i <= depth; i++)
+            {
+                result +=  prevValue;
+                prevValue *= 2; 
+            }
+            return --result;            
         }
     }
 }
