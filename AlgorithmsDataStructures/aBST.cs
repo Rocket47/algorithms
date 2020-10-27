@@ -43,8 +43,12 @@ namespace AlgorithmsDataStructures2
             return null; // не найден
         }
 
-        public int AddKey(int key)
+        public int AddKey(int key)        
         {
+            if (Tree == null)
+            {
+                return -1;
+            }
             int? foundIndex = FindKeyIndex(key);
             int mainIndexNotNull = foundIndex ?? -1;
 
@@ -78,7 +82,7 @@ namespace AlgorithmsDataStructures2
             int prevValue = 1;
             if (depth == 0)
             {
-                result = 1;
+                result = 0;
                 return result;
             }
             for (int i = 0; i <= depth; i++)
