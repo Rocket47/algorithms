@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures2
 {
@@ -10,13 +9,14 @@ namespace AlgorithmsDataStructures2
         public aBST(int depth)
         {
             // правильно рассчитайте размер массива для дерева глубины depth:
-            int tree_size = CalculateDepthTree(depth);
+            int tree_size = (int)Math.Pow(2, depth + 1) - 1;
             Tree = new int?[tree_size];
             for (int i = 0; i < tree_size; i++) Tree[i] = null;
         }
 
         public int? FindKeyIndex(int key)
         {
+            if (Tree[0] == null) return null;
             // ищем в массиве индекс ключа
             int indexSearch = 0;
             while (indexSearch < Tree.Length)
@@ -45,52 +45,32 @@ namespace AlgorithmsDataStructures2
 
         public int AddKey(int key)        
         {
-            if (Tree == null)
+            if (Tree[0] == null)
             {
-                return -1;
+                Tree[0] = key;
+                return 0;
             }
             int? foundIndex = FindKeyIndex(key);
             int mainIndexNotNull = foundIndex ?? -1;
-
-            //check unique case when found index == 0
-            if (mainIndexNotNull == 0)
-            {
-                if (Tree[0] == null)
-                {
-                    Tree[0] = key;
-                    return 0;
-                }           
-            }
+            
 
             if (foundIndex == null)
             {
                 return -1;
             }
 
-            if (mainIndexNotNull < 0)
+            if (mainIndexNotNull <= 0)
             {
+                if (Tree[0] == null)
+                {
+                    Tree[0] = key;
+                    return 0;
+                }
                 Tree[0 - (mainIndexNotNull)] = key;
                 return mainIndexNotNull;
             }
             return mainIndexNotNull;
             // индекс добавленного/существующего ключа или -1 если не удалось
-        }
-
-        public int CalculateDepthTree(int depth)
-        {
-            int result = 1;
-            int prevValue = 1;
-            if (depth == 0)
-            {
-                result = 0;
-                return result;
-            }
-            for (int i = 0; i <= depth; i++)
-            {
-                result +=  prevValue;
-                prevValue *= 2; 
-            }
-            return --result;            
-        }
+        }       
     }
 }
