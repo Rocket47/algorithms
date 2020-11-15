@@ -67,7 +67,7 @@ namespace AlgorithmsDataStructures2
                     return 0;
                 }
                 Tree[0 - (mainIndexNotNull)] = key;
-                return mainIndexNotNull;
+                return -mainIndexNotNull;
             }
             return mainIndexNotNull;
             // индекс добавленного/существующего ключа или -1 если не удалось
