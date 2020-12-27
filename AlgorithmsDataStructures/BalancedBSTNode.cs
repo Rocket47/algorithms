@@ -45,7 +45,7 @@ namespace AlgorithmsDataStructures2
 			if (array == null || array.Length == 0 || start > end) { return null; }
 
 			int mid = (start + end) / 2;
-			BSTNode bSTNode = new BSTNode(array[mid], Root);
+			BSTNode bSTNode = new BSTNode(array[mid], parent);
 			bSTNode.Level = parent.Level + 1;
 			bSTNode.LeftChild = GenerateTree(array, start, mid - 1, parent);
 			bSTNode.RightChild = GenerateTree(array, mid + 1, end, parent);
