@@ -3,74 +3,129 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures2
 {
-	public class BSTNode
-	{
-		public int NodeKey; // ключ узла
-		public BSTNode Parent; // родитель или null для корня
-		public BSTNode LeftChild; // левый потомок
-		public BSTNode RightChild; // правый потомок	
-		public int Level; // глубина узла
+    public class BSTNode
+    {
+        public int NodeKey; 
+        public BSTNode Parent; 
+        public BSTNode LeftChild; 
+        public BSTNode RightChild; 
+        public int Level; 
 
-		public BSTNode(int key, BSTNode parent)
-		{
-			NodeKey = key;
-			Parent = parent;
-			LeftChild = null;
-			RightChild = null;
-		}
-	}
+        public BSTNode(int key, BSTNode parent)
+        {
+            NodeKey = key;
+            Parent = parent;
+            LeftChild = null;
+            RightChild = null;
+        }
+    }
 
 
-	public class BalancedBST
-	{
-		public BSTNode Root; // корень дерева
+    public class BalancedBST
+    {
+        public BSTNode Root; 
+        public BalancedBST()
+        {
+            Root = null;
+        }
 
-		public BalancedBST()
-		{
-			Root = null;
-		}
+        public void GenerateTree(int[] a)
+        {           
+            Array.Sort(a);
+            Generate(null, a);
+        }
 
-		public void GenerateTree(int[] a)
-		{
-			int length = a.Length;
-			Root = new BSTNode(length / 2, null);
-			Root.Level = 0;
-			Array.Sort(a);
-			GenerateTree(a, 0, length - 1, Root);
-			Root.Parent = null;
-		}
+        public BSTNode Generate(BSTNode parent, int[] array)
+        {
 
-		public BSTNode GenerateTree(int[] array, int start, int end, BSTNode parent)
-		{
-			if (array == null || array.Length == 0 || start > end) { return null; }
+            if (array.Length == 0)
+                return null;
 
-			int mid = (start + end) / 2;
-			BSTNode bSTNode = new BSTNode(array[mid], parent);
-			bSTNode.Level = parent.Level + 1;
-			bSTNode.LeftChild = GenerateTree(array, start, mid - 1, bSTNode);
-			bSTNode.RightChild = GenerateTree(array, mid + 1, end, bSTNode);
+            int center = array.Length / 2;
 
-			return bSTNode;
-		}
+            BSTNode node = new BSTNode(array[array.Length / 2], parent);
 
-		public bool IsBalanced(BSTNode root_node)
-		{
-			if (root_node == null) { return true; }
+            if (Root == null)
+            {
+                Root = node;
+                Root.Level = 1;
+            }
 
-			int left = Deep(root_node.LeftChild);
-			int right = Deep(root_node.RightChild);
-			if (Math.Abs(left - right) <= 1 && IsBalanced(root_node.LeftChild) && IsBalanced(root_node.RightChild))
-			{
-				return true;
-			}
-			return false; // сбалансировано ли дерево с корнем root_node
-		}
+            if (node.Parent != null)
+                node.Level = node.Parent.Level + 1;
 
-		public int Deep(BSTNode root_node)
-		{
-			if (root_node == null) { return 0; }
+            int[] left = new int[center];
+            int[] right = new int[array.Length - left.Length - 1];
+            Array.ConstrainedCopy(array, 0, left, 0, left.Length);
+            Array.ConstrainedCopy(array, center + 1, right, 0, right.Length);
 
-			return 1 + Math.Max(Deep(root_node.LeftChild), Deep(root_node.RightChild));
-		}
-	}
+            node.LeftChild = Generate(node, left);
+            node.RightChild = Generate(node, right);
+
+            return node;
+        }
+
+
+        public bool IsBalanced(BSTNode root_node)
+        {
+            if (root_node != null)
+            {
+                int maxLeftLevel = root_node.Level;
+                int maxRightLevel = root_node.Level;
+                int diff;
+
+                if (root_node.LeftChild != null)
+                {
+                    List<BSTNode> AllChildrenLeft = GetAllChildren(root_node.LeftChild);
+                    foreach (BSTNode item in AllChildrenLeft)
+                    {
+                        if (item.Level > maxLeftLevel)
+                            maxLeftLevel = item.Level;
+                    }
+                }
+
+                if (root_node.RightChild != null)
+                {
+                    List<BSTNode> AllChildrenRight = GetAllChildren(root_node.RightChild);
+                    foreach (BSTNode item in AllChildrenRight)
+                    {
+                        if (item.Level > maxRightLevel)
+                            maxRightLevel = item.Level;
+                    }
+                }
+
+                diff = Math.Abs(maxLeftLevel - maxRightLevel);
+
+                if (diff <= 1)
+                    return true;
+            }
+
+            return false; 
+        }
+
+        public List<BSTNode> GetAllChildren(BSTNode node)
+        {
+            List<BSTNode> AllChildren = new List<BSTNode>();
+            BSTNode Node = node;
+
+            if (Node != null)
+            {
+                if (Node.LeftChild != null)
+                {
+                    AllChildren.Add(Node.LeftChild);
+                    AllChildren.AddRange(GetAllChildren(Node.LeftChild));
+                }
+
+                if (Node.RightChild != null)
+                {
+                    AllChildren.Add(Node.RightChild);
+                    AllChildren.AddRange(GetAllChildren(Node.RightChild));
+                }
+
+                return AllChildren;
+            }
+            else
+                return null;
+        }
+    }
 }
