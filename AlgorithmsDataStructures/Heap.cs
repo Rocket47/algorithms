@@ -7,6 +7,7 @@ namespace AlgorithmsDataStructures2
 	{
 
 		public int[] HeapArray; // хранит неотрицательные числа-ключи
+		int countInsert = 0;
 
 		public Heap() { HeapArray = null; }
 
@@ -39,8 +40,36 @@ namespace AlgorithmsDataStructures2
 		{
 			if (key < 0 || HeapArray == null) { return false; }
 
+			var length = HeapArray.Length;
+
+			if (length >= 1)
+			{
+				if (countInsert < (length - 1))
+				{
+					HeapArray[length - 1] = key;
+					countInsert++;
+					Shuffle(HeapArray);
+					return true;
+				}				
+			}
 			return false; // если куча вся заполнена
 		}
+
+		public void Shuffle(int[] array)
+        {
+			if (array != null)
+			{
+				var lastPosition = array.Length - 1;
+				var parent = (int) Math.Floor((double) (lastPosition - 1) / 2);
+
+				if (array[lastPosition] > array[parent])
+                {
+					int tmp = array[parent];
+					array[parent] = array[lastPosition];
+					array[lastPosition] = tmp;
+                }
+			}
+        }
 
 	}
 }
