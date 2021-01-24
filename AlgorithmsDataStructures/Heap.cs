@@ -12,9 +12,21 @@ namespace AlgorithmsDataStructures2
 
 		public void MakeHeap(int[] a, int depth)
 		{
-			// создаём массив кучи HeapArray из заданного
-			// размер массива выбираем на основе глубины depth
-			// ...
+            if (a == null) { return; }
+
+            if (depth < 0) { return; }
+
+            int heapArraySize;
+            if (depth == 0)
+            {
+                heapArraySize = 1;
+            }
+            else
+            {
+                var power = depth + 1;
+                heapArraySize = (int)Math.Pow(2, power) - 1;
+            }
+            HeapArray = new int[heapArraySize];
 		}
 
 		public int GetMax()
@@ -25,7 +37,8 @@ namespace AlgorithmsDataStructures2
 
 		public bool Add(int key)
 		{
-			// добавляем новый элемент key в кучу и перестраиваем её
+			if (key < 0 || HeapArray == null) { return false; }
+
 			return false; // если куча вся заполнена
 		}
 
