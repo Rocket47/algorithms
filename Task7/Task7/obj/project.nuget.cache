@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LOGhdLQCkUEaBsUtT3pSYryaW9agMu7+KH1KcVaaBtszG8yWkfdG1Fs+l5/uH3x6N7hdgICeJC+1CkNdfzzN1w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Roman\\source\\repos\\Task7\\Task7\\Task7.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Roman\\.nuget\\packages\\microsoft.codecoverage\\16.8.3\\microsoft.codecoverage.16.8.3.nupkg.sha512"
+  ],
+  "logs": []
+}
