@@ -42,13 +42,19 @@ namespace AlgorithmsDataStructures2
 
 			var count = HeapArray.Length - 1;
 
+			if (count == 0)
+            {
+				HeapArray[0] = key;
+				return true;
+            }
+
 			if (count >= 1)
 			{
 				if (countInsert < count)
 				{
-					HeapArray[count] = key;
+					HeapArray[countInsert] = key;
 					countInsert++;
-					Shuffle(HeapArray);
+					HeapArray = Shuffle(HeapArray);
 					return true;
 				}				
 			}
@@ -59,7 +65,7 @@ namespace AlgorithmsDataStructures2
         {			
 			if (array != null)
 			{
-				var lastPosition = array.Length - 1;
+				var lastPosition = GetIndexLastElement(array);
 				while (true)
 				{					
 					var parent = (int)Math.Floor((double)(lastPosition - 1) / 2);
@@ -78,6 +84,20 @@ namespace AlgorithmsDataStructures2
 				}
 			}
 			return array;
+        }
+
+		public int GetIndexLastElement(int[] array)
+        {
+			int index = 0;
+			foreach (int tmp in array)
+            {
+				if (tmp == 0)
+                {
+					return --index;
+                }
+				index++;
+            }
+			return --index;
         }
 
 	}
