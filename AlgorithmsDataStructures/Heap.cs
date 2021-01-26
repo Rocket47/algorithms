@@ -28,12 +28,62 @@ namespace AlgorithmsDataStructures2
                 heapArraySize = (int)Math.Pow(2, power) - 1;
             }
             HeapArray = new int[heapArraySize];
+			for (int i = 0; i < a.Length; i++)
+			{
+				Add(a[i]);
+			}
 		}
 
 		public int GetMax()
+		{			
+			if (HeapArray[0] == 0)
+			{
+				return -1; // если куча пуста
+			}
+			else
+			{
+				int max = HeapArray[0];
+				HeapArray[0] = HeapArray[GetIndexNotNull(HeapArray)];
+				HeapArray[GetIndexNotNull(HeapArray)] = 0;
+				SiftDown(0);
+				return max;
+			}
+		}
+
+		public void SiftDown(int index)
 		{
-			// вернуть значение корня и перестроить кучу
-			return -1; // если куча пуста
+			int temp;
+			while (2 * index + 1 < GetIndexLastElement(HeapArray))
+			{
+				int left = 2 * index + 1;
+				int right = 2 * index + 2;
+				int j = left;
+				if (HeapArray[right] > HeapArray[left])
+				{
+					j = right;
+				}
+				if (HeapArray[index] >= HeapArray[j])
+				{
+					break;
+				}
+				else
+				{
+					temp = HeapArray[index];
+					HeapArray[index] = HeapArray[j];
+					HeapArray[j] = temp;
+				}
+				index = j;
+			}
+		}
+
+		public int GetIndexNotNull(int[] a)
+		{
+			for (int i = 0; i < a.Length; i++)
+			{
+				if (a[i] == 0) return i - 1;
+
+			}
+			return a.Length - 1;
 		}
 
 		public bool Add(int key)
@@ -54,14 +104,14 @@ namespace AlgorithmsDataStructures2
 				{
 					HeapArray[countInsert] = key;
 					countInsert++;
-					HeapArray = Shuffle(HeapArray);
+					HeapArray = ShuffleAdd(HeapArray);
 					return true;
 				}				
 			}
 			return false; // если куча вся заполнена
 		}
 
-		public int[] Shuffle(int[] array)
+		public int[] ShuffleAdd(int[] array)
         {			
 			if (array != null)
 			{
