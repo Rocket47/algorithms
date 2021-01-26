@@ -13,21 +13,21 @@ namespace AlgorithmsDataStructures2
 
 		public void MakeHeap(int[] a, int depth)
 		{
-            if (a == null) { return; }
+			if (a == null) { return; }
 
-            if (depth < 0) { return; }
+			if (depth < 0) { return; }
 
-            int heapArraySize;
-            if (depth == 0)
-            {
-                heapArraySize = 1;
-            }
-            else
-            {
-                var power = depth + 1;
-                heapArraySize = (int)Math.Pow(2, power) - 1;
-            }
-            HeapArray = new int[heapArraySize];
+			int heapArraySize;
+			if (depth == 0)
+			{
+				heapArraySize = 1;
+			}
+			else
+			{
+				var power = depth + 1;
+				heapArraySize = (int)Math.Pow(2, power) - 1;
+			}
+			HeapArray = new int[heapArraySize];
 			for (int i = 0; i < a.Length; i++)
 			{
 				Add(a[i]);
@@ -35,7 +35,7 @@ namespace AlgorithmsDataStructures2
 		}
 
 		public int GetMax()
-		{			
+		{
 			if (HeapArray[0] == 0)
 			{
 				return -1; // если куча пуста
@@ -93,10 +93,10 @@ namespace AlgorithmsDataStructures2
 			var count = HeapArray.Length - 1;
 
 			if (count == 0)
-            {
+			{
 				HeapArray[0] = key;
 				return true;
-            }
+			}
 
 			if (count >= 1)
 			{
@@ -106,18 +106,18 @@ namespace AlgorithmsDataStructures2
 					countInsert++;
 					HeapArray = ShuffleAdd(HeapArray);
 					return true;
-				}				
+				}
 			}
 			return false; // если куча вся заполнена
 		}
 
 		public int[] ShuffleAdd(int[] array)
-        {			
+		{
 			if (array != null)
 			{
 				var lastPosition = GetIndexLastElement(array);
 				while (true)
-				{					
+				{
 					var parent = (int)Math.Floor((double)(lastPosition - 1) / 2);
 					if (parent < 0) { break; }
 					if (array[lastPosition] > array[parent])
@@ -128,27 +128,27 @@ namespace AlgorithmsDataStructures2
 						lastPosition = parent;
 					}
 					else
-                    {
+					{
 						break;
-                    }
+					}
 				}
 			}
 			return array;
-        }
+		}
 
 		public int GetIndexLastElement(int[] array)
-        {
+		{
 			int index = 0;
 			foreach (int tmp in array)
-            {
+			{
 				if (tmp == 0)
-                {
+				{
 					return --index;
-                }
+				}
 				index++;
-            }
+			}
 			return --index;
-        }
+		}
 
 	}
 }
