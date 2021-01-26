@@ -40,13 +40,13 @@ namespace AlgorithmsDataStructures2
 		{
 			if (key < 0 || HeapArray == null) { return false; }
 
-			var length = HeapArray.Length;
+			var count = HeapArray.Length - 1;
 
-			if (length >= 1)
+			if (count >= 1)
 			{
-				if (countInsert < (length - 1))
+				if (countInsert < count)
 				{
-					HeapArray[length - 1] = key;
+					HeapArray[count] = key;
 					countInsert++;
 					Shuffle(HeapArray);
 					return true;
@@ -55,20 +55,29 @@ namespace AlgorithmsDataStructures2
 			return false; // если куча вся заполнена
 		}
 
-		public void Shuffle(int[] array)
-        {
+		public int[] Shuffle(int[] array)
+        {			
 			if (array != null)
 			{
 				var lastPosition = array.Length - 1;
-				var parent = (int) Math.Floor((double) (lastPosition - 1) / 2);
-
-				if (array[lastPosition] > array[parent])
-                {
-					int tmp = array[parent];
-					array[parent] = array[lastPosition];
-					array[lastPosition] = tmp;
-                }
+				while (true)
+				{					
+					var parent = (int)Math.Floor((double)(lastPosition - 1) / 2);
+					if (parent < 0) { break; }
+					if (array[lastPosition] > array[parent])
+					{
+						int tmp = array[parent];
+						array[parent] = array[lastPosition];
+						array[lastPosition] = tmp;
+						lastPosition = parent;
+					}
+					else
+                    {
+						break;
+                    }
+				}
 			}
+			return array;
         }
 
 	}
