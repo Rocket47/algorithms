@@ -27,7 +27,7 @@ namespace AlgorithmsDataStructures2
 
         public void AddVertex(int value)
         {
-            var newVertex = new Vertex(value);            
+            var newVertex = new Vertex(value);
             for (int i = 0; i < vertex.Length; i++)
             {
                 if (vertex[i] == null)
@@ -35,7 +35,7 @@ namespace AlgorithmsDataStructures2
                     vertex[i] = newVertex;
                     break;
                 }
-            }           
+            }
         }
 
         // здесь и далее, параметры v -- индекс вершины
@@ -53,12 +53,62 @@ namespace AlgorithmsDataStructures2
 
         public void AddEdge(int v1, int v2)
         {
-            // добавление ребра между вершинами v1 и v2
+            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 > max_vertex)
+            {
+                return;
+            }
+
+            if (!VertexExists(v1, vertex) || !VertexExists(v2, vertex))
+            {
+                return;
+            }
+
+            var pos1 = GetPosVertex(v1, vertex);
+            var pos2 = GetPosVertex(v2, vertex);
+
+            if (pos1 >= 0 && pos2 >= 0)
+            {
+                // добавление ребра между вершинами v1 и v2
+                if (v1 != v2)
+                {
+                    m_adjacency[v1, v2] = 1;
+                }
+            }
         }
 
         public void RemoveEdge(int v1, int v2)
         {
             // удаление ребра между вершинами v1 и v2
+        }
+
+        public bool VertexExists(int v1, Vertex[] array)
+        {
+            foreach (var tmp in array)
+            {
+                if (tmp != null)
+                {
+                    if (tmp.Value == v1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public int GetPosVertex(int v, Vertex[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] != null)
+                {
+                    if (array[i].Value == v)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
         }
     }
 }
