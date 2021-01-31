@@ -27,9 +27,15 @@ namespace AlgorithmsDataStructures2
 
         public void AddVertex(int value)
         {
-            // ваш код добавления новой вершины 
-            // с значением value 
-            // в свободную позицию массива vertex
+            var newVertex = new Vertex(value);            
+            for (int i = 0; i < vertex.Length; i++)
+            {
+                if (vertex[i] == null)
+                {
+                    vertex[i] = newVertex;
+                    break;
+                }
+            }           
         }
 
         // здесь и далее, параметры v -- индекс вершины
