@@ -43,17 +43,48 @@ namespace AlgorithmsDataStructures2
         public void RemoveVertex(int v)
         {
             // ваш код удаления вершины со всеми её рёбрами
+            if (v < max_vertex)
+            {
+                while (v + 1 < max_vertex)
+                {
+                    int i;
+                    //rows
+                    for (i = 0; i < max_vertex; i++)
+                    {
+                        m_adjacency[i, v] = m_adjacency[i, v + 1];
+                    }
+
+                    //columns 
+                    for (i = 0; i < max_vertex; i++)
+                    {
+                        m_adjacency[v, i] = m_adjacency[v + 1, i];
+                    }
+                    v++;
+                }
+                if (max_vertex > 0)
+                {
+                    max_vertex--;
+                }
+            }   
+            else
+            {
+                return;
+            }
         }
 
         public bool IsEdge(int v1, int v2)
         {
             // true если есть ребро между вершинами v1 и v2
+            if (m_adjacency != null)
+            {
+                if (m_adjacency[v1, v2] == 1) { return true; }
+            }
             return false;
         }
 
         public void AddEdge(int v1, int v2)
         {
-            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 > max_vertex)
+            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 >= max_vertex)
             {
                 return;
             }
