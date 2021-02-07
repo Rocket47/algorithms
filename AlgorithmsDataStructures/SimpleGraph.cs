@@ -110,6 +110,14 @@ namespace AlgorithmsDataStructures2
         public void RemoveEdge(int v1, int v2)
         {
             // удаление ребра между вершинами v1 и v2
+            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 >= max_vertex)
+            {
+                return;
+            }
+            else
+            {
+                m_adjacency[v1, v2] = 0;
+            }
         }
 
         public bool VertexExists(int v1, Vertex[] array)
