@@ -43,111 +43,34 @@ namespace AlgorithmsDataStructures2
         public void RemoveVertex(int v)
         {
             // ваш код удаления вершины со всеми её рёбрами
-            if (v < max_vertex)
+            for (int i = 0; i < vertex.Length; i++)
             {
-                while (v + 1 < max_vertex)
-                {
-                    int i;
-                    //rows
-                    for (i = 0; i < max_vertex; i++)
-                    {
-                        m_adjacency[i, v] = m_adjacency[i, v + 1];
-                    }
-
-                    //columns 
-                    for (i = 0; i < max_vertex; i++)
-                    {
-                        m_adjacency[v, i] = m_adjacency[v + 1, i];
-                    }
-                    v++;
-                }
-                if (max_vertex > 0)
-                {
-                    max_vertex--;
-                }
-            }   
-            else
-            {
-                return;
+                m_adjacency[v, i] = 0;
+                m_adjacency[i, v] = 0;
             }
+            vertex[v] = null;
         }
 
         public bool IsEdge(int v1, int v2)
         {
             // true если есть ребро между вершинами v1 и v2
-            if (m_adjacency != null)
+            if (m_adjacency[v1, v2] == 1 && m_adjacency[v2, v1] == 1)
             {
-                if (m_adjacency[v1, v2] == 1) { return true; }
+                return true;
             }
             return false;
         }
 
         public void AddEdge(int v1, int v2)
         {
-            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 >= max_vertex)
-            {
-                return;
-            }
-
-            if (!VertexExists(v1, vertex) || !VertexExists(v2, vertex))
-            {
-                return;
-            }
-
-            var pos1 = GetPosVertex(v1, vertex);
-            var pos2 = GetPosVertex(v2, vertex);
-
-            if (pos1 >= 0 && pos2 >= 0)
-            {
-                // добавление ребра между вершинами v1 и v2
-                if (v1 != v2)
-                {
-                    m_adjacency[v1, v2] = 1;
-                }
-            }
+            m_adjacency[v1, v2] = 1;
+            m_adjacency[v2, v1] = 1;
         }
 
         public void RemoveEdge(int v1, int v2)
         {
-            // удаление ребра между вершинами v1 и v2
-            if (v1 < 0 || v2 < 0 || v1 >= max_vertex || v2 >= max_vertex)
-            {
-                return;
-            }
-            else
-            {
-                m_adjacency[v1, v2] = 0;
-            }
-        }
-
-        public bool VertexExists(int v1, Vertex[] array)
-        {
-            foreach (var tmp in array)
-            {
-                if (tmp != null)
-                {
-                    if (tmp.Value == v1)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public int GetPosVertex(int v, Vertex[] array)
-        {
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] != null)
-                {
-                    if (array[i].Value == v)
-                    {
-                        return i;
-                    }
-                }
-            }
-            return -1;
-        }
+            m_adjacency[v1, v2] = 0;
+            m_adjacency[v2, v1] = 0;
+        }               
     }
 }
