@@ -109,8 +109,9 @@ namespace AlgorithmsDataStructures2
                         vertex[i].Hit = true;
                     }
                 }
-        }
+            }
             stack.Clear();
             return output;
+        }
     }
 }
