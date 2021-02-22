@@ -95,7 +95,7 @@ namespace AlgorithmsDataStructures2
                 current = stack.Pop();
                 output.Add(vertex[current]);
 
-                for (int i = 0; i < m_adjacency.Length - 1; i++)
+                for (int i = 0; i < m_adjacency.GetUpperBound(0); i++)
                 {
                     if (m_adjacency[current, i] == 1 && i == VTo)
                     {
