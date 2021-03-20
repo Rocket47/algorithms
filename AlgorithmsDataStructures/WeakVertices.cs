@@ -176,7 +176,7 @@ namespace AlgorithmsDataStructures2
                     }
                 }
                 if (!IsLinked(neighbourVertices)) result.Add(vertex[i]);
-                index = 1;
+                index = 0;
                 Array.Clear(neighbourVertices, 0, neighbourVertices.Length);
             }
             return result;
