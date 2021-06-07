@@ -1,0 +1,12 @@
+AccountList =>> Accounts  
+yyyymmdstr =>> CurrentDate(current_date)
+positiveResult =>> IsPositive (bool_result_positive)
+addr =>> Address (user_address)
+posKey =>> PositionFoundKey (position_where_key_was_found)
+posMinHits =>> PsitionMinimumHits (position_minimum_hits)
+converterArray =>> ValuesAfterConvertion (values_after_convertion)
+current =>> CurrentHeadPos(current_Head_position)
+listHeadTailPosition =>> HeadPositionsc (position_each_head)
+money =>> MoneyAmount (money_amount)
+tasks =>> QueueOfTasks (queue_tasks_dictionary)
+dictionaryParam =>> HeightAndWidth (height_and_width_user)
