@@ -1,0 +1,24 @@
+6.1
+_devId => developerId
+grp => groupBooks
+dv => deviceAddress
+DoSingle => DoSingleMatchingRound
+getDevice = getDeviceSpeedometer
+****************************************
+6.2
+_handlerFactory
+_parseRequest
+ConnectionInfo 
+buffer
+****************************************
+6.3
+SendPing(byte[] message)
+class WebSocketConnection
+namespace Algorithms.Encoders
+6.4
+****************************************
+size => sizeImage
+me  => localHero
+Ver  => version
+SleepCheckWhenUserActive => isUserSleep
+start  => startLoader;
