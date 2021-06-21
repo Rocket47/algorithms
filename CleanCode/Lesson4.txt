@@ -1,0 +1,34 @@
+7.1
+flagAnError => IsFailure 
+goodTmp => IsSuccess 
+idToken => IsIdentifier
+bool on = > isTurnOn
+DontApprove => isApproved
+
+7.2 
+public static object JsonDecode (string json)
+	{
+		bool success = true;
+	}
+	
+index = FindIndex(list, searchTerm, out bool found);	
+
+7.3
+   for (int row = 0; row < matrixOne.matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrixOne.matrix.GetLength(1); col++)
+				....
+				
+7.4 
+
+	 public static bool CheckTypes(bool begin, bool end, Type type0, Type type1)
+	 
+	 for (int inc = i; inc < rows - 1; inc++)
+                {
+                    bool firstCovering = false;
+                    bool lastCovering = false;
+				}
+				
+7.5
+var c = new Category { Name = "Sport" }; => car sportCategory {Name = "Sport"}
+using (var pck = new ExcelPackage(template, false)) => using (var package = new ExcelPackage(template, false))
