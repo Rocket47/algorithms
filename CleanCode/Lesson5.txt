@@ -1,0 +1,119 @@
+1. int d => int elapsedTimeInDays
+========================================================================
+
+2. Customer[] customerList; => customerList
+   Table theTable; => Table customers;
+========================================================================
+
+3. var theCustomersListWithAllWithoutFilter => var allCustomers;
+   var list => customersInOrder;
+========================================================================
+
+4. void LoadSingleData() => GetSingleData()
+   void FetchDataFiltered() => GetDataFiltered()
+   Void GetAllData() => GetAllData()
+========================================================================
+
+5. void SetDataToView() => void LoadDataToView();
+   void SetObjectValue(int value) => void SetObjectValue(int value)
+========================================================================
+
+6. public class EntitiesRelation         public class EntitiesRelation
+   {                                     {
+     Entity o1;                   =>     	Entity product;
+	 Entity o2;								Entity category;
+   }									 }
+========================================================================
+
+7.
+string addressCity;
+string addressHomeNumber;
+string addressPostCode; 
+
+after
+
+class Address
+{
+string city;
+string homeNumber;
+string postCode;
+}
+========================================================================
+
+8. 
+
+var data = new { Name = "John", Age = 42 };
+
+after 
+
+var person = new Person
+{
+    Name = "John",
+    Age = 42
+};
+========================================================================
+
+9.
+
+if (data.PersonAccess == 4)
+{
+    // do edit ...
+}
+
+after 
+
+public enum PersonAccess : int
+{
+    ACCESS_READ = 1,
+    ACCESS_CREATE = 2,
+    ACCESS_UPDATE = 4,
+    ACCESS_DELETE = 8
+}
+...
+if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
+========================================================================
+
+10.
+
+if (userRole == "Admin") {}
+
+after 
+
+const string ADMIN_ROLE = "Admin"
+if (userRole == ADMIN_ROLE) {}
+========================================================================
+
+11.
+
+public class Car
+{
+    public string CarMake { get; set; }
+    public string CarModel { get; set; }
+    public string CarColor { get; set; }
+}
+
+after
+
+public class Car
+{
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public string Color { get; set; }
+}
+========================================================================
+
+12.
+
+public class Employee
+{
+    public Datetime sWorkDate { get; set; } 
+    public Datetime modTime { get; set; } 
+}
+
+after
+
+public class Employee
+{
+    public Datetime StartWorkingDate { get; set; }
+    public Datetime ModificationTime { get; set; }
+}
