@@ -1,0 +1,15 @@
+3.1
+1) EmailInfo => EmailGateway
+2) DataCustomer => Customer
+3) ChangerCharacterBehaviour => CharacterBehaviour 
+4) PostPageServer => RequestSender
+5) BuildManagerAdapter => Adapter
+
+3.2
+1) GetExistingManagerInternal(),  GetOrCreateManagerInternal(),  RemoveManagerInternal()
+2) AddEntry(), PrepareEntries(), UpdateEntries()
+3) RegisterHook(), UnregisterHook(), IsValidHook()
+4) UpdateInjection(), CreateInjection(), CollectInjectedGroup()
+5) MatchEntityInComponentGroups(), Match()
+6) GetComponentDataWithTypeRO(),  GetComponentDataWithTypeRW(), SwapComponents(), InitializeComponents()
+7)  ExecuteChunk(), GetCurrentChunkRange(), GetCurrentChunkCount()
