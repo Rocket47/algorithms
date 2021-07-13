@@ -1,0 +1,12 @@
+1. Calculate() => CalculateTwoFloatNumbers() => От общего к частной функции класса.
+2. Empty() => DoNothing => Приведение к глаголу
+3. Read() => ReadBuffer() => Указание конкретики
+4. get(url) => GetBooksFromAPI(url) => Указание что конкретно получаем по запросу
+5. checkUserField() => CheckPasword(password) => Проверка паспортных данных пользователя
+6. generateReports() => GenerateMonthlyReport => Генерация ежемесячного отчета
+7. RetrievePropertiesFromRemoteStore() => RetrieveRemoteProperties() => Получение удаленных настроек. Запись в краткой форме.
+8. CheckToSeeIfUserIsAuthorized() => IsUserAuthorized() => Использование проверки на авторизацию пользователя true/false
+9. GetUserProfileAndSetUpSession() => GetUserProfile(), SetupSession() => Разбиение 1го большого действия на 2 маленьких.
+10. circum(radius) => CalculateCircumFerence() => Вычисление длины окружности. Добавлен глагол и конкретика.
+11. СheckUserProfilesComplete() => IsProfilesComplete() => Обработка, анализ профайла пользователя.
+12. ReadBarcode() => ReadBarcodeEventHandler() => Обработка события чтения штрих кода.
