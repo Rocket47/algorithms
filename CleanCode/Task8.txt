@@ -1,0 +1,123 @@
+Part 1:
+
+Example 1:
+
+abstract class CreditCard  
+    {  
+        public abstract string CardType { get; }  
+        public abstract int CreditLimit { get; set; }  
+        public abstract int AnnualCharge { get; set; }  
+    }     
+	
+class MoneyBackCreditCard : CreditCard  
+    {  
+        private readonly string _cardType;  
+        private int _creditLimit;  
+        private int _annualCharge;  
+  
+        public MoneyBackCreditCard(int creditLimit, int annualCharge)  
+        {  
+            _cardType = "MoneyBack";  
+            _creditLimit = creditLimit;  
+            _annualCharge = annualCharge;  
+        }  
+	
+	
+abstract class CardFactory  
+    {  
+        public abstract CreditCard GetCreditCard();  
+    }  
+	
+class MoneyBackFactory : CardFactory  
+    {  
+        private int _creditLimit;  
+        private int _annualCharge;  
+  
+        public MoneyBackFactory(int creditLimit, int annualCharge)  
+        {  
+            _creditLimit = creditLimit;  
+            _annualCharge = annualCharge;  
+        }  
+  
+        public override CreditCard GetCreditCard()  
+        {  
+            return new MoneyBackCreditCard(_creditLimit, _annualCharge);  
+        }  
+	}
+	
+Example 2:
+
+public interface IAirConditioner
+{
+    void Operate();
+}
+	
+public class CoolingManager : IAirConditioner
+{
+    private readonly double _temperature;
+    public CoolingManager(double temperature)
+    {
+        _temperature = temperature;
+    }
+    public void Operate() {}
+}
+	
+public abstract class AirConditionerFactory
+{
+    public abstract IAirConditioner Create(double temperature);
+}
+	
+public class CoolingFactory : AirConditionerFactory
+{
+    public override IAirConditioner Create(double temperature) => new CoolingManager(temperature);
+}
+	
+Example 3:
+
+public interface IFactory
+{
+	void Drive(int miles);
+}
+
+public class Scooter : IFactory
+{
+ public void Drive(int miles)
+	{
+	Console.WriteLine("Drive the Scooter : " + miles.ToString() + "km");
+	}
+}
+
+public class Bike : IFactory
+{
+ public void Drive(int miles)
+ {
+ Console.WriteLine("Drive the Bike : " + miles.ToString() + "km");
+ }
+}
+
+public abstract class VehicleFactory
+{
+ public abstract IFactory GetVehicle(string Vehicle);
+}
+
+public class ConcreteVehicleFactory : VehicleFactory
+{
+	public override IFactory GetVehicle(string Vehicle)
+	{
+	switch (Vehicle)
+	{
+	case "Scooter":
+	return new Scooter();
+	case "Bike":
+	return new Bike();
+	default:
+	throw new ApplicationException(string.Format("Vehicle '{0}' cannot be created", Vehicle));
+	}
+	}
+}
+
+Part 2:
+
+IEnumerable, IFormattable, IDataReader,IList, IHttpModule, ICommandExecutor
+	
+	
