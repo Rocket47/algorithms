@@ -1,0 +1,13 @@
+1. const int TheAnswerToLife = 42; = > const in THE_ANSWER_TO_LIFE => Замена на заглавные буквы.
+2. public const int lenght = 5; => public const int MIN_LENGTH = 5; => От общего к частному. Замена на заглавные буквы.
+3. public const int cMonths = 12; => public const int COUNT_MONTHS = 12; => Замена на заглавные буквы.
+4. const string location = "RUSSIA"; => const string LOCATION = "RUSSIA"; => Замена на заглавные буквы.
+5. const double pi = 3.14159; => const double PI = 3.14159; => Число ПИ для вычислений. Замена на заглавные буквы.
+6. public const string Prefix => public const string PREFIX => Обозначение префикса. Замена на заглавные буквы.
+7. public const int Start = 1000; => public const int START_TIMER = 1000; => Период запуска таймера. Замена на заглавные буквы с разделением.
+8. public const int DefaultPriority =>  public const int DEFAULT_PRIORITY => Установка приоритета по дефолту. Замена на заглавные буквы с разделением.
+9. public const uint packet = 0x128; => public const uint PACKET_SIZE => 0x128; => Обозначение размера пакета данных. Замена на заглавные буквы с разделением.
+10. public const string UnknownParameterProvided = "Unrecognized parameter '{0}'. Expected parameter {1} instead"; =>
+	public const string UNKNOWN_PARAMETER_PROVIDED = "Unrecognized parameter '{0}'. Expected parameter {1} instead"; => Покрытие кейса с неизвестными параметрами. Замена на заглавные буквы с разделением.
+11. public const int mainstory =  072; => public const int CATEGORY_MAINSTORY = 072; => Замена на заглавные буквы с разделением.
+12. public const int PasswordMinLength = 6; => public const int PASSWORD_MIN_LENGTH = 6; => Минимальная длина пароля. Замена на заглавные буквы с разделением.
