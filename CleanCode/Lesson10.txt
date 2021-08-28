@@ -1,0 +1,47 @@
+1. ***
+
+result = (double) num / i
+check = (int) result;
+
+Add addtitional check for num =>
+
+if (num % i == 0) 
+{
+// code to run...
+}
+
+2. ***
+
+int x = foo();
+int test = x * common;
+
+Add additional check to handle Integer overflow =>
+
+if(test / common != x)
+    Console.WriteLine("Unsafe!");
+else
+    Console.WriteLine("safe!");
+	
+3. ***
+
+long a = 1000000000
+long b = -1000000000
+
+long c = a * b;
+
+Add addition function to check overflow in a * b or not
+
+internal bool isOverflow( long a, long b)
+    {
+        if (a == 0 || b == 0)
+            return false;
+     
+        long result = a * b;
+        if (a == result / b)
+            return false;
+        else
+            return true;
+    }
+	
+4. ***
+
