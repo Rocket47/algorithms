@@ -1,7 +1,10 @@
 1. ***
+Code:
 
 result = (double) num / i
 check = (int) result;
+
+Fixed:
 
 Add addtitional check for num =>
 
@@ -9,11 +12,14 @@ if (num % i == 0)
 {
 // code to run...
 }
-
+=============================================================
 2. ***
+Code:
 
 int x = foo();
 int test = x * common;
+
+Fixed:
 
 Add additional check to handle Integer overflow =>
 
@@ -21,13 +27,16 @@ if(test / common != x)
     Console.WriteLine("Unsafe!");
 else
     Console.WriteLine("safe!");
-	
+=============================================================	
 3. ***
+Code:
 
 long a = 1000000000
 long b = -1000000000
 
 long c = a * b;
+
+Fixed: 
 
 Add addition function to check overflow in a * b or not
 
@@ -42,6 +51,153 @@ internal bool isOverflow( long a, long b)
         else
             return true;
     }
-	
+=============================================================	
 4. ***
+Code:
+
+double add = 0;
+for (int i = 1; i <= 11; i++)
+{
+  add += 0.1;
+}
+double multiply = 0.1 * 11;
+Console.WriteLine(add == multiply);
+
+Fixed:
+
+Try to avoid equality comparison of floating point numbers (Using the Math.Abs() function)
+
+double add = 0;
+for (int i = 1; i <= 11; i++)
+{
+  add += 0.1;
+}
+double multiply = 0.1 * 11;
+var tolerance = 0.000000001;
+Console.WriteLine(Math.Abs(add - multiply) < tolerance);
+
+=============================================================
+5. ***
+Code:
+
+double points = 18.565
+return Math.Round(points,2)
+
+Fixed: 
+
+Replace the type of the real variable to the type with greater accuracy.
+
+decimal points = 18.565m;
+Console.WriteLine(Math.Round(points, 2));
+=============================================================
+6. ***
+Code:
+
+public double Value;
+
+Fixed:
+
+Replace double to int. 
+
+public int Value;
+=============================================================
+7. ***
+
+Code:
+
+public int minLength = 5;
+public int minWidth  = 5; 
+public int minHeight = 6;
+
+Fixed:
+Create a separate class for constants =>
+
+static class Constants
+{
+    public const int MIN_LENGTH = 5;
+    public const int MIN_WIDTH  = 5; 
+    public const int MIN_HEIGHT = 6;
+}
+
+=============================================================
+8. ***
+
+Code:
+
+string engVersion = "Hello";
+stirng frVersion = "Salut";
+
+Fixed:
+Add a Resource file to project =>
+
+Now possible to use => Properties.strings.Hello;
+
+Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+Console.WriteLine(Properties.strings.Hello); => Now will be show "Salut"
+
+=============================================================
+9. ***
+
+Code: 
+
+double value = (read * 100 / count);
+
+Fixed:
+
+Add addition check count is 0? =>
+
+if (count != 0)
+{     
+    double value = (read * 100 / count);
+}
+=============================================================
+10. ***
+
+Code:
+
+if(userRole == "Admin") {}
+
+Fixed:
+
+Add a constant =>
+
+const string ADMIN_ROLE = "Admin"
+if(userRole == ADMIN_ROLE )
+{
+    
+}
+=============================================================
+11. ***
+
+Code:
+
+const float m = 15000;
+const float f = 153.24 / 1000;
+const float x0 = 0;
+const float y0 = 0;
+
+Fixed: replace float to double
+
+const double m = 15000;
+const double f = 153.24 / 1000;
+const double x0 = 0;
+const double y0 = 0;
+
+=============================================================
+12. ***
+
+Code:
+
+public const float timeAreaYPosition = 19.0f;
+public const float timeAreaHeight = 22.0f;
+public const float timeAreaMinWidth = 50.0f;
+
+Fixed: 
+
+Use double instead float
+
+public const double timeAreaYPosition = 19.0f;
+public const double timeAreaHeight = 22.0f;
+public const double timeAreaMinWidth = 50.0f;
+
 
