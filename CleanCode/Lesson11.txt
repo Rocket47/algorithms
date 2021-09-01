@@ -1,0 +1,266 @@
+1. ***
+
+Code:
+var uniqueList = new[] {0, 1, 2, 7, 8};
+
+Fix: Replace var to int =>
+int[] uniqueList = new [] {0, 1, 2, 7, 8}; 
+
+
+2. ***
+
+Code:
+for (var x = 1; x < 10; x++) {...}
+
+Fix: Replace var to int =>
+
+for (int x = 1; x < 10; x++) {...}
+
+3. ***
+
+Code:
+var objects = new List<int>();
+
+Fix: Replace var to int =>
+
+List<int> objects = new List<int>();
+
+4. ***
+
+Code: 
+
+ class User
+     {
+         public string name, location;
+        
+         public User()
+         {            
+         }
+     }
+	 
+Fix: Add variable initialization to constructor  =>
+
+ class User
+     {
+         public string name; 
+		 public string location;
+        
+         public User()
+         {            
+         }
+     }
+	 
+ class User
+     {
+         public string name; 
+		 public string location;
+		 
+         public User()
+         {
+            name = "Suresh Dasari";
+            location = "Hyderabad";
+         }
+     }
+ 
+5. ***
+
+Code:
+
+private const int TheAnswerToLife = 42;
+public const int TheFakeAnswerToLife = 43;
+
+Fix: => remove unnecessary const
+
+private int TheAnswerToLife = 42;
+public int TheFakeAnswerToLife = 43;
+
+6. ***
+
+Code: 
+
+public static class TimelineAction
+        {
+            public const int Start = 1000;
+            public const int Copy;
+		}
+
+Fix: Initialize variable immediately => 
+
+public static class TimelineAction
+        {
+            public const int Start = 1000;
+            public const int Copy = Start + 100;
+		}			
+		
+7. ***
+
+Code:
+
+BigInteger num = new BigInteger("0");
+            for (int i = 0; i < rights.Count; i++)
+            {
+                num = num.SetBit((int)rights[i]);
+            }
+            return num;
+			
+Fix: Add negative value for variable at the end of the code =>
+
+BigInteger num = new BigInteger("0");
+            for (int i = 0; i < rights.Count; i++)
+            {
+                num = num.SetBit((int)rights[i]);
+            }
+            return num;
+			
+			...
+			num = -1;
+
+8. ***
+
+Code:
+
+HashSet<string> _names = new HashSet<string>();
+
+Fix: The variable _names equal null after using in code
+
+code...
+_names = null;
+
+9. ***
+
+Code:
+private const string API_URL = "http://api.***.com";
+
+Fix: The variable API_URL equal "Wrong API" after using in code
+
+code...
+API_URL = "Wrong API"
+return API_URL;
+
+10. ***
+
+Code:
+int[][] arr = new int[n][n];
+...
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                arr[i][j] = (int)(Math.random() * 2);
+			}
+		}
+		
+Fix: Initializing a variable before a loop
+
+int[][] arr = new int[n][n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                arr[i][j] = (int)(Math.random() * 2);
+			}
+		}
+		
+11. ***
+Code: 
+
+  int i = 0;
+  for (; i < 3; i++) 
+  {
+	Arrays.fill(top[i], 'w');
+  }
+  
+Fix: Move counter variable to loop header 
+		
+  for (int i = 0; i < 3; i++) 
+  {
+	Arrays.fill(top[i], 'w');
+  }		
+
+12. ***
+Code:
+
+int money = 100;
+while (money >= 100) 
+{
+money--;
+}
+
+Fix: Add additional check for the variable money 
+
+uint money = 100;
+while (money >= 100) 
+{
+money = money - additionalPay;
+
+if (money > 0) { continue; }
+}
+
+13. ***
+
+Code: 
+
+int len=array.length;
+		
+		for(int i=1;i<len;i++) {
+		
+		if(array[i]<=array[i-1]) return i;
+		
+		}
+		
+Fix: Add a value -1 for the variable len at the end of code
+
+int len=array.length;
+		
+		for(int i=1;i<len;i++) {
+		
+		if(array[i]<=array[i-1]) return i;
+		
+		}
+		return -1;
+
+14. ***
+
+Code:
+
+public Foo acquireFoo(int id) {
+  Foo result = null;
+  if (id > 50) {
+    result = fooService.read(id);
+  } else {
+    result = new Foo(id);
+  }
+
+  return result;
+}
+
+Fix: Add assert to effectively debug process
+
+public Foo acquireFoo(int id) {
+  Foo result = null;
+  if (id > 50) {
+    result = fooService.read(id);
+  } else {
+    result = new Foo(id);
+  }
+  assert result != null;
+
+  return result;
+}
+
+15. ***
+
+Code:
+int sum(int a, int b) {    
+  final int result = a + b;    
+  return result;
+}
+
+Fix: Add assert to effectively debug process
+
+int sum(int a, int b) {
+    assert (Integer.MAX_VALUE - a >= b) : "Value of " + a + " + " + b + " is too large to add.";
+  final int result = a + b;
+    assert (result - a == b) : "Sum of " + a + " + " + b + " returned wrong sum " + result;
+  return result;
+}
