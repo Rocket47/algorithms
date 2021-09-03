@@ -1,0 +1,187 @@
+#1
+protected virtual async Task<CheckoutPickupPointsModel> PrepareCheckoutPickupPointsModelAsync(IList<ShoppingCartItem> cart)
+        {
+            var model = new CheckoutPickupPointsModel
+            {
+                AllowPickupInStore = _shippingSettings.AllowPickupInStore
+            };
+		}
+// Move the variable model inside the function. Make it more locally.
+
+#2
+public partial class AddressModelFactory : IAddressModelFactory
+    {
+        #region Fields
+
+        private readonly AddressSettings _addressSettings;
+    }
+// Make a variable _addressSettings is private. It was public.
+
+#3
+public override async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
+        {          
+            var culture = (await EngineContext.Current.Resolve<IWorkContext>().GetWorkingLanguageAsync()).LanguageCulture;
+
+            return new ProviderCultureResult(culture, culture);
+        }
+// Create a separate function DetermineProviderCultureResult and create a variable culture inside this function. 
+
+#4
+var rules = fileProvider.GetAccessControl(path).GetAccessRules(true, true, typeof(SecurityIdentifier))
+                    .Cast<FileSystemAccessRule>()
+                    .ToList();
+
+                foreach (var rule in rules.Where(rule => current.User?.Equals(rule.IdentityReference) ?? false))
+                {
+                    CheckAccessRule(rule, ref deleteIsDeny, ref modifyIsDeny, ref readIsDeny, ref writeIsDeny, ref deleteIsAllow, ref modifyIsAllow, ref readIsAllow, ref writeIsAllow);
+                }
+				
+//Initialize the variable rules just before the loop. 
+
+#5
+public static IEnumerable<string> GetFilesWrite()
+        {
+            var fileProvider = EngineContext.Current.Resolve<INopFileProvider>();
+
+            return new List<string>
+            {
+                fileProvider.MapPath(NopPluginDefaults.PluginsInfoFilePath),
+                fileProvider.MapPath(NopDataSettingsDefaults.FilePath),
+                fileProvider.MapPath(NopConfigurationDefaults.AppSettingsFilePath)
+            };
+        }
+// Move a variable fileProvider inside the function.
+
+#6
+public abstract partial class BaseEntity
+    {       
+        public int Id { get; set; }
+    }
+// Fix code to make Id from global to public 
+
+#7
+public static class CashOnDeliveryDefaults
+    {        
+        public const string PAYMENT_INFO_VIEW_COMPONENT_NAME = "PaymentDelivery";
+    }
+// Fix code to make PAYMENT_INFO_VIEW_COMPONENT_NAME from global to public 
+
+#8
+public class CashOnDeliveryPaymentProcessor : BasePlugin, IPaymentMethod
+    {
+        #region Fields
+        private readonly CashOnDeliveryPaymentSettings _cashOnDeliveryPaymentSettings;
+        private readonly ILocalizationService _localizationService;
+        private readonly IPaymentService _paymentService;
+        private readonly ISettingService _settingService;
+        private readonly IShoppingCartService _shoppingCartService;
+        private readonly IWebHelper _webHelper;
+        #endregion
+// Fix code to make variables from public to private
+		
+#9
+var scWarnings = await _shoppingCartService.GetShoppingCartWarningsAsync(cart, checkoutAttributesXml, true);
+            if (scWarnings.Any())
+            {
+                TempData[Defaults.CheckoutErrorMessageKey] = string.Join("<br />", scWarnings);
+                return RedirectToRoute("ShoppingCart");
+            }
+// Initialize the scWarnings variable just before the condition. Previously was at the start of a code-separated function.
+
+
+#10
+public void DeleteWebhook(PayPalSmartPaymentButtonsSettings settings)
+        {
+            HandleFunction(settings, () =>
+            {
+                var request = new WebhookDeleteRequest(settings.WebhookId);
+                return HandleCoreRequest<WebhookDeleteRequest, object>(settings, request);
+            });
+        }
+// Create a separate function with the locally variable request
+
+
+#11
+public class AdminSiteSettingsDisplayDriver : SectionDisplayDriver<ISite, AdminSettings>
+    {
+        public const string GroupId = "admin";
+	}
+// Make const GroupId public from globally.
+
+#12
+public class AdminMenuDeploymentSource : IDeploymentSource
+    {
+        private readonly IAdminMenuService _adminMenuService;
+
+        public AdminMenuDeploymentSource(IAdminMenuService adminMenuService)
+        {
+            _adminMenuService = adminMenuService;
+        }
+	}
+// Make _adminMenuService private from public
+
+
+#13
+public async Task ExecuteAsync(RecipeExecutionContext context)
+        {
+            if (!String.Equals(context.Name, "AdminMenu", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var model = context.Step.ToObject<AdminMenuStepModel>();
+
+            var serializer = new JsonSerializer() { TypeNameHandling = TypeNameHandling.Auto };
+
+            foreach (JObject token in model.Data)
+            {
+                var adminMenu = token.ToObject<Models.AdminMenu>(serializer);
+
+                // When the id is not supplied generate an id, otherwise replace the menu if it exists, or create a new menu.
+                if (String.IsNullOrEmpty(adminMenu.Id))
+                {
+                    adminMenu.Id = Guid.NewGuid().ToString("n");
+                }
+
+                await _adminMenuService.SaveAsync(adminMenu);
+            }
+
+            return;
+        }
+// Create a separate function to simplify code. Initialize  variables before loop.
+
+#14
+private async Task<ISyndicationFeedWriter> GetWriter(string? type, XmlWriter xmlWriter, DateTime updated)
+        {
+            var host = $"{this.Request.Scheme}://{this.Request.Host}/";
+
+            if (type?.Equals("rss", StringComparison.OrdinalIgnoreCase) ?? false)
+            {
+                var rss = new RssFeedWriter(xmlWriter);
+                await rss.WriteTitle(this.manifest.Name).ConfigureAwait(false);
+                await rss.WriteDescription(this.manifest.Description).ConfigureAwait(false);
+                await rss.WriteGenerator("Miniblog.Core").ConfigureAwait(false);
+                await rss.WriteValue("link", host).ConfigureAwait(false);
+                return rss;
+            }
+		}
+// Group related commands. Put the variable host inside GetWriter() method.
+
+#15
+public class FileBlogService : IBlogService
+    {
+        private const string FILES = "files";
+
+        private const string POSTS = "Posts";
+
+        private readonly List<Post> cache = new List<Post>();
+
+        private readonly IHttpContextAccessor contextAccessor;
+
+        private readonly string folder;
+		...
+		code
+		...
+	}
+	
+// Make const variables private from public 
