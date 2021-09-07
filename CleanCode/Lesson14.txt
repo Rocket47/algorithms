@@ -1,0 +1,70 @@
+Example #1
+
+int[] allEdgeIndexes = new int[validEdges.Count * 2];
+	int count = 0;
+	for (int i = 0; i < validEdges.Count; i++)
+		{
+			allEdgeIndexes[count] = validEdges[i].a;
+            allEdgeIndexes[count] = validEdges[i].b;
+        }
+
+Example #2
+
+for (int i = 0; i < code.Length; i++)
+	{
+		if (IsNumber(code[i]) && i + 1 < code.Length && IsNumber(code[i + 1]))
+            {
+                if (currentMode != Code128Modes.CodeC)
+                    {
+                        if (currentMode == Code128Modes.CodeUnset)
+                            encoded.Add((int)Code128StartModes.CodeC);
+                        else
+                            encoded.Add((int)Code128ChangeModes.CodeC);
+                        currentMode = Code128Modes.CodeC;
+                    }
+                    encoded.Add(Int32.Parse(code.Substring(i, 2)));
+                    i++;
+            }
+
+Example #3
+
+ public static class TMPro_ExtensionMethods
+    {
+
+        public static string ArrayToString(this char[] chars)
+        {
+            string s = string.Empty;
+
+            for (int i = 0; i < chars.Length && chars[i] != 0; i++)
+            {
+                s += chars[i];
+            }
+
+            return s;
+        }
+	}
+
+Example #4
+
+public static int GcdLp(int[] arr)
+	{
+		int acc = arr[0];
+		for (int i = 1; arr.Length > i; ++i)
+			acc = EuclidLp(acc, arr[i]);
+		return acc;
+	}
+
+Example #5
+
+case Connection.CLIType.cli_array_of_int2:
+	{ 
+		short[] arr = (short[])columns[i].GetValue(obj);
+        len = arr == null ? 0 : arr.Length;
+        buf.putInt(len);
+        for (j = 0; j < len; j++) 
+			{ 
+				buf.putShort(arr[j]);
+            }
+        break;
+    }
+
