@@ -1,0 +1,176 @@
+Example 1:
+
+		/// <summary>
+***		/// Async call to the API to get the list of high scores
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task<HighScoreResponseData> GetList() {
+			UnityWebRequest request = UnityWebRequest.Get(_apiUrl);
+			request.SetRequestHeader("Content-Type", "application/json");
+			UnityWebRequestAsyncOperation requestOperation = request.SendWebRequest();
+
+			while (!requestOperation.isDone) {
+				await Task.Yield();
+			}
+
+			if (request.result == UnityWebRequest.Result.Success) {
+				HighScoreResponseData responseDataData =
+						JsonConvert.DeserializeObject<HighScoreResponseData>(request.downloadHandler.text);
+
+					return responseDataData;
+			}
+
+
+***			// Don't wont to spoil the details of the error to the user
+			throw new Exception("Something went wrong when trying to get high score.");
+		}
+
+Example 2:
+
+***    // Update is called once per frame
+		void Update()
+		{
+		text.text  = player.position.z.ToString("0");
+		}
+
+Example 3:
+
+***			//convert math symbols
+            expression = expression.Replace("ρ", @"\rho ");
+            expression = expression.Replace("π", @"\pi ");
+            expression = expression.Replace("Ω", @"\Omega ");
+            expression = expression.Replace("δ", @"\delta ");
+            expression = expression.Replace("Δ", @"\Delta ");
+            expression = expression.Replace("α", @"\alpha ");
+
+Example 4:
+
+*** 	// iOS specific methods
+        [Obsolete("This is an obsolete method. Please use the adjust purchase SDK for purchase verification (https://github.com/adjust/unity_purchase_sdk)")]
+        public void setReceipt(string receipt, string transactionId)
+        {
+            this.receipt = receipt;
+            this.transactionId = transactionId;
+            this.isReceiptSet = true;
+        }
+		
+Example 5:
+
+		public AnimationClip PrepareTrack(TrackAsset track, WindowState state, GameObject gameObject, out double startTime)
+			{
+            AnimationClip animationClip = null;
+
+***         // if we are not in clip mode, we simply use the track clip
+            var animationTrack = (AnimationTrack)track;
+
+            // ignore recording if we are in Legacy auto mode
+            startTime = -1;
+            var parentTrack = TimelineUtility.GetSceneReferenceTrack(track) as AnimationTrack;
+
+Example 6:
+				var clip = activeClip.animationClip;
+
+***             // flags this as the clip being recorded for the track
+                var clipTime = state.editSequence.time - activeClip.start;
+
+***             // if we are in the past
+                if (clipTime < 0)
+                {
+                    Undo.RegisterCompleteObjectUndo(clip, "Record Key");
+                    TimelineUndo.PushUndo(track, "Prepend Key");
+                    ShiftAnimationClip(clip, (float)-clipTime);
+                    activeClip.start = state.editSequence.time;
+                    activeClip.duration += -clipTime;
+                    clipTime = 0;
+                }
+
+
+Example 7:
+
+public int Id { get; set; }
+        
+***     //foreign key for the Therapist that will be present
+        public int AssignedTherapistId { get; set; }
+        
+***     //foreign key for the client the session is for
+        public int AssignedClientId { get; set; }
+		
+Fixed:
+
+Example 1:
+
+// Once the last character has been revealed, wait 1.0 second and start over.
+                if (visibleCount >= totalVisibleCharacters)
+                {
+                    yield return new WaitTime(1.0f);
+                }
+
+                counter += 1;
+
+                yield return new WaitTime(0.1f);
+
+Convert to:
+
+                if (visibleCount >= totalVisibleCharacters)
+                {
+                    yield return new WaitForSeconds(1.0f);
+                }
+
+                counter += 1;
+
+                yield return new WaitForSeconds(0.1f);
+				
+Example 2:
+
+ // How many sectors to read at once
+        const uint SECTORS = 256;
+		
+Convert to: 
+		const uint SECTORS_TO_READ_ONCE = 256;
+
+
+Example 3:
+
+// Try loading the TMP Settings
+                Settings settings = Resources.Load<Settings>("Settings");
+				
+Convert to: 
+	
+                TMP_Settings settings = Resources.TryToLoad<TMP_Settings>("TMP Settings");
+
+Example 4:
+
+// Start is called before the first frame update
+    void Start()
+    {
+        if (!phase2)
+        {
+            rootNode = new SelectorNode();
+            rootNode.childrenNodes.Add(new SummonNode());
+            rootNode.childrenNodes.Add(new AttackNode());
+            rootNode.childrenNodes.Add(new FireballNode());
+        }
+		
+Convert to: 
+
+    void StartBeforeFirstFrame()
+    {
+        if (!phase2)
+        {
+            rootNode = new SelectorNode();
+            rootNode.childrenNodes.Add(new SummonNode());
+            rootNode.childrenNodes.Add(new AttackNode());
+            rootNode.childrenNodes.Add(new FireballNode());
+        }
+
+Example 5:
+
+public bool visibleRow { get; set; }        // is the header row visible
+public bool visibleExpanded { get; set; }   // is the expanded area (group) visible
+
+Convert to:
+
+public bool visibleRowHeader { get; set; }      
+public bool visibleExpandedArea { get; set; }   
+		
