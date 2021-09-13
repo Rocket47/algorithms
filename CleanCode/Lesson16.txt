@@ -1,0 +1,59 @@
+Example 1: Add the comment to explain an action
+ // Start is called before the first frame update
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+Example 2: Add the comment to explain an action
+// We have a fancy, procedural noise pattern in this version, so no texture needed
+dx11NoiseMaterial.SetFloat("_DX11NoiseTime", Time.frameCount);
+
+Example 3: Describe the intention
+//try to cut colours (thresholding)
+RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
+
+Example 4: Describe the intention
+GL.Clear(false, true, Color.black); // Call the clear function to avoid RT restore
+
+Example 5: Add a consequence warnings
+// screen blend is not supported when HDR is enabled (will cap values)
+doHdr = false;
+
+Example 6: Clarification
+// to tell whether the cache has changed
+public int version { get; private set; }
+		
+Example 7: Describe the intention
+// the function destroyGO() will be called in timeBeforeObjectDestroys seconds
+Invoke("destroyGO",timeBeforeObjectDestroys);
+
+Example 8: Add an explanation of the behavior of the system
+/// <summary>
+    /// The goal is being sought, and is progressing.
+    /// </summary>
+    public static readonly Coding Improving = new Coding
+    {
+      Code = "improving",
+      Display = "Improving",
+      System = "http://..."
+    };
+	
+Example 9: Add a reinforcement to describe an important part of the code
+// only animation tracks require the recordable flag as they are recording
+//  to an animation clip
+bool requiresRecordable = (track as AnimationTrack) != null;
+
+Example 10: Add warning
+ // don't use time global to local since it will possibly loop.
+localTime = timelineClip.ToLocalTimeUnbound(state.editSequence.time);
+
+
+Example 11: Add TODO:
+TODO:
+ // case 117 -- 'Add Key' menu item will passes 'True' or 'False' (instead of 1, 0)
+ // so we need a special case to parse the boolean string
+
+Example 12: Add TODO:
+
+//FakeEmailSender email = new FakeEmailSender(); // TODO: Initialize to an appropriate value
