@@ -1,0 +1,117 @@
+Example 1: Fixed just noise for useful information (4)
+
+// email service 
+return Task.FromResult(0);
+
+Convert to:
+
+// Plug in your email service here to send an email.
+return Task.FromResult(0);
+
+Example 2: Fixed just noise for useful information (4)
+
+ // Configure the application user manager which is used in this application. ---> Remove it!
+    public class ApplicationUserManager : UserManager<ApplicationUser>
+    {
+        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+            : base(store)
+        {
+        }
+		...
+	}
+
+Example 3: Expand comment to remove non-obvious description (5)
+
+// You can write your own provider and plug it in here.
+manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+{
+MessageFormat = "Your security code is {0}"
+});
+
+Convert to:
+
+// Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+// You can write your own provider and plug it in here.
+...code
+
+Example 4: Remove unreliable comment. After all, the number of controllers can be expanded. (3)
+
+// Models returned by MeController actions. - Remove it!
+    public class GetViewModel
+    {
+        public string Hometown { get; set; }
+    }
+
+Example 5: Remove required comment (11)
+
+/// <summary> ---> Remove it!
+/// A read-only field that represents a handle that has been initialized to zero. ---> Remove it!
+/// </summary> ---> Remove it!
+public static readonly FIBITMAP Zero;
+
+Example 6: Fixed just noise for useful information (4)
+
+// Get the T in PageResult<T> - Remove it!
+Type[] typeParameters = type.GetGenericArguments();
+
+Example 7:  Fixed just noise for useful information (4). This is a default function in the .net framework!
+
+// This method gets called by the runtime. Use this method to add services to the container. ---> Remove it!
+public void ConfigureServices(IServiceCollection services)
+{
+var connectString = @"Data Source=///";
+
+Example 8: The function name already provides the necessary information. (13)
+// Use camel case for JSON data.
+config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); ---> Remove it!
+
+Example 9: Remove commented out code (12)
+private readonly ILogger<DepartamentoController> _logger;
+//private readonly IDepartamentoRepository _repository; ---> Remove it!
+
+Example 10: The C# code syntax already provides the necessary information. (13)
+
+// Get a reference to the font asset ---> Remove it!
+TMP_FontAsset fontAsset = property.serializedObject.targetObject as TMP_FontAsset;
+
+Example 11: Remove required comment (11) + The function name already provides the necessary information. (13)
+
+/// <summary> --> Remove it!
+/// Draw the bones --> Remove it!
+/// </summary> --> Remove it!
+void OnDrawGizmosSelected()
+{
+	DrawBoneGizmos();
+}
+
+Example 12: Expand comment to remove non-obvious description (5)
+
+// possible reason to be absent.
+public static readonly Coding Absent = new Coding
+{
+  Code = "absent",
+  Display = "absent",
+  System = "http://..."
+};
+
+Convert to:
+// possible reason for increasing quality rating was checked and found to be absent.
+
+Example 13: Remove commented out code (12)
+
+private List<CheckedSlot> Slots = new List<CheckedSlot>();
+//private List<CheckedMaterial> Materials = new List<CheckedMaterial>();
+
+Example 14: Delete a non-obvious comment (1)
+
+// Add support for new prefab mode ---> Remove it!
+StageUtility.PlaceGameObjectInCurrentStage(go);
+
+Convert to:
+
+StageUtility.AddSupportNewPrefabMode(go);
+
+Example 15: The function name already provides the necessary information. (13)
+
+//reset checkout data ---> Remove it!
+await _customerService.ResetCheckoutDataAsync(await _workContext.GetCurrentCustomerAsync(), (await _storeContext.GetCurrentStoreAsync()).Id);
