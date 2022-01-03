@@ -12,8 +12,3 @@ let rec min f =
         else 
             loop (number + 1)
     loop 1)
-
-
-
-
-
