@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3App", "Task3App\Task3App.csproj", "{71CDF0C4-8C19-46F3-B2E3-A6E0C20FCFC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareDesignApp", "SoftwareDesignApp\SoftwareDesignApp.csproj", "{71CDF0C4-8C19-46F3-B2E3-A6E0C20FCFC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3AppTests", "Task3AppTests\Task3AppTests.csproj", "{C4DE7DAF-1AC6-4705-91EB-3EA818D168F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareDesignAppTests", "SoftwareDesignAppTests\SoftwareDesignAppTests.csproj", "{C4DE7DAF-1AC6-4705-91EB-3EA818D168F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
