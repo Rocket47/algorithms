@@ -11,11 +11,6 @@ internal sealed class StoppedDirectionHandler : IElevatorDirectionHandler
             return ElevatorMovement.MoveTo(state, floor, ElevatorDirection.Up);
         }
 
-        if (state.CurrentFloor == floor)
-        {
-            return ElevatorMovement.Stay(state);
-        }
-
-        return ElevatorMovement.MoveTo(state, floor, ElevatorDirection.Down);
+        return state.CurrentFloor == floor ? ElevatorMovement.Stay(state) : ElevatorMovement.MoveTo(state, floor, ElevatorDirection.Down);
     }
 }
